@@ -12,8 +12,10 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 
 import { 
   AiChatIcon, 
+  FolderLibraryIcon, 
   HomeIcon, 
   InboxIcon, 
+  Notebook1Icon, 
   SearchIcon, 
   Settings1Icon,
   TrashIcon
@@ -153,9 +155,16 @@ export const Sidebar = () => {
                     label="Group" 
                     href="/groups" 
                     className="bg-[#f5e0e9]" 
-                    icon={<AiChatIcon />} 
+                    icon={FolderLibraryIcon} 
+                    variant="pink"
                   />
-                  {/* <Workspace label="Competency" href="/competencies" className="bg-[#fadec9]" icon={AiChatIcon} /> */}
+                  <Workspace 
+                    label="Competency" 
+                    href="/competencies" 
+                    className="bg-[#fadec9]" 
+                    icon={Notebook1Icon} 
+                    variant="orange"
+                  />
                 </div>
               </div>
               {/* Trash */}

@@ -1,17 +1,44 @@
 import { ChevronRightIcon } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cva, type VariantProps } from "class-variance-authority";
 
-interface WorkpaceIconProps {
+import { cn } from "@/lib/utils";
+import React from "react";
+import { IconVariant } from "@/types/icon";
+
+export const iconVariant = cva("size-[18px]", {
+  variants: {
+    variant: {
+      pink: "fill-[#c14c8a]",
+      orange: "fill-[#d9730d]",
+    },
+    size: {
+      md: "size-[18px]",
+    },
+  },
+  defaultVariants: {
+    variant: "pink",
+    size: "md",
+  }
+});
+
+interface WorkpaceIconProps extends VariantProps<typeof iconVariant> {
   className?: string;
-  children: React.ReactNode;
+  icon: React.ElementType; 
   onToggle: () => void;
 }
 
 export const WorkspaceIcon = ({
   className,
-  children,
-  onToggle
+  icon: Icon,
+  onToggle,
+  variant,
+  size
 }: WorkpaceIconProps) => {
+  const iconMerged = React.createElement(Icon, {
+    className: cn(iconVariant({ variant, size }), className),
+    variant: IconVariant.BULK,
+  });
+
   return (
     <div className={cn("shrink-0 grow-0 rounded-sm flex justify-center items-center mr-2 ml-1 transition-all")}>
       <div className="flex items-center justify-center shrink-0 grow-0 size-[22px] relative">
@@ -24,7 +51,7 @@ export const WorkspaceIcon = ({
                 className
               )}
             >
-              {children}
+              {iconMerged}
             </div>
             <div
               role="button"

@@ -1,34 +1,26 @@
 import { useToggle } from "react-use";
 
-import { IconVariant } from "@/types/icon";
-
-import { FolderLibraryIcon } from "@/components/icons";
-
+import { iconVariant, WorkspaceIcon } from "./workspace-icon";
 import { WorkspaceTrigger } from "./workspace-trigger";
 import { WorkspaceContent } from "./workdpace-content";
+import { VariantProps } from "class-variance-authority";
 
-interface WorkspaceProps {
+interface WorkspaceProps extends VariantProps<typeof iconVariant> {
   className?: string;
   href: string;
   label: string;
-  icon: JSX.Element;
+  icon: React.ElementType;
 }
 
-export const Workspace = (workspaceProps: WorkspaceProps) => {
+export const Workspace = ({ className, ...props }: WorkspaceProps) => {
   const [on, toggle] = useToggle(false);
 
   return (
     <WorkspaceComponent>
-      <WorkspaceTrigger 
-        {...workspaceProps}
-        onToggle={toggle}
-      >
-        {workspaceProps.icon}
-        {/* <FolderLibraryIcon className="size-[18px] fill-[#ac5488]" variant={IconVariant.BULK} /> */}
+      <WorkspaceTrigger {...props}>
+        <WorkspaceIcon className={className} onToggle={toggle} {...props} />
       </WorkspaceTrigger>
-      {on && (
-        <WorkspaceContent />
-      )}
+      {on && <WorkspaceContent />}
     </WorkspaceComponent>
   );
 }
