@@ -4,19 +4,24 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 import React from "react";
 import { IconVariant } from "@/types/icon";
+import { motion } from "framer-motion";
+import { useToggle } from "../stores/use-toggle";
+import { WorkspaceKey } from "@/types/workspace";
 
 export const iconVariant = cva("size-[18px]", {
   variants: {
     variant: {
+      default: "fill-[#91918e]",
       pink: "fill-[#c14c8a]",
       orange: "fill-[#d9730d]",
     },
     size: {
       md: "size-[18px]",
+      sm: "size-4",
     },
   },
   defaultVariants: {
-    variant: "pink",
+    variant: "default",
     size: "md",
   }
 });
@@ -24,16 +29,20 @@ export const iconVariant = cva("size-[18px]", {
 interface WorkpaceIconProps extends VariantProps<typeof iconVariant> {
   className?: string;
   icon: React.ElementType; 
-  onToggle: () => void;
+  notChild?: boolean;
+  workspaceKey?: WorkspaceKey;
 }
 
 export const WorkspaceIcon = ({
   className,
   icon: Icon,
-  onToggle,
+  notChild,
+  workspaceKey,
   variant,
   size
 }: WorkpaceIconProps) => {
+  const { isOpen, toggle } = useToggle();
+
   const iconMerged = React.createElement(Icon, {
     className: cn(iconVariant({ variant, size }), className),
     variant: IconVariant.BULK,
@@ -53,16 +62,23 @@ export const WorkspaceIcon = ({
             >
               {iconMerged}
             </div>
-            <div
-              role="button"
-              className="absolute inset-0 flex items-center justify-center rounded-sm bg-[#37352f0f] opacity-0 transition-opacity duration-100 group-hover/workspace:opacity-100"
-              onClick={(e) => {
-                e.stopPropagation();
-                onToggle();
-              }}
-            >
-              <ChevronRightIcon className="h-[18px] w-[18px] text-[#91918e]" />
-            </div>
+            {!notChild && workspaceKey && (
+              <motion.div
+                role="button"
+                className="absolute inset-0 flex items-center justify-center rounded-sm bg-[#37352f0f] opacity-0 transition-opacity duration-100 group-hover/workspace:opacity-100"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  toggle(workspaceKey);
+                }}
+              >
+                <motion.div
+                  animate={{ rotate: isOpen(workspaceKey) ? 90 : 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <ChevronRightIcon className="h-[18px] w-[18px] text-[#91918e]" />
+                </motion.div>
+              </motion.div>
+            )}
           </div>
         </div>
       </div>

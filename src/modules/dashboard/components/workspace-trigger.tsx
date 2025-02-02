@@ -1,5 +1,5 @@
 import { useRouter } from "next/navigation";
-interface WorkspaceItemProps {
+interface WorkspaceTriggerProps {
   children: React.ReactNode;
   href: string;
   label: string;
@@ -9,7 +9,7 @@ export const WorkspaceTrigger = ({
   children,
   href,
   label,
-}: WorkspaceItemProps) => {
+}: WorkspaceTriggerProps) => {
   const router = useRouter();
 
   return (

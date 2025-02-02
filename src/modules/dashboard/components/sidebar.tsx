@@ -1,7 +1,7 @@
 "use client";
 
 import { useMedia } from "react-use";
-import { ChevronsLeftIcon } from "lucide-react";
+import { ChevronsLeftIcon, CornerDownRight } from "lucide-react";
 import { ElementRef, useRef, useState } from "react";
 
 import { cn } from "@/lib/utils";
@@ -25,6 +25,8 @@ import { Menu } from "@/modules/dashboard/components/menu";
 import { Navbar } from "@/modules/dashboard/components/navbar";
 import { UserButton } from "@/modules/auth/components/user-button";
 import { Workspace } from "./workspace";
+import { WorkspaceKey } from "@/types/workspace";
+import { GroupSwitcher } from "@/modules/groups/components/groups-switcher";
 
 const iconProps = {
   variant: IconVariant.BULK,
@@ -157,14 +159,23 @@ export const Sidebar = () => {
                     className="bg-[#f5e0e9]" 
                     icon={FolderLibraryIcon} 
                     variant="pink"
-                  />
+                    workspaceKey={WorkspaceKey.GROUP}
+                  >
+                    <div className="flex items-center min-h-[30px] ml-3 relative">
+                      <CornerDownRight className="size-4 absolute top-1.5" />
+                      <GroupSwitcher />
+                    </div>
+                  </Workspace>
                   <Workspace 
                     label="Competency" 
                     href="/competencies" 
                     className="bg-[#fadec9]" 
                     icon={Notebook1Icon} 
                     variant="orange"
-                  />
+                    workspaceKey={WorkspaceKey.COMPETENCY}
+                  >
+                    Competency
+                  </Workspace>
                 </div>
               </div>
               {/* Trash */}
