@@ -55,6 +55,8 @@ const app = new Hono()
           createdBy: auth.token.id,
           updatedBy: auth.token.id,
         });
+
+      return c.json(null, 200);
     }
   )
 

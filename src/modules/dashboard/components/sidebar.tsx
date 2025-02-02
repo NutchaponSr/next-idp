@@ -1,7 +1,7 @@
 "use client";
 
 import { useMedia } from "react-use";
-import { ChevronsLeftIcon, CornerDownRight } from "lucide-react";
+import { ChevronsLeftIcon } from "lucide-react";
 import { ElementRef, useRef, useState } from "react";
 
 import { cn } from "@/lib/utils";
@@ -26,7 +26,8 @@ import { Navbar } from "@/modules/dashboard/components/navbar";
 import { UserButton } from "@/modules/auth/components/user-button";
 import { Workspace } from "./workspace";
 import { WorkspaceKey } from "@/types/workspace";
-import { GroupSwitcher } from "@/modules/groups/components/groups-switcher";
+import { GroupMenuBar } from "@/modules/groups/components/group-menu-bar";
+import { GroupList } from "@/modules/groups/components/group-list";
 
 const iconProps = {
   variant: IconVariant.BULK,
@@ -161,9 +162,9 @@ export const Sidebar = () => {
                     variant="pink"
                     workspaceKey={WorkspaceKey.GROUP}
                   >
-                    <div className="flex items-center min-h-[30px] ml-3 relative">
-                      <CornerDownRight className="size-4 absolute top-1.5" />
-                      <GroupSwitcher />
+                    <div className="flex flex-col">
+                      <GroupMenuBar />
+                      <GroupList />
                     </div>
                   </Workspace>
                   <Workspace 

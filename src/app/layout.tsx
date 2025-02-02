@@ -6,6 +6,8 @@ import { cn } from "@/lib/utils";
 
 import { auth } from "@/auth";
 import { SessionProvider } from "next-auth/react";
+import { QueryProvider } from "@/components/providers/query-provider";
+import { Toaster } from "@/components/ui/sonner";
 
 const font = Inter({
   subsets: ["latin"],
@@ -27,7 +29,10 @@ export default async function RootLayout({
     <SessionProvider session={session}>
       <html lang="en">
         <body className={cn(font.className, "antialiased")}>
-          {children}
+          <QueryProvider>
+            {children}
+            <Toaster richColors />
+          </QueryProvider>
         </body>
       </html>
     </SessionProvider>
