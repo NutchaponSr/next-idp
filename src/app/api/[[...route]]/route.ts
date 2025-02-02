@@ -1,24 +1,33 @@
 import authConfig from "@/auth.config";
 
+import groups from "@/modules/groups/server/route";
+
 import { handle } from "hono/vercel";
-import { Context, Hono } from "hono";
+import { Hono } from "hono";
 import { AuthConfig, initAuthConfig } from "@hono/auth-js";
 
 export const runtime = "nodejs";
 
-function getAuthConfig(c: Context): AuthConfig {
-  return {
-    secret: c.env.AUTH_SECRET,
-    ...authConfig
+function getAuthConfig(): AuthConfig {
+  const secret = process.env.AUTH_SECRET;
+  
+  if (!secret) {
+    throw new Error("AUTH_SECRET environment variable is not set");
   }
+
+  return {
+    secret: secret,
+    ...authConfig
+  } as unknown as AuthConfig;
 }
 
 const app = new Hono().basePath("/api");
 
 app.use("*", initAuthConfig(getAuthConfig));
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const routes = app
-  .route("/users", user);
+  .route("/groups", groups);
 
 export const GET = handle(app);
 export const POST = handle(app);

@@ -6,9 +6,24 @@ import { DrizzleAdapter } from "@auth/drizzle-adapter";
 
 import { db } from "@/db/drizzle";
 import { eq } from "drizzle-orm";
-import { users } from "@/db/schema";
+import { roles, users } from "@/db/schema";
 
 import { SignInSchema } from "@/modules/auth/schemas/sign-in";
+
+declare module "@auth/core/jwt" {
+  interface JWT {
+    role: typeof roles.enumValues[number];
+    id: string | undefined;
+
+  }
+}
+
+declare module "next-auth/jwt" {
+  interface JWT {
+    role: typeof roles.enumValues[number];
+    id: string | undefined;
+  }
+}
 
 export default {
   providers: [
