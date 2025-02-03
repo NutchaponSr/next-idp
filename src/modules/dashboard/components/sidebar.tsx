@@ -26,8 +26,7 @@ import { Navbar } from "@/modules/dashboard/components/navbar";
 import { UserButton } from "@/modules/auth/components/user-button";
 import { Workspace } from "./workspace";
 import { WorkspaceKey } from "@/types/workspace";
-import { GroupMenuBar } from "@/modules/groups/components/group-menu-bar";
-import { GroupList } from "@/modules/groups/components/group-list";
+import { GroupSpace } from "@/modules/groups/components/group-space";
 
 const iconProps = {
   variant: IconVariant.BULK,
@@ -162,10 +161,7 @@ export const Sidebar = () => {
                     variant="pink"
                     workspaceKey={WorkspaceKey.GROUP}
                   >
-                    <div className="flex flex-col">
-                      <GroupMenuBar />
-                      <GroupList />
-                    </div>
+                    <GroupSpace />
                   </Workspace>
                   <Workspace 
                     label="Competency" 
