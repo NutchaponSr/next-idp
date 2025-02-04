@@ -1,21 +1,17 @@
-import { WorkspaceKey } from "@/types/workspace";
 import { AnimatePresence, motion } from "framer-motion";
-import { useToggle } from "../stores/use-toggle";
 
-interface WorkspaceComponentProps {
+interface ContentProps {
   children: React.ReactNode;
-  workspaceKey: WorkspaceKey;
+  isOpen: boolean;
 }
 
-export const  WorkspaceContent = ({ 
+export const Content = ({
   children,
-  workspaceKey 
-}: WorkspaceComponentProps) => {
-  const { isOpen } = useToggle();
-
+  isOpen
+}: ContentProps) => {
   return (
     <AnimatePresence initial={false}>
-      {isOpen(workspaceKey) && (
+      {isOpen && (
         <motion.div
           key="content"
           initial="collapsed"

@@ -18,7 +18,5 @@ export const useToggle = () => {
     }));
   }
 
-  const isOpen = (key: WorkspaceKey) => on[key];
-
-  return { isOpen, toggle };
+  return { on, toggle };
 }

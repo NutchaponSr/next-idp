@@ -156,7 +156,7 @@ export const Sidebar = () => {
                   <Workspace 
                     label="Group" 
                     href="/groups" 
-                    className="bg-[#f5e0e9]" 
+                    background="pink"
                     icon={FolderLibraryIcon} 
                     variant="pink"
                     workspaceKey={WorkspaceKey.GROUP}
@@ -166,7 +166,7 @@ export const Sidebar = () => {
                   <Workspace 
                     label="Competency" 
                     href="/competencies" 
-                    className="bg-[#fadec9]" 
+                    background="orange"
                     icon={Notebook1Icon} 
                     variant="orange"
                     workspaceKey={WorkspaceKey.COMPETENCY}

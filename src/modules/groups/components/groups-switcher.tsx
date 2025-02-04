@@ -1,3 +1,5 @@
+import { ChevronsUpDown } from "lucide-react";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -6,8 +8,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import { CalendarDayIcon } from "@/components/icons";
-import { WorkspaceIcon } from "@/modules/dashboard/components/workspace-icon";
-import { ChevronsUpDown } from "lucide-react";
 
 interface GroupSwitcherProps {
   currentYear: number;
@@ -25,8 +25,8 @@ export const GroupSwitcher = ({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button className="flex items-center justify-start hover:bg-[#00000008] min-h-[26px] h-[26px] p-1 w-full shadow-[0_0_0_1px_rgba(15,15,15,0.1)] rounded-md bg-white text-xs ml-6">
-          <WorkspaceIcon icon={CalendarDayIcon} size="sm" />
+        <button className="flex items-center justify-start hover:bg-[#00000008] min-h-[26px] h-[26px] p-1 w-full shadow-[0_0_0_1px_rgba(15,15,15,0.1)] rounded-md bg-white text-xs ml-6 gap-x-1">
+          <CalendarDayIcon className="size-4 text-primary" />
           {selectedYear}
           <ChevronsUpDown className="ml-auto size-[14px]" />
         </button>

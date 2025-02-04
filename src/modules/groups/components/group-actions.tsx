@@ -22,7 +22,7 @@ export const GroupActions = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button className="transition flex items-center ml-auto mr-[5px] justify-center size-6 rounded-sm hover:bg-[#37352f0f] dark:hover:bg-[#ffffff0e]">
+        <button className="transition flex items-center ml-auto justify-center size-6 rounded-sm hover:bg-[#37352f0f] dark:hover:bg-[#ffffff0e]">
           <MoreHorizontalIcon className="size-[18px] text-[#91918e]" />
         </button>
       </DropdownMenuTrigger>
