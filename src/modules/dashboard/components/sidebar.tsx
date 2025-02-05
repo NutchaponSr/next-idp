@@ -24,9 +24,11 @@ import {
 import { Menu } from "@/modules/dashboard/components/menu";
 import { Navbar } from "@/modules/dashboard/components/navbar";
 import { UserButton } from "@/modules/auth/components/user-button";
-import { Workspace } from "./workspace";
 import { WorkspaceKey } from "@/types/workspace";
 import { GroupSpace } from "@/modules/groups/components/group-space";
+import { SidebarItem } from "./sidebar-item";
+import { useSidebarToggle } from "../stores/use-sidebar-toggle";
+import { CompetencySpace } from "@/modules/competencies/components/competency-space";
 
 const iconProps = {
   variant: IconVariant.BULK,
@@ -35,6 +37,8 @@ const iconProps = {
 }
 
 export const Sidebar = () => {
+  const { on, toggle } = useSidebarToggle();
+
   const isMobile = useMedia("(max-width: 768px)");
 
   const [isDragging, setIsDragging] = useState(false);
@@ -153,26 +157,30 @@ export const Sidebar = () => {
                   <div className="flex items-center px-3 py-1.5 text-xs text-[#91918e]">
                     Workspace
                   </div>
-                  <Workspace 
-                    label="Group" 
-                    href="/groups" 
-                    background="pink"
-                    icon={FolderLibraryIcon} 
-                    variant="pink"
-                    workspaceKey={WorkspaceKey.GROUP}
-                  >
-                    <GroupSpace />
-                  </Workspace>
-                  <Workspace 
-                    label="Competency" 
-                    href="/competencies" 
-                    background="orange"
-                    icon={Notebook1Icon} 
-                    variant="orange"
-                    workspaceKey={WorkspaceKey.COMPETENCY}
-                  >
-                    Competency
-                  </Workspace>
+                  <div className="flex flex-col">
+                    <SidebarItem  
+                      label="Group" 
+                      href="/groups" 
+                      background="pink"
+                      icon={FolderLibraryIcon} 
+                      variant="pink"
+                      isOpen={on[WorkspaceKey.GROUP]}
+                      onToggle={() => toggle(WorkspaceKey.GROUP)}
+                    >
+                      <GroupSpace />
+                    </SidebarItem>
+                    <SidebarItem 
+                      label="Competency" 
+                      href="/competencies" 
+                      background="orange"
+                      icon={Notebook1Icon} 
+                      variant="orange"
+                      isOpen={on[WorkspaceKey.COMPETENCY]}
+                      onToggle={() => toggle(WorkspaceKey.COMPETENCY)}
+                    >
+                      <CompetencySpace />
+                    </SidebarItem>
+                  </div>
                 </div>
               </div>
               {/* Trash */}

@@ -1,5 +1,8 @@
 import { client } from "@/lib/rpc";
 import { useQuery } from "@tanstack/react-query";
+import { InferResponseType } from "hono";
+
+export type ResponseType = InferResponseType<typeof client.api.groups.$get, 200>["data"];
 
 export const useGetGroups = () => {
   const query = useQuery({

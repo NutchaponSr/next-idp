@@ -29,3 +29,23 @@ export const groups = pgTable("group", {
   updatedAt: timestamp("updatedAt", { mode: "string" }).notNull().$onUpdateFn(() => new Date().toISOString()),
   updatedBy: text("updatedBy").notNull(),
 });
+
+export const typesCompetency = pgEnum("typesCompetency", ["CC", "FC", "TC"]);
+
+export const competencies = pgTable("competency", {
+  id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
+  name: text("name").notNull(),
+  icon: text("icon"),
+  definition: text("definition"),
+  pl1: text("pl1"),
+  pl2: text("pl2"),
+  pl3: text("pl3"),
+  pl4: text("pl4"),
+  pl5: text("pl5"),
+  type: typesCompetency("type").notNull(),
+  inTrash: boolean("inTrash").$default(() => false).notNull(),
+  createdAt: timestamp("createdAt", { mode: "string" }).notNull().defaultNow(),
+  createdBy: text("createdBy").notNull(),
+  updatedAt: timestamp("updatedAt", { mode: "string" }).notNull().$onUpdateFn(() => new Date().toISOString()),
+  updatedBy: text("updatedBy").notNull(),
+});

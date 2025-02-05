@@ -16,7 +16,7 @@ export const Menu = ({
 }: MenuProps) => {
   return (
     <button onClick={onClick} className="hover:bg-[#00000008] min-h-[30px] transition duration-150 flex items-center p-1 group/sidebar">
-      <div className="shrink-0 grow-0 rounded-sm size-[22px] flex justify-center items-center ml-1 mr-2">
+      <div className="shrink-0 grow-0 rounded-sm size-6 flex justify-center items-center ml-1 mr-2">
         {icon}
       </div>
       <div className="whitespace-nowrap overflow-hidden text-ellipsis text-sm">

@@ -3,8 +3,7 @@ import {
   PlusIcon
 } from "lucide-react";
 import { toast } from "sonner";
-import React, { useCallback, useState } from "react";
-
+import React, { useCallback } from "react";
 
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -14,111 +13,118 @@ import {
 } from "@/components/icons";
 import { Hint } from "@/components/hint";
 
-import { Content } from "@/modules/dashboard/components/content";
 import { GroupActions } from "@/modules/groups/components/group-actions";
-import { IconWrapper } from "@/modules/dashboard/components/icon-wrapper";
+import { SidebarItem } from "@/modules/dashboard/components/sidebar-item";
 
 import { useGetGroups } from "@/modules/groups/api/use-get-groups";
 import { useCreateGroup } from "@/modules/groups/api/use-create-group";
-import { SiderbarItem } from "@/modules/dashboard/components/sidebar-item";
-import { useGroupYear } from "../stores/use-group-year";
-import { useGroupItem } from "../stores/use-group-item";
+import { useSidebarToggle } from "@/modules/dashboard/stores/use-sidebar-toggle";
 
 export const GroupSpace = () => {
   const { 
     data: groups,
     isPending: loadingGroups,
   } = useGetGroups();
-  const { on: onYear, toggle: toggleYear } = useGroupYear();
-  const { on: onItem, toggle: toggleItem } = useGroupItem();
+  const { on, toggle } = useSidebarToggle();
   const { mutate: createGroup } = useCreateGroup();
 
   const currentYear = new Date().getFullYear();
-  
-  const [selectedYear, setSelectedYear] = useState(currentYear);
 
-  const onCreate = useCallback(() => {
+  const onCreate = useCallback((year: string) => {
     toast.loading("Creating group...", { id: "create-group" });
     createGroup({
       json: {
+        year,
         name: null,
         icon: null,
-        year: selectedYear.toString(),
       }
     })
-  }, [createGroup, selectedYear]);
+  }, [createGroup]);
 
-  const initialGroups = groups?.filter((group) => group.year === selectedYear.toString()) || [];
-
-  const years = Array.from({ length: 5 }, (_, i) => currentYear - i);
+  const years = Array.from({ length: 5 }, (_, i) => String(currentYear - i));
   
   if (loadingGroups) {
     return (
-      <div className="flex items-center min-h-[30px] p-1">
-        <IconWrapper.Skeleton />
-        <Skeleton className="h-2.5 w-full rounded-full mr-1" />
-      </div>
+      Array.from({ length: 3 }, (_, i) => (
+        <div key={i} className="flex items-center min-h-[30px] p-1">
+          <SidebarItem.Skeleton key={i} />
+          <Skeleton className="h-2.5 w-full rounded-full mr-1" />
+        </div>
+      ))
     );
   }
   
   return (
     <div className="flex flex-col">
-      {years.map((year) => (
-        <React.Fragment key={year}>
-          <SiderbarItem
-            label={String(year)}
-            isOpen={onYear[year]}
-            onToggle={() => toggleYear(year)}
-            background="default"
+      {years.map((year) => {
+        const initialGroups = groups?.filter((group) => group.year === year) || [];
+
+        return (
+          <SidebarItem 
+            key={year}
+            label={year}
+            isOpen={on[year]} 
+            onToggle={() => toggle(year)} 
             icon={CalendarDaysIcon}
+            href={`/groups?year=${year}`}
+            background="default"
             indent="pl-3"
             actions={
               <Hint label="Create a new group" side="right" sideOffset={6}>
-                <button className="transition flex items-center ml-auto justify-center size-6 rounded-sm hover:bg-[#37352f0f] dark:hover:bg-[#ffffff0e]">
+                <button 
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onCreate(year)
+                  }} 
+                  className="transition flex items-center ml-auto justify-center size-6 rounded-sm hover:bg-[#37352f0f] dark:hover:bg-[#ffffff0e]"
+                >
                   <PlusIcon className="size-[18px] text-[#91918e]" />
                 </button>
               </Hint>
             }
-          />
-          <Content isOpen={onYear[year]}>
-            {initialGroups.map((group) => (
-              <React.Fragment key={group.id}>
-                <SiderbarItem
-                  label={group.name}
-                  isOpen={onItem[group.id]}
-                  indent="pl-5"
+          >
+            {initialGroups.length ? (
+              initialGroups.map((group) => (
+                <SidebarItem
+                  key={group.id}
                   background="none"
-                  onToggle={() => toggleItem(group.id)}
-                  actions={
-                    <Hint label="Delete, duplicate, and more..." side="right" sideOffset={6}>
-                      <GroupActions />
-                    </Hint>
-                  }
+                  indent="pl-5"
+                  label={group.name}
+                  isOpen={on[group.id]}
+                  href={`/groups/${group.id}`}
+                  onToggle={() => toggle(group.id)}
+                  trigger={group.icon ? group.icon : <HashIcon className="size-5 text-[#91918e]" />}
+                  actions={<GroupActions />}
                 >
-                  {group.icon ? group.icon : <HashIcon className="size-[18px] text-[#91918e]" />}
-                </SiderbarItem>
-                <Content isOpen={onItem[group.id]}>
-                  <button className="flex items-center hover:bg-[#00000008] min-h-[30px] h-[30px] p-1 pl-7 w-full">
-                    <DotIcon className="size-6" />
-                    <div className="whitespace-nowrap overflow-hidden text-ellipsis text-start text-sm w-full">
-                      Competency
-                    </div>
-                  </button>
-                  <button className="flex items-center hover:bg-[#00000008] min-h-[30px] h-[30px] p-1 pl-7 w-full">
-                    <DotIcon className="size-6" />
-                    <div className="whitespace-nowrap overflow-hidden text-ellipsis text-start text-sm w-full">
-                      Employee
-                    </div>
-                  </button>
-                </Content>
-              </React.Fragment>
-            ))}
-          </Content>
-        </React.Fragment>
-      ))}
-      <div>
+                  <SidebarItem
+                    notChild
+                    indent="pl-7"
+                    label="Competency"
+                    background="none"
+                    href={`/groups/${group.id}/competencies`}
+                    trigger={<DotIcon className="size-6" />}
+                  />
+                  <SidebarItem
+                    notChild
+                    indent="pl-7"
+                    label="Employee"
+                    background="none"
+                    href={`/groups/${group.id}/employees`}
+                    trigger={<DotIcon className="size-6" />}
+                  />
+                </SidebarItem>
+              ))
+            ) : (
+              <div className="flex items-center min-h-[30px] p-1 pl-5 w-full text-sm">
+                Not found result
+              </div>
+            )}
+          </SidebarItem>
+        );
+      })}
+      <button className="group/workspace flex items-center min-h-[30px] p-1 pl-3 hover:bg-[#00000008] w-full text-sm">
         More detail...
-      </div>
+      </button>
     </div>
   );
 }
