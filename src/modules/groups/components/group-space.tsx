@@ -35,7 +35,7 @@ export const GroupSpace = () => {
     createGroup({
       json: {
         year,
-        name: null,
+        name: "Untitled",
         icon: null,
       }
     })
@@ -94,7 +94,7 @@ export const GroupSpace = () => {
                   href={`/groups/${group.id}`}
                   onToggle={() => toggle(group.id)}
                   trigger={group.icon ? group.icon : <HashIcon className="size-5 text-[#91918e]" />}
-                  actions={<GroupActions />}
+                  actions={<GroupActions group={group} />}
                 >
                   <SidebarItem
                     notChild
@@ -122,7 +122,7 @@ export const GroupSpace = () => {
           </SidebarItem>
         );
       })}
-      <button className="group/workspace flex items-center min-h-[30px] p-1 pl-3 hover:bg-[#00000008] w-full text-sm">
+      <button className="group/workspace flex items-center min-h-[30px] p-1 pl-3 text-[#91918e] hover:bg-[#00000008] w-full text-xs">
         More detail...
       </button>
     </div>

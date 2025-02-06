@@ -5,6 +5,7 @@ import {
   text,
   timestamp
 } from "drizzle-orm/pg-core";
+import { createInsertSchema } from "drizzle-zod";
 import { createId as cuid } from "@paralleldrive/cuid2";
 
 export const roles = pgEnum("role", ["USER", "ADMIN"]);
@@ -30,6 +31,8 @@ export const groups = pgTable("group", {
   updatedBy: text("updatedBy").notNull(),
 });
 
+export const groupsInsertSchema = createInsertSchema(groups);
+
 export const typesCompetency = pgEnum("typesCompetency", ["CC", "FC", "TC"]);
 
 export const competencies = pgTable("competency", {
@@ -49,3 +52,5 @@ export const competencies = pgTable("competency", {
   updatedAt: timestamp("updatedAt", { mode: "string" }).notNull().$onUpdateFn(() => new Date().toISOString()),
   updatedBy: text("updatedBy").notNull(),
 });
+
+export const compentenciesInsertSchema = createInsertSchema(competencies);

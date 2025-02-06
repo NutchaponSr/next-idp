@@ -1,6 +1,8 @@
+import { CompetencyType } from "@/types/competency";
+
 interface HeaderType  {
   title: string;
-  type: string;
+  type: CompetencyType;
   variant: "default" | "pink" | "orange" | "red" | "blue" | "green";
   background: "default" | "pink" | "orange" | "red" | "blue" | "green";
 }
@@ -8,19 +10,19 @@ interface HeaderType  {
 export const headers: HeaderType[] = [
   {
     title: "Core",
-    type: "CC",
+    type: CompetencyType.CC,
     variant: "red",
     background: "red",
   },
   {
     title: "Functional",
-    type: "FC",
+    type: CompetencyType.FC,
     variant: "blue",
     background: "blue",
   },
   {
     title: "Technical",
-    type: "TC",
+    type: CompetencyType.TC,
     variant: "green",
     background: "green",
   },

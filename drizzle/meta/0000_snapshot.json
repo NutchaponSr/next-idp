@@ -1,9 +1,108 @@
 {
-  "id": "ddda62a9-f4f0-4f43-9162-16b3ab0a21b7",
+  "id": "a900cc64-58dc-4add-a8c7-282ea009d2e4",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
+    "public.competency": {
+      "name": "competency",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "definition": {
+          "name": "definition",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "pl1": {
+          "name": "pl1",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "pl2": {
+          "name": "pl2",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "pl3": {
+          "name": "pl3",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "pl4": {
+          "name": "pl4",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "pl5": {
+          "name": "pl5",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "type": {
+          "name": "type",
+          "type": "typesCompetency",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "inTrash": {
+          "name": "inTrash",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "createdBy": {
+          "name": "createdBy",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "updatedBy": {
+          "name": "updatedBy",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
     "public.group": {
       "name": "group",
       "schema": "",
@@ -131,6 +230,15 @@
       "values": [
         "USER",
         "ADMIN"
+      ]
+    },
+    "public.typesCompetency": {
+      "name": "typesCompetency",
+      "schema": "public",
+      "values": [
+        "CC",
+        "FC",
+        "TC"
       ]
     }
   },

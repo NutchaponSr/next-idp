@@ -13,7 +13,7 @@ export const AuthWrapper = ({
     <div className="flex flex-col items-center h-full">
       <div className="mt-[10vh] mb-6 max-w-[320px]">
         <div className="flex flex-col font-bold text-[22px] text-left w-[320px]">
-          <h1 className="text-[#37352f]">{title}</h1>
+          <h1 className="text-primary">{title}</h1>
           <h3 className="text-[#acaba9]">{description}</h3>
         </div>
       </div>
