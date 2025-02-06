@@ -1,0 +1,1 @@
+ALTER TABLE "competency" ADD COLUMN "icon" text;

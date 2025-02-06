@@ -1,19 +1,13 @@
-import { 
-  DotIcon, 
-  PlusIcon
-} from "lucide-react";
 import { toast } from "sonner";
+import { PlusIcon } from "lucide-react";
 import React, { useCallback } from "react";
 
 import { Skeleton } from "@/components/ui/skeleton";
 
-import { 
-  CalendarDaysIcon, 
-  HashIcon 
-} from "@/components/icons";
+import { CalendarDaysIcon } from "@/components/icons";
 import { Hint } from "@/components/hint";
 
-import { GroupActions } from "@/modules/groups/components/group-actions";
+import { GroupItem } from "@/modules/groups/components/group-item";
 import { SidebarItem } from "@/modules/dashboard/components/sidebar-item";
 
 import { useGetGroups } from "@/modules/groups/api/use-get-groups";
@@ -84,36 +78,7 @@ export const GroupSpace = () => {
             }
           >
             {initialGroups.length ? (
-              initialGroups.map((group) => (
-                <SidebarItem
-                  key={group.id}
-                  background="none"
-                  indent="pl-5"
-                  label={group.name}
-                  isOpen={on[group.id]}
-                  href={`/groups/${group.id}`}
-                  onToggle={() => toggle(group.id)}
-                  trigger={group.icon ? group.icon : <HashIcon className="size-5 text-[#91918e]" />}
-                  actions={<GroupActions group={group} />}
-                >
-                  <SidebarItem
-                    notChild
-                    indent="pl-7"
-                    label="Competency"
-                    background="none"
-                    href={`/groups/${group.id}/competencies`}
-                    trigger={<DotIcon className="size-6" />}
-                  />
-                  <SidebarItem
-                    notChild
-                    indent="pl-7"
-                    label="Employee"
-                    background="none"
-                    href={`/groups/${group.id}/employees`}
-                    trigger={<DotIcon className="size-6" />}
-                  />
-                </SidebarItem>
-              ))
+              initialGroups.map((group, index) => <GroupItem key={index} group={group} />)
             ) : (
               <div className="flex items-center min-h-[30px] p-1 pl-5 w-full text-sm">
                 Not found result

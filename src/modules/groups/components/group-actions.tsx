@@ -1,3 +1,4 @@
+import { toast } from "sonner";
 import { format } from "date-fns";
 import { useCallback, useState } from "react";
 import { MoreHorizontalIcon } from "lucide-react";
@@ -27,15 +28,14 @@ import {
 } from "@/components/icons";
 
 import { ResponseType } from "@/modules/groups/api/use-get-groups";
-import { toast } from "sonner";
 import { useTrashGroup } from "../api/use-trash-group";
-import { GroupRename } from "./group-rename";
 
 interface GroupActionsProps {
-  group: ResponseType[0]
+  group: ResponseType;
+  onRename: () => void;
 }
 
-export const GroupActions = ({ group }: GroupActionsProps) => {
+export const GroupActions = ({ group, onRename }: GroupActionsProps) => {
   const { mutate: trash } = useTrashGroup();
   
   const [isOpen, setIsOpen] = useState(false);
@@ -101,12 +101,10 @@ export const GroupActions = ({ group }: GroupActionsProps) => {
               <CopyIcon className="text-primary" />
               Duplicate
             </DropdownMenuItem>
-            <GroupRename>
-              <DropdownMenuItem>
-                <NoteEditIcon className="text-primary" />
-                Rename
-              </DropdownMenuItem>
-            </GroupRename>
+            <DropdownMenuItem onClick={onRename}>
+              <NoteEditIcon className="text-primary" />
+              Rename
+            </DropdownMenuItem>
             <DropdownMenuItem onClick={onTrash} className="group focus:text-destructive">
               <TrashIcon className="text-primary group-focus:text-destructive transition-colors" />
               Move to Trash
