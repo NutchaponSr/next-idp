@@ -1,14 +1,14 @@
 import { DotIcon } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 
 import { HashIcon } from "@/components/icons";
 
+import { GroupRename } from "@/modules/groups/components/group-rename";
 import { GroupActions } from "@/modules/groups/components/group-actions";
 import { SidebarItem } from "@/modules/dashboard/components/sidebar-item";
 
 import { ResponseType } from "@/modules/groups/api/use-get-groups";
 import { useSidebarToggle } from "@/modules/dashboard/stores/use-sidebar-toggle";
-import { useEffect, useRef, useState } from "react";
-import { GroupRename } from "./group-rename";
 
 interface GroupItemProps {
   group: ResponseType;
@@ -67,7 +67,7 @@ export const GroupItem = ({ group }: GroupItemProps) => {
           trigger={<DotIcon className="size-6" />}
         />
       </SidebarItem>
-      <GroupRename isOpen={isRename} height={height} />
+      <GroupRename isOpen={isRename} height={height} onClose={() => setIsRename(false)} />
     </>
   );
 }
