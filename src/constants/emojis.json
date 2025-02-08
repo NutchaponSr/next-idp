@@ -1,6 +1,6 @@
 {
     "emojis": {
-        "Smileys & Emotion": {
+        "Emotion": {
             "face-smiling": [
                 {
                     "code": [
@@ -136,13 +136,6 @@
                     ],
                     "emoji": "😗",
                     "name": "kissing face"
-                },
-                {
-                    "code": [
-                        "263A"
-                    ],
-                    "emoji": "☺",
-                    "name": "smiling face"
                 },
                 {
                     "code": [
@@ -421,13 +414,6 @@
                     ],
                     "emoji": "😴",
                     "name": "sleeping face"
-                },
-                {
-                    "code": [
-                        "1FAE9"
-                    ],
-                    "emoji": "🫩",
-                    "name": "face with bags under eyes"
                 }
             ],
             "face-unwell": [
@@ -592,13 +578,6 @@
                     ],
                     "emoji": "🙁",
                     "name": "slightly frowning face"
-                },
-                {
-                    "code": [
-                        "2639"
-                    ],
-                    "emoji": "☹",
-                    "name": "frowning face"
                 },
                 {
                     "code": [
@@ -797,13 +776,6 @@
                     ],
                     "emoji": "💀",
                     "name": "skull"
-                },
-                {
-                    "code": [
-                        "2620"
-                    ],
-                    "emoji": "☠",
-                    "name": "skull and crossbones"
                 }
             ],
             "face-costume": [
@@ -1020,7 +992,7 @@
                     "code": [
                         "2763"
                     ],
-                    "emoji": "❣",
+                    "emoji": "❣️",
                     "name": "heart exclamation"
                 },
                 {
@@ -1054,7 +1026,7 @@
                     "code": [
                         "2764"
                     ],
-                    "emoji": "❤",
+                    "emoji": "❤️",
                     "name": "red heart"
                 },
                 {
@@ -1189,7 +1161,7 @@
                     "code": [
                         "1F573"
                     ],
-                    "emoji": "🕳",
+                    "emoji": "🕳️",
                     "name": "hole"
                 },
                 {
@@ -1214,14 +1186,14 @@
                     "code": [
                         "1F5E8"
                     ],
-                    "emoji": "🗨",
+                    "emoji": "🗨️",
                     "name": "left speech bubble"
                 },
                 {
                     "code": [
                         "1F5EF"
                     ],
-                    "emoji": "🗯",
+                    "emoji": "🗯️",
                     "name": "right anger bubble"
                 },
                 {
@@ -1240,7 +1212,7 @@
                 }
             ]
         },
-        "People & Body": {
+        "People": {
             "hand-fingers-open": [
                 {
                     "code": [
@@ -1657,7 +1629,7 @@
                     "code": [
                         "1F441"
                     ],
-                    "emoji": "👁",
+                    "emoji": "👁️",
                     "name": "eye"
                 },
                 {
@@ -4694,17 +4666,6 @@
                 },
                 {
                     "code": [
-                        "1FAC6"
-                    ],
-                    "emoji": "🫆",
-                    "name": "fingerprint"
-                }
-            ]
-        },
-        "Component": {
-            "hair-style": [
-                {
-                    "code": [
                         "1F9B0"
                     ],
                     "emoji": "🦰",
@@ -5107,7 +5068,7 @@
                     "code": [
                         "1F43F"
                     ],
-                    "emoji": "🐿",
+                    "emoji": "🐿️",
                     "name": "chipmunk"
                 },
                 {
@@ -5266,7 +5227,7 @@
                     "code": [
                         "1F54A"
                     ],
-                    "emoji": "🕊",
+                    "emoji": "🕊️",
                     "name": "dove"
                 },
                 {
@@ -5621,14 +5582,14 @@
                     "code": [
                         "1F577"
                     ],
-                    "emoji": "🕷",
+                    "emoji": "🕷️",
                     "name": "spider"
                 },
                 {
                     "code": [
                         "1F578"
                     ],
-                    "emoji": "🕸",
+                    "emoji": "🕸️",
                     "name": "spider web"
                 },
                 {
@@ -5700,7 +5661,7 @@
                     "code": [
                         "1F3F5"
                     ],
-                    "emoji": "🏵",
+                    "emoji": "🏵️",
                     "name": "rosette"
                 },
                 {
@@ -5814,7 +5775,7 @@
                     "code": [
                         "2618"
                     ],
-                    "emoji": "☘",
+                    "emoji": "☘️",
                     "name": "shamrock"
                 },
                 {
@@ -5865,13 +5826,6 @@
                     ],
                     "emoji": "🍄",
                     "name": "mushroom"
-                },
-                {
-                    "code": [
-                        "1FABE"
-                    ],
-                    "emoji": "🪾",
-                    "name": "leafless tree"
                 }
             ]
         },
@@ -6148,13 +6102,6 @@
                     ],
                     "emoji": "🍄‍🟫",
                     "name": "brown mushroom"
-                },
-                {
-                    "code": [
-                        "1FADC"
-                    ],
-                    "emoji": "🫜",
-                    "name": "root vegetable"
                 }
             ],
             "food-prepared": [
@@ -6772,7 +6719,7 @@
                     "code": [
                         "1F37D"
                     ],
-                    "emoji": "🍽",
+                    "emoji": "🍽️",
                     "name": "fork and knife with plate"
                 },
                 {
@@ -6812,6 +6759,613 @@
                 }
             ]
         },
+        "Activity": {
+            "event": [
+                {
+                    "code": [
+                        "1F383"
+                    ],
+                    "emoji": "🎃",
+                    "name": "jack-o-lantern"
+                },
+                {
+                    "code": [
+                        "1F384"
+                    ],
+                    "emoji": "🎄",
+                    "name": "Christmas tree"
+                },
+                {
+                    "code": [
+                        "1F386"
+                    ],
+                    "emoji": "🎆",
+                    "name": "fireworks"
+                },
+                {
+                    "code": [
+                        "1F387"
+                    ],
+                    "emoji": "🎇",
+                    "name": "sparkler"
+                },
+                {
+                    "code": [
+                        "1F9E8"
+                    ],
+                    "emoji": "🧨",
+                    "name": "firecracker"
+                },
+                {
+                    "code": [
+                        "2728"
+                    ],
+                    "emoji": "✨",
+                    "name": "sparkles"
+                },
+                {
+                    "code": [
+                        "1F388"
+                    ],
+                    "emoji": "🎈",
+                    "name": "balloon"
+                },
+                {
+                    "code": [
+                        "1F389"
+                    ],
+                    "emoji": "🎉",
+                    "name": "party popper"
+                },
+                {
+                    "code": [
+                        "1F38A"
+                    ],
+                    "emoji": "🎊",
+                    "name": "confetti ball"
+                },
+                {
+                    "code": [
+                        "1F38B"
+                    ],
+                    "emoji": "🎋",
+                    "name": "tanabata tree"
+                },
+                {
+                    "code": [
+                        "1F38D"
+                    ],
+                    "emoji": "🎍",
+                    "name": "pine decoration"
+                },
+                {
+                    "code": [
+                        "1F38E"
+                    ],
+                    "emoji": "🎎",
+                    "name": "Japanese dolls"
+                },
+                {
+                    "code": [
+                        "1F38F"
+                    ],
+                    "emoji": "🎏",
+                    "name": "carp streamer"
+                },
+                {
+                    "code": [
+                        "1F390"
+                    ],
+                    "emoji": "🎐",
+                    "name": "wind chime"
+                },
+                {
+                    "code": [
+                        "1F391"
+                    ],
+                    "emoji": "🎑",
+                    "name": "moon viewing ceremony"
+                },
+                {
+                    "code": [
+                        "1F9E7"
+                    ],
+                    "emoji": "🧧",
+                    "name": "red envelope"
+                },
+                {
+                    "code": [
+                        "1F380"
+                    ],
+                    "emoji": "🎀",
+                    "name": "ribbon"
+                },
+                {
+                    "code": [
+                        "1F381"
+                    ],
+                    "emoji": "🎁",
+                    "name": "wrapped gift"
+                },
+                {
+                    "code": [
+                        "1F397"
+                    ],
+                    "emoji": "🎗️",
+                    "name": "reminder ribbon"
+                },
+                {
+                    "code": [
+                        "1F39F"
+                    ],
+                    "emoji": "🎟️",
+                    "name": "admission tickets"
+                },
+                {
+                    "code": [
+                        "1F3AB"
+                    ],
+                    "emoji": "🎫",
+                    "name": "ticket"
+                }
+            ],
+            "award-medal": [
+                {
+                    "code": [
+                        "1F396"
+                    ],
+                    "emoji": "🎖️",
+                    "name": "military medal"
+                },
+                {
+                    "code": [
+                        "1F3C6"
+                    ],
+                    "emoji": "🏆",
+                    "name": "trophy"
+                },
+                {
+                    "code": [
+                        "1F3C5"
+                    ],
+                    "emoji": "🏅",
+                    "name": "sports medal"
+                },
+                {
+                    "code": [
+                        "1F947"
+                    ],
+                    "emoji": "🥇",
+                    "name": "1st place medal"
+                },
+                {
+                    "code": [
+                        "1F948"
+                    ],
+                    "emoji": "🥈",
+                    "name": "2nd place medal"
+                },
+                {
+                    "code": [
+                        "1F949"
+                    ],
+                    "emoji": "🥉",
+                    "name": "3rd place medal"
+                }
+            ],
+            "sport": [
+                {
+                    "code": [
+                        "26BD"
+                    ],
+                    "emoji": "⚽",
+                    "name": "soccer ball"
+                },
+                {
+                    "code": [
+                        "26BE"
+                    ],
+                    "emoji": "⚾",
+                    "name": "baseball"
+                },
+                {
+                    "code": [
+                        "1F94E"
+                    ],
+                    "emoji": "🥎",
+                    "name": "softball"
+                },
+                {
+                    "code": [
+                        "1F3C0"
+                    ],
+                    "emoji": "🏀",
+                    "name": "basketball"
+                },
+                {
+                    "code": [
+                        "1F3D0"
+                    ],
+                    "emoji": "🏐",
+                    "name": "volleyball"
+                },
+                {
+                    "code": [
+                        "1F3C8"
+                    ],
+                    "emoji": "🏈",
+                    "name": "american football"
+                },
+                {
+                    "code": [
+                        "1F3C9"
+                    ],
+                    "emoji": "🏉",
+                    "name": "rugby football"
+                },
+                {
+                    "code": [
+                        "1F3BE"
+                    ],
+                    "emoji": "🎾",
+                    "name": "tennis"
+                },
+                {
+                    "code": [
+                        "1F94F"
+                    ],
+                    "emoji": "🥏",
+                    "name": "flying disc"
+                },
+                {
+                    "code": [
+                        "1F3B3"
+                    ],
+                    "emoji": "🎳",
+                    "name": "bowling"
+                },
+                {
+                    "code": [
+                        "1F3CF"
+                    ],
+                    "emoji": "🏏",
+                    "name": "cricket game"
+                },
+                {
+                    "code": [
+                        "1F3D1"
+                    ],
+                    "emoji": "🏑",
+                    "name": "field hockey"
+                },
+                {
+                    "code": [
+                        "1F3D2"
+                    ],
+                    "emoji": "🏒",
+                    "name": "ice hockey"
+                },
+                {
+                    "code": [
+                        "1F94D"
+                    ],
+                    "emoji": "🥍",
+                    "name": "lacrosse"
+                },
+                {
+                    "code": [
+                        "1F3D3"
+                    ],
+                    "emoji": "🏓",
+                    "name": "ping pong"
+                },
+                {
+                    "code": [
+                        "1F3F8"
+                    ],
+                    "emoji": "🏸",
+                    "name": "badminton"
+                },
+                {
+                    "code": [
+                        "1F94A"
+                    ],
+                    "emoji": "🥊",
+                    "name": "boxing glove"
+                },
+                {
+                    "code": [
+                        "1F94B"
+                    ],
+                    "emoji": "🥋",
+                    "name": "martial arts uniform"
+                },
+                {
+                    "code": [
+                        "1F945"
+                    ],
+                    "emoji": "🥅",
+                    "name": "goal net"
+                },
+                {
+                    "code": [
+                        "26F3"
+                    ],
+                    "emoji": "⛳",
+                    "name": "flag in hole"
+                },
+                {
+                    "code": [
+                        "26F8"
+                    ],
+                    "emoji": "⛸️",
+                    "name": "ice skate"
+                },
+                {
+                    "code": [
+                        "1F3A3"
+                    ],
+                    "emoji": "🎣",
+                    "name": "fishing pole"
+                },
+                {
+                    "code": [
+                        "1F93F"
+                    ],
+                    "emoji": "🤿",
+                    "name": "diving mask"
+                },
+                {
+                    "code": [
+                        "1F3BD"
+                    ],
+                    "emoji": "🎽",
+                    "name": "running shirt"
+                },
+                {
+                    "code": [
+                        "1F3BF"
+                    ],
+                    "emoji": "🎿",
+                    "name": "skis"
+                },
+                {
+                    "code": [
+                        "1F6F7"
+                    ],
+                    "emoji": "🛷",
+                    "name": "sled"
+                },
+                {
+                    "code": [
+                        "1F94C"
+                    ],
+                    "emoji": "🥌",
+                    "name": "curling stone"
+                }
+            ],
+            "game": [
+                {
+                    "code": [
+                        "1F3AF"
+                    ],
+                    "emoji": "🎯",
+                    "name": "bullseye"
+                },
+                {
+                    "code": [
+                        "1FA80"
+                    ],
+                    "emoji": "🪀",
+                    "name": "yo-yo"
+                },
+                {
+                    "code": [
+                        "1FA81"
+                    ],
+                    "emoji": "🪁",
+                    "name": "kite"
+                },
+                {
+                    "code": [
+                        "1F52B"
+                    ],
+                    "emoji": "🔫",
+                    "name": "water pistol"
+                },
+                {
+                    "code": [
+                        "1F3B1"
+                    ],
+                    "emoji": "🎱",
+                    "name": "pool 8 ball"
+                },
+                {
+                    "code": [
+                        "1F52E"
+                    ],
+                    "emoji": "🔮",
+                    "name": "crystal ball"
+                },
+                {
+                    "code": [
+                        "1FA84"
+                    ],
+                    "emoji": "🪄",
+                    "name": "magic wand"
+                },
+                {
+                    "code": [
+                        "1F3AE"
+                    ],
+                    "emoji": "🎮",
+                    "name": "video game"
+                },
+                {
+                    "code": [
+                        "1F579"
+                    ],
+                    "emoji": "🕹️",
+                    "name": "joystick"
+                },
+                {
+                    "code": [
+                        "1F3B0"
+                    ],
+                    "emoji": "🎰",
+                    "name": "slot machine"
+                },
+                {
+                    "code": [
+                        "1F3B2"
+                    ],
+                    "emoji": "🎲",
+                    "name": "game die"
+                },
+                {
+                    "code": [
+                        "1F9E9"
+                    ],
+                    "emoji": "🧩",
+                    "name": "puzzle piece"
+                },
+                {
+                    "code": [
+                        "1F9F8"
+                    ],
+                    "emoji": "🧸",
+                    "name": "teddy bear"
+                },
+                {
+                    "code": [
+                        "1FA85"
+                    ],
+                    "emoji": "🪅",
+                    "name": "piñata"
+                },
+                {
+                    "code": [
+                        "1FAA9"
+                    ],
+                    "emoji": "🪩",
+                    "name": "mirror ball"
+                },
+                {
+                    "code": [
+                        "1FA86"
+                    ],
+                    "emoji": "🪆",
+                    "name": "nesting dolls"
+                },
+                {
+                    "code": [
+                        "2660"
+                    ],
+                    "emoji": "♠️",
+                    "name": "spade suit"
+                },
+                {
+                    "code": [
+                        "2665"
+                    ],                                                  
+                    "emoji": "♥️",
+                    "name": "heart suit"
+                },
+                {
+                    "code": [
+                        "2666"
+                    ],
+                    "emoji": "♦️",
+                    "name": "diamond suit"
+                },
+                {
+                    "code": [
+                        "2663"
+                    ],
+                    "emoji": "♣️",
+                    "name": "club suit"
+                },
+                {
+                    "code": [
+                        "265F"
+                    ],
+                    "emoji": "♟️",
+                    "name": "chess pawn"
+                },
+                {
+                    "code": [
+                        "1F0CF"
+                    ],
+                    "emoji": "🃏",
+                    "name": "joker"
+                },
+                {
+                    "code": [
+                        "1F004"
+                    ],
+                    "emoji": "🀄",
+                    "name": "mahjong red dragon"
+                },
+                {
+                    "code": [
+                        "1F3B4"
+                    ],
+                    "emoji": "🎴",
+                    "name": "flower playing cards"
+                }
+            ],
+            "arts & crafts": [
+                {
+                    "code": [
+                        "1F3AD"
+                    ],
+                    "emoji": "🎭",
+                    "name": "performing arts"
+                },
+                {
+                    "code": [
+                        "1F5BC"
+                    ],
+                    "emoji": "🖼️",
+                    "name": "framed picture"
+                },
+                {
+                    "code": [
+                        "1F3A8"
+                    ],
+                    "emoji": "🎨",
+                    "name": "artist palette"
+                },
+                {
+                    "code": [
+                        "1F9F5"
+                    ],
+                    "emoji": "🧵",
+                    "name": "thread"
+                },
+                {
+                    "code": [
+                        "1FAA1"
+                    ],
+                    "emoji": "🪡",
+                    "name": "sewing needle"
+                },
+                {
+                    "code": [
+                        "1F9F6"
+                    ],
+                    "emoji": "🧶",
+                    "name": "yarn"
+                },
+                {
+                    "code": [
+                        "1FAA2"
+                    ],
+                    "emoji": "🪢",
+                    "name": "knot"
+                }
+            ]
+        },
         "Travel & Places": {
             "place-map": [
                 {
@@ -6846,7 +7400,7 @@
                     "code": [
                         "1F5FA"
                     ],
-                    "emoji": "🗺",
+                    "emoji": "🗺️",
                     "name": "world map"
                 },
                 {
@@ -6869,14 +7423,14 @@
                     "code": [
                         "1F3D4"
                     ],
-                    "emoji": "🏔",
+                    "emoji": "🏔️",
                     "name": "snow-capped mountain"
                 },
                 {
                     "code": [
                         "26F0"
                     ],
-                    "emoji": "⛰",
+                    "emoji": "⛰️",
                     "name": "mountain"
                 },
                 {
@@ -6897,35 +7451,35 @@
                     "code": [
                         "1F3D5"
                     ],
-                    "emoji": "🏕",
+                    "emoji": "🏕️",
                     "name": "camping"
                 },
                 {
                     "code": [
                         "1F3D6"
                     ],
-                    "emoji": "🏖",
+                    "emoji": "🏖️",
                     "name": "beach with umbrella"
                 },
                 {
                     "code": [
                         "1F3DC"
                     ],
-                    "emoji": "🏜",
+                    "emoji": "🏜️",
                     "name": "desert"
                 },
                 {
                     "code": [
                         "1F3DD"
                     ],
-                    "emoji": "🏝",
+                    "emoji": "🏝️",
                     "name": "desert island"
                 },
                 {
                     "code": [
                         "1F3DE"
                     ],
-                    "emoji": "🏞",
+                    "emoji": "🏞️",
                     "name": "national park"
                 }
             ],
@@ -6934,21 +7488,21 @@
                     "code": [
                         "1F3DF"
                     ],
-                    "emoji": "🏟",
+                    "emoji": "🏟️",
                     "name": "stadium"
                 },
                 {
                     "code": [
                         "1F3DB"
                     ],
-                    "emoji": "🏛",
+                    "emoji": "🏛️",
                     "name": "classical building"
                 },
                 {
                     "code": [
                         "1F3D7"
                     ],
-                    "emoji": "🏗",
+                    "emoji": "🏗️",
                     "name": "building construction"
                 },
                 {
@@ -6983,14 +7537,14 @@
                     "code": [
                         "1F3D8"
                     ],
-                    "emoji": "🏘",
+                    "emoji": "🏘️",
                     "name": "houses"
                 },
                 {
                     "code": [
                         "1F3DA"
                     ],
-                    "emoji": "🏚",
+                    "emoji": "🏚️",
                     "name": "derelict house"
                 },
                 {
@@ -7153,7 +7707,7 @@
                     "code": [
                         "26E9"
                     ],
-                    "emoji": "⛩",
+                    "emoji": "⛩️",
                     "name": "shinto shrine"
                 },
                 {
@@ -7197,7 +7751,7 @@
                     "code": [
                         "1F3D9"
                     ],
-                    "emoji": "🏙",
+                    "emoji": "🏙️",
                     "name": "cityscape"
                 },
                 {
@@ -7239,7 +7793,7 @@
                     "code": [
                         "2668"
                     ],
-                    "emoji": "♨",
+                    "emoji": "♨️",
                     "name": "hot springs"
                 },
                 {
@@ -7493,14 +8047,14 @@
                     "code": [
                         "1F3CE"
                     ],
-                    "emoji": "🏎",
+                    "emoji": "🏎️",
                     "name": "racing car"
                 },
                 {
                     "code": [
                         "1F3CD"
                     ],
-                    "emoji": "🏍",
+                    "emoji": "🏍️",
                     "name": "motorcycle"
                 },
                 {
@@ -7570,21 +8124,21 @@
                     "code": [
                         "1F6E3"
                     ],
-                    "emoji": "🛣",
+                    "emoji": "🛣️",
                     "name": "motorway"
                 },
                 {
                     "code": [
                         "1F6E4"
                     ],
-                    "emoji": "🛤",
+                    "emoji": "🛤️",
                     "name": "railway track"
                 },
                 {
                     "code": [
                         "1F6E2"
                     ],
-                    "emoji": "🛢",
+                    "emoji": "🛢️",
                     "name": "oil drum"
                 },
                 {
@@ -7677,21 +8231,21 @@
                     "code": [
                         "1F6F3"
                     ],
-                    "emoji": "🛳",
+                    "emoji": "🛳️",
                     "name": "passenger ship"
                 },
                 {
                     "code": [
                         "26F4"
                     ],
-                    "emoji": "⛴",
+                    "emoji": "⛴️",
                     "name": "ferry"
                 },
                 {
                     "code": [
                         "1F6E5"
                     ],
-                    "emoji": "🛥",
+                    "emoji": "🛥️",
                     "name": "motor boat"
                 },
                 {
@@ -7707,14 +8261,14 @@
                     "code": [
                         "2708"
                     ],
-                    "emoji": "✈",
+                    "emoji": "✈️",
                     "name": "airplane"
                 },
                 {
                     "code": [
                         "1F6E9"
                     ],
-                    "emoji": "🛩",
+                    "emoji": "🛩️",
                     "name": "small airplane"
                 },
                 {
@@ -7777,7 +8331,7 @@
                     "code": [
                         "1F6F0"
                     ],
-                    "emoji": "🛰",
+                    "emoji": "🛰️",
                     "name": "satellite"
                 },
                 {
@@ -7800,7 +8354,7 @@
                     "code": [
                         "1F6CE"
                     ],
-                    "emoji": "🛎",
+                    "emoji": "🛎️",
                     "name": "bellhop bell"
                 },
                 {
@@ -7844,21 +8398,21 @@
                     "code": [
                         "23F1"
                     ],
-                    "emoji": "⏱",
+                    "emoji": "⏱️",
                     "name": "stopwatch"
                 },
                 {
                     "code": [
                         "23F2"
                     ],
-                    "emoji": "⏲",
+                    "emoji": "⏲️",
                     "name": "timer clock"
                 },
                 {
                     "code": [
                         "1F570"
                     ],
-                    "emoji": "🕰",
+                    "emoji": "🕰️",
                     "name": "mantelpiece clock"
                 },
                 {
@@ -8119,14 +8673,14 @@
                     "code": [
                         "1F321"
                     ],
-                    "emoji": "🌡",
+                    "emoji": "🌡️",
                     "name": "thermometer"
                 },
                 {
                     "code": [
                         "2600"
                     ],
-                    "emoji": "☀",
+                    "emoji": "☀️",
                     "name": "sun"
                 },
                 {
@@ -8182,7 +8736,7 @@
                     "code": [
                         "2601"
                     ],
-                    "emoji": "☁",
+                    "emoji": "☁️",
                     "name": "cloud"
                 },
                 {
@@ -8196,70 +8750,70 @@
                     "code": [
                         "26C8"
                     ],
-                    "emoji": "⛈",
+                    "emoji": "⛈️",
                     "name": "cloud with lightning and rain"
                 },
                 {
                     "code": [
                         "1F324"
                     ],
-                    "emoji": "🌤",
+                    "emoji": "🌤️",
                     "name": "sun behind small cloud"
                 },
                 {
                     "code": [
                         "1F325"
                     ],
-                    "emoji": "🌥",
+                    "emoji": "🌥️",
                     "name": "sun behind large cloud"
                 },
                 {
                     "code": [
                         "1F326"
                     ],
-                    "emoji": "🌦",
+                    "emoji": "🌦️",
                     "name": "sun behind rain cloud"
                 },
                 {
                     "code": [
                         "1F327"
                     ],
-                    "emoji": "🌧",
+                    "emoji": "🌧️",
                     "name": "cloud with rain"
                 },
                 {
                     "code": [
                         "1F328"
                     ],
-                    "emoji": "🌨",
+                    "emoji": "🌨️",
                     "name": "cloud with snow"
                 },
                 {
                     "code": [
                         "1F329"
                     ],
-                    "emoji": "🌩",
+                    "emoji": "🌩️",
                     "name": "cloud with lightning"
                 },
                 {
                     "code": [
                         "1F32A"
                     ],
-                    "emoji": "🌪",
+                    "emoji": "🌪️",
                     "name": "tornado"
                 },
                 {
                     "code": [
                         "1F32B"
                     ],
-                    "emoji": "🌫",
+                    "emoji": "🌫️",
                     "name": "fog"
                 },
                 {
                     "code": [
                         "1F32C"
                     ],
-                    "emoji": "🌬",
+                    "emoji": "🌬️",
                     "name": "wind face"
                 },
                 {
@@ -8287,7 +8841,7 @@
                     "code": [
                         "2602"
                     ],
-                    "emoji": "☂",
+                    "emoji": "☂️",
                     "name": "umbrella"
                 },
                 {
@@ -8301,7 +8855,7 @@
                     "code": [
                         "26F1"
                     ],
-                    "emoji": "⛱",
+                    "emoji": "⛱️",
                     "name": "umbrella on ground"
                 },
                 {
@@ -8315,14 +8869,14 @@
                     "code": [
                         "2744"
                     ],
-                    "emoji": "❄",
+                    "emoji": "❄️",
                     "name": "snowflake"
                 },
                 {
                     "code": [
                         "2603"
                     ],
-                    "emoji": "☃",
+                    "emoji": "☃️",
                     "name": "snowman"
                 },
                 {
@@ -8336,7 +8890,7 @@
                     "code": [
                         "2604"
                     ],
-                    "emoji": "☄",
+                    "emoji": "☄️",
                     "name": "comet"
                 },
                 {
@@ -8362,613 +8916,6 @@
                 }
             ]
         },
-        "Activities": {
-            "event": [
-                {
-                    "code": [
-                        "1F383"
-                    ],
-                    "emoji": "🎃",
-                    "name": "jack-o-lantern"
-                },
-                {
-                    "code": [
-                        "1F384"
-                    ],
-                    "emoji": "🎄",
-                    "name": "Christmas tree"
-                },
-                {
-                    "code": [
-                        "1F386"
-                    ],
-                    "emoji": "🎆",
-                    "name": "fireworks"
-                },
-                {
-                    "code": [
-                        "1F387"
-                    ],
-                    "emoji": "🎇",
-                    "name": "sparkler"
-                },
-                {
-                    "code": [
-                        "1F9E8"
-                    ],
-                    "emoji": "🧨",
-                    "name": "firecracker"
-                },
-                {
-                    "code": [
-                        "2728"
-                    ],
-                    "emoji": "✨",
-                    "name": "sparkles"
-                },
-                {
-                    "code": [
-                        "1F388"
-                    ],
-                    "emoji": "🎈",
-                    "name": "balloon"
-                },
-                {
-                    "code": [
-                        "1F389"
-                    ],
-                    "emoji": "🎉",
-                    "name": "party popper"
-                },
-                {
-                    "code": [
-                        "1F38A"
-                    ],
-                    "emoji": "🎊",
-                    "name": "confetti ball"
-                },
-                {
-                    "code": [
-                        "1F38B"
-                    ],
-                    "emoji": "🎋",
-                    "name": "tanabata tree"
-                },
-                {
-                    "code": [
-                        "1F38D"
-                    ],
-                    "emoji": "🎍",
-                    "name": "pine decoration"
-                },
-                {
-                    "code": [
-                        "1F38E"
-                    ],
-                    "emoji": "🎎",
-                    "name": "Japanese dolls"
-                },
-                {
-                    "code": [
-                        "1F38F"
-                    ],
-                    "emoji": "🎏",
-                    "name": "carp streamer"
-                },
-                {
-                    "code": [
-                        "1F390"
-                    ],
-                    "emoji": "🎐",
-                    "name": "wind chime"
-                },
-                {
-                    "code": [
-                        "1F391"
-                    ],
-                    "emoji": "🎑",
-                    "name": "moon viewing ceremony"
-                },
-                {
-                    "code": [
-                        "1F9E7"
-                    ],
-                    "emoji": "🧧",
-                    "name": "red envelope"
-                },
-                {
-                    "code": [
-                        "1F380"
-                    ],
-                    "emoji": "🎀",
-                    "name": "ribbon"
-                },
-                {
-                    "code": [
-                        "1F381"
-                    ],
-                    "emoji": "🎁",
-                    "name": "wrapped gift"
-                },
-                {
-                    "code": [
-                        "1F397"
-                    ],
-                    "emoji": "🎗",
-                    "name": "reminder ribbon"
-                },
-                {
-                    "code": [
-                        "1F39F"
-                    ],
-                    "emoji": "🎟",
-                    "name": "admission tickets"
-                },
-                {
-                    "code": [
-                        "1F3AB"
-                    ],
-                    "emoji": "🎫",
-                    "name": "ticket"
-                }
-            ],
-            "award-medal": [
-                {
-                    "code": [
-                        "1F396"
-                    ],
-                    "emoji": "🎖",
-                    "name": "military medal"
-                },
-                {
-                    "code": [
-                        "1F3C6"
-                    ],
-                    "emoji": "🏆",
-                    "name": "trophy"
-                },
-                {
-                    "code": [
-                        "1F3C5"
-                    ],
-                    "emoji": "🏅",
-                    "name": "sports medal"
-                },
-                {
-                    "code": [
-                        "1F947"
-                    ],
-                    "emoji": "🥇",
-                    "name": "1st place medal"
-                },
-                {
-                    "code": [
-                        "1F948"
-                    ],
-                    "emoji": "🥈",
-                    "name": "2nd place medal"
-                },
-                {
-                    "code": [
-                        "1F949"
-                    ],
-                    "emoji": "🥉",
-                    "name": "3rd place medal"
-                }
-            ],
-            "sport": [
-                {
-                    "code": [
-                        "26BD"
-                    ],
-                    "emoji": "⚽",
-                    "name": "soccer ball"
-                },
-                {
-                    "code": [
-                        "26BE"
-                    ],
-                    "emoji": "⚾",
-                    "name": "baseball"
-                },
-                {
-                    "code": [
-                        "1F94E"
-                    ],
-                    "emoji": "🥎",
-                    "name": "softball"
-                },
-                {
-                    "code": [
-                        "1F3C0"
-                    ],
-                    "emoji": "🏀",
-                    "name": "basketball"
-                },
-                {
-                    "code": [
-                        "1F3D0"
-                    ],
-                    "emoji": "🏐",
-                    "name": "volleyball"
-                },
-                {
-                    "code": [
-                        "1F3C8"
-                    ],
-                    "emoji": "🏈",
-                    "name": "american football"
-                },
-                {
-                    "code": [
-                        "1F3C9"
-                    ],
-                    "emoji": "🏉",
-                    "name": "rugby football"
-                },
-                {
-                    "code": [
-                        "1F3BE"
-                    ],
-                    "emoji": "🎾",
-                    "name": "tennis"
-                },
-                {
-                    "code": [
-                        "1F94F"
-                    ],
-                    "emoji": "🥏",
-                    "name": "flying disc"
-                },
-                {
-                    "code": [
-                        "1F3B3"
-                    ],
-                    "emoji": "🎳",
-                    "name": "bowling"
-                },
-                {
-                    "code": [
-                        "1F3CF"
-                    ],
-                    "emoji": "🏏",
-                    "name": "cricket game"
-                },
-                {
-                    "code": [
-                        "1F3D1"
-                    ],
-                    "emoji": "🏑",
-                    "name": "field hockey"
-                },
-                {
-                    "code": [
-                        "1F3D2"
-                    ],
-                    "emoji": "🏒",
-                    "name": "ice hockey"
-                },
-                {
-                    "code": [
-                        "1F94D"
-                    ],
-                    "emoji": "🥍",
-                    "name": "lacrosse"
-                },
-                {
-                    "code": [
-                        "1F3D3"
-                    ],
-                    "emoji": "🏓",
-                    "name": "ping pong"
-                },
-                {
-                    "code": [
-                        "1F3F8"
-                    ],
-                    "emoji": "🏸",
-                    "name": "badminton"
-                },
-                {
-                    "code": [
-                        "1F94A"
-                    ],
-                    "emoji": "🥊",
-                    "name": "boxing glove"
-                },
-                {
-                    "code": [
-                        "1F94B"
-                    ],
-                    "emoji": "🥋",
-                    "name": "martial arts uniform"
-                },
-                {
-                    "code": [
-                        "1F945"
-                    ],
-                    "emoji": "🥅",
-                    "name": "goal net"
-                },
-                {
-                    "code": [
-                        "26F3"
-                    ],
-                    "emoji": "⛳",
-                    "name": "flag in hole"
-                },
-                {
-                    "code": [
-                        "26F8"
-                    ],
-                    "emoji": "⛸",
-                    "name": "ice skate"
-                },
-                {
-                    "code": [
-                        "1F3A3"
-                    ],
-                    "emoji": "🎣",
-                    "name": "fishing pole"
-                },
-                {
-                    "code": [
-                        "1F93F"
-                    ],
-                    "emoji": "🤿",
-                    "name": "diving mask"
-                },
-                {
-                    "code": [
-                        "1F3BD"
-                    ],
-                    "emoji": "🎽",
-                    "name": "running shirt"
-                },
-                {
-                    "code": [
-                        "1F3BF"
-                    ],
-                    "emoji": "🎿",
-                    "name": "skis"
-                },
-                {
-                    "code": [
-                        "1F6F7"
-                    ],
-                    "emoji": "🛷",
-                    "name": "sled"
-                },
-                {
-                    "code": [
-                        "1F94C"
-                    ],
-                    "emoji": "🥌",
-                    "name": "curling stone"
-                }
-            ],
-            "game": [
-                {
-                    "code": [
-                        "1F3AF"
-                    ],
-                    "emoji": "🎯",
-                    "name": "bullseye"
-                },
-                {
-                    "code": [
-                        "1FA80"
-                    ],
-                    "emoji": "🪀",
-                    "name": "yo-yo"
-                },
-                {
-                    "code": [
-                        "1FA81"
-                    ],
-                    "emoji": "🪁",
-                    "name": "kite"
-                },
-                {
-                    "code": [
-                        "1F52B"
-                    ],
-                    "emoji": "🔫",
-                    "name": "water pistol"
-                },
-                {
-                    "code": [
-                        "1F3B1"
-                    ],
-                    "emoji": "🎱",
-                    "name": "pool 8 ball"
-                },
-                {
-                    "code": [
-                        "1F52E"
-                    ],
-                    "emoji": "🔮",
-                    "name": "crystal ball"
-                },
-                {
-                    "code": [
-                        "1FA84"
-                    ],
-                    "emoji": "🪄",
-                    "name": "magic wand"
-                },
-                {
-                    "code": [
-                        "1F3AE"
-                    ],
-                    "emoji": "🎮",
-                    "name": "video game"
-                },
-                {
-                    "code": [
-                        "1F579"
-                    ],
-                    "emoji": "🕹",
-                    "name": "joystick"
-                },
-                {
-                    "code": [
-                        "1F3B0"
-                    ],
-                    "emoji": "🎰",
-                    "name": "slot machine"
-                },
-                {
-                    "code": [
-                        "1F3B2"
-                    ],
-                    "emoji": "🎲",
-                    "name": "game die"
-                },
-                {
-                    "code": [
-                        "1F9E9"
-                    ],
-                    "emoji": "🧩",
-                    "name": "puzzle piece"
-                },
-                {
-                    "code": [
-                        "1F9F8"
-                    ],
-                    "emoji": "🧸",
-                    "name": "teddy bear"
-                },
-                {
-                    "code": [
-                        "1FA85"
-                    ],
-                    "emoji": "🪅",
-                    "name": "piñata"
-                },
-                {
-                    "code": [
-                        "1FAA9"
-                    ],
-                    "emoji": "🪩",
-                    "name": "mirror ball"
-                },
-                {
-                    "code": [
-                        "1FA86"
-                    ],
-                    "emoji": "🪆",
-                    "name": "nesting dolls"
-                },
-                {
-                    "code": [
-                        "2660"
-                    ],
-                    "emoji": "♠",
-                    "name": "spade suit"
-                },
-                {
-                    "code": [
-                        "2665"
-                    ],
-                    "emoji": "♥",
-                    "name": "heart suit"
-                },
-                {
-                    "code": [
-                        "2666"
-                    ],
-                    "emoji": "♦",
-                    "name": "diamond suit"
-                },
-                {
-                    "code": [
-                        "2663"
-                    ],
-                    "emoji": "♣",
-                    "name": "club suit"
-                },
-                {
-                    "code": [
-                        "265F"
-                    ],
-                    "emoji": "♟",
-                    "name": "chess pawn"
-                },
-                {
-                    "code": [
-                        "1F0CF"
-                    ],
-                    "emoji": "🃏",
-                    "name": "joker"
-                },
-                {
-                    "code": [
-                        "1F004"
-                    ],
-                    "emoji": "🀄",
-                    "name": "mahjong red dragon"
-                },
-                {
-                    "code": [
-                        "1F3B4"
-                    ],
-                    "emoji": "🎴",
-                    "name": "flower playing cards"
-                }
-            ],
-            "arts & crafts": [
-                {
-                    "code": [
-                        "1F3AD"
-                    ],
-                    "emoji": "🎭",
-                    "name": "performing arts"
-                },
-                {
-                    "code": [
-                        "1F5BC"
-                    ],
-                    "emoji": "🖼",
-                    "name": "framed picture"
-                },
-                {
-                    "code": [
-                        "1F3A8"
-                    ],
-                    "emoji": "🎨",
-                    "name": "artist palette"
-                },
-                {
-                    "code": [
-                        "1F9F5"
-                    ],
-                    "emoji": "🧵",
-                    "name": "thread"
-                },
-                {
-                    "code": [
-                        "1FAA1"
-                    ],
-                    "emoji": "🪡",
-                    "name": "sewing needle"
-                },
-                {
-                    "code": [
-                        "1F9F6"
-                    ],
-                    "emoji": "🧶",
-                    "name": "yarn"
-                },
-                {
-                    "code": [
-                        "1FAA2"
-                    ],
-                    "emoji": "🪢",
-                    "name": "knot"
-                }
-            ]
-        },
         "Objects": {
             "clothing": [
                 {
@@ -8982,7 +8929,7 @@
                     "code": [
                         "1F576"
                     ],
-                    "emoji": "🕶",
+                    "emoji": "🕶️",
                     "name": "sunglasses"
                 },
                 {
@@ -9143,7 +9090,7 @@
                     "code": [
                         "1F6CD"
                     ],
-                    "emoji": "🛍",
+                    "emoji": "🛍️",
                     "name": "shopping bags"
                 },
                 {
@@ -9269,7 +9216,7 @@
                     "code": [
                         "26D1"
                     ],
-                    "emoji": "⛑",
+                    "emoji": "⛑️",
                     "name": "rescue worker’s helmet"
                 },
                 {
@@ -9392,21 +9339,21 @@
                     "code": [
                         "1F399"
                     ],
-                    "emoji": "🎙",
+                    "emoji": "🎙️",
                     "name": "studio microphone"
                 },
                 {
                     "code": [
                         "1F39A"
                     ],
-                    "emoji": "🎚",
+                    "emoji": "🎚️",
                     "name": "level slider"
                 },
                 {
                     "code": [
                         "1F39B"
                     ],
-                    "emoji": "🎛",
+                    "emoji": "🎛️",
                     "name": "control knobs"
                 },
                 {
@@ -9508,13 +9455,6 @@
                     ],
                     "emoji": "🪈",
                     "name": "flute"
-                },
-                {
-                    "code": [
-                        "1FA89"
-                    ],
-                    "emoji": "🪉",
-                    "name": "harp"
                 }
             ],
             "phone": [
@@ -9536,7 +9476,7 @@
                     "code": [
                         "260E"
                     ],
-                    "emoji": "☎",
+                    "emoji": "☎️",
                     "name": "telephone"
                 },
                 {
@@ -9594,35 +9534,35 @@
                     "code": [
                         "1F5A5"
                     ],
-                    "emoji": "🖥",
+                    "emoji": "🖥️",
                     "name": "desktop computer"
                 },
                 {
                     "code": [
                         "1F5A8"
                     ],
-                    "emoji": "🖨",
+                    "emoji": "🖨️",
                     "name": "printer"
                 },
                 {
                     "code": [
                         "2328"
                     ],
-                    "emoji": "⌨",
+                    "emoji": "⌨️",
                     "name": "keyboard"
                 },
                 {
                     "code": [
                         "1F5B1"
                     ],
-                    "emoji": "🖱",
+                    "emoji": "🖱️",
                     "name": "computer mouse"
                 },
                 {
                     "code": [
                         "1F5B2"
                     ],
-                    "emoji": "🖲",
+                    "emoji": "🖲️",
                     "name": "trackball"
                 },
                 {
@@ -9673,14 +9613,14 @@
                     "code": [
                         "1F39E"
                     ],
-                    "emoji": "🎞",
+                    "emoji": "🎞️",
                     "name": "film frames"
                 },
                 {
                     "code": [
                         "1F4FD"
                     ],
-                    "emoji": "📽",
+                    "emoji": "📽️",
                     "name": "film projector"
                 },
                 {
@@ -9743,7 +9683,7 @@
                     "code": [
                         "1F56F"
                     ],
-                    "emoji": "🕯",
+                    "emoji": "🕯️",
                     "name": "candle"
                 },
                 {
@@ -9871,7 +9811,7 @@
                     "code": [
                         "1F5DE"
                     ],
-                    "emoji": "🗞",
+                    "emoji": "🗞️",
                     "name": "rolled-up newspaper"
                 },
                 {
@@ -9892,7 +9832,7 @@
                     "code": [
                         "1F3F7"
                     ],
-                    "emoji": "🏷",
+                    "emoji": "🏷️",
                     "name": "label"
                 }
             ],
@@ -9973,7 +9913,7 @@
                     "code": [
                         "2709"
                     ],
-                    "emoji": "✉",
+                    "emoji": "✉️",
                     "name": "envelope"
                 },
                 {
@@ -10057,7 +9997,7 @@
                     "code": [
                         "1F5F3"
                     ],
-                    "emoji": "🗳",
+                    "emoji": "🗳️",
                     "name": "ballot box with ballot"
                 }
             ],
@@ -10066,42 +10006,42 @@
                     "code": [
                         "270F"
                     ],
-                    "emoji": "✏",
+                    "emoji": "✏️",
                     "name": "pencil"
                 },
                 {
                     "code": [
                         "2712"
                     ],
-                    "emoji": "✒",
+                    "emoji": "✒️",
                     "name": "black nib"
                 },
                 {
                     "code": [
                         "1F58B"
                     ],
-                    "emoji": "🖋",
+                    "emoji": "🖋️",
                     "name": "fountain pen"
                 },
                 {
                     "code": [
                         "1F58A"
                     ],
-                    "emoji": "🖊",
+                    "emoji": "🖊️",
                     "name": "pen"
                 },
                 {
                     "code": [
                         "1F58C"
                     ],
-                    "emoji": "🖌",
+                    "emoji": "🖌️",
                     "name": "paintbrush"
                 },
                 {
                     "code": [
                         "1F58D"
                     ],
-                    "emoji": "🖍",
+                    "emoji": "🖍️",
                     "name": "crayon"
                 },
                 {
@@ -10138,7 +10078,7 @@
                     "code": [
                         "1F5C2"
                     ],
-                    "emoji": "🗂",
+                    "emoji": "🗂️",
                     "name": "card index dividers"
                 },
                 {
@@ -10159,14 +10099,14 @@
                     "code": [
                         "1F5D2"
                     ],
-                    "emoji": "🗒",
+                    "emoji": "🗒️",
                     "name": "spiral notepad"
                 },
                 {
                     "code": [
                         "1F5D3"
                     ],
-                    "emoji": "🗓",
+                    "emoji": "🗓️",
                     "name": "spiral calendar"
                 },
                 {
@@ -10229,7 +10169,7 @@
                     "code": [
                         "1F587"
                     ],
-                    "emoji": "🖇",
+                    "emoji": "🖇️",
                     "name": "linked paperclips"
                 },
                 {
@@ -10250,28 +10190,28 @@
                     "code": [
                         "2702"
                     ],
-                    "emoji": "✂",
+                    "emoji": "✂️",
                     "name": "scissors"
                 },
                 {
                     "code": [
                         "1F5C3"
                     ],
-                    "emoji": "🗃",
+                    "emoji": "🗃️",
                     "name": "card file box"
                 },
                 {
                     "code": [
                         "1F5C4"
                     ],
-                    "emoji": "🗄",
+                    "emoji": "🗄️",
                     "name": "file cabinet"
                 },
                 {
                     "code": [
                         "1F5D1"
                     ],
-                    "emoji": "🗑",
+                    "emoji": "🗑️",
                     "name": "wastebasket"
                 }
             ],
@@ -10315,7 +10255,7 @@
                     "code": [
                         "1F5DD"
                     ],
-                    "emoji": "🗝",
+                    "emoji": "🗝️",
                     "name": "old key"
                 }
             ],
@@ -10338,35 +10278,35 @@
                     "code": [
                         "26CF"
                     ],
-                    "emoji": "⛏",
+                    "emoji": "⛏️",
                     "name": "pick"
                 },
                 {
                     "code": [
                         "2692"
                     ],
-                    "emoji": "⚒",
+                    "emoji": "⚒️",
                     "name": "hammer and pick"
                 },
                 {
                     "code": [
                         "1F6E0"
                     ],
-                    "emoji": "🛠",
+                    "emoji": "🛠️",
                     "name": "hammer and wrench"
                 },
                 {
                     "code": [
                         "1F5E1"
                     ],
-                    "emoji": "🗡",
+                    "emoji": "🗡️",
                     "name": "dagger"
                 },
                 {
                     "code": [
                         "2694"
                     ],
-                    "emoji": "⚔",
+                    "emoji": "⚔️",
                     "name": "crossed swords"
                 },
                 {
@@ -10394,7 +10334,7 @@
                     "code": [
                         "1F6E1"
                     ],
-                    "emoji": "🛡",
+                    "emoji": "🛡️",
                     "name": "shield"
                 },
                 {
@@ -10429,21 +10369,21 @@
                     "code": [
                         "2699"
                     ],
-                    "emoji": "⚙",
+                    "emoji": "⚙️",
                     "name": "gear"
                 },
                 {
                     "code": [
                         "1F5DC"
                     ],
-                    "emoji": "🗜",
+                    "emoji": "🗜️",
                     "name": "clamp"
                 },
                 {
                     "code": [
                         "2696"
                     ],
-                    "emoji": "⚖",
+                    "emoji": "⚖️",
                     "name": "balance scale"
                 },
                 {
@@ -10474,7 +10414,7 @@
                     "code": [
                         "26D3"
                     ],
-                    "emoji": "⛓",
+                    "emoji": "⛓️",
                     "name": "chains"
                 },
                 {
@@ -10504,13 +10444,6 @@
                     ],
                     "emoji": "🪜",
                     "name": "ladder"
-                },
-                {
-                    "code": [
-                        "1FA8F"
-                    ],
-                    "emoji": "🪏",
-                    "name": "shovel"
                 }
             ],
             "science": [
@@ -10518,7 +10451,7 @@
                     "code": [
                         "2697"
                     ],
-                    "emoji": "⚗",
+                    "emoji": "⚗️",
                     "name": "alembic"
                 },
                 {
@@ -10648,14 +10581,14 @@
                     "code": [
                         "1F6CF"
                     ],
-                    "emoji": "🛏",
+                    "emoji": "🛏️",
                     "name": "bed"
                 },
                 {
                     "code": [
                         "1F6CB"
                     ],
-                    "emoji": "🛋",
+                    "emoji": "🛋️",
                     "name": "couch and lamp"
                 },
                 {
@@ -10804,7 +10737,7 @@
                     "code": [
                         "26B0"
                     ],
-                    "emoji": "⚰",
+                    "emoji": "⚰️",
                     "name": "coffin"
                 },
                 {
@@ -10818,7 +10751,7 @@
                     "code": [
                         "26B1"
                     ],
-                    "emoji": "⚱",
+                    "emoji": "⚱️",
                     "name": "funeral urn"
                 },
                 {
@@ -10957,7 +10890,7 @@
                     "code": [
                         "26A0"
                     ],
-                    "emoji": "⚠",
+                    "emoji": "⚠️",
                     "name": "warning"
                 },
                 {
@@ -11034,14 +10967,14 @@
                     "code": [
                         "2622"
                     ],
-                    "emoji": "☢",
+                    "emoji": "☢️",
                     "name": "radioactive"
                 },
                 {
                     "code": [
                         "2623"
                     ],
-                    "emoji": "☣",
+                    "emoji": "☣️",
                     "name": "biohazard"
                 }
             ],
@@ -11050,98 +10983,98 @@
                     "code": [
                         "2B06"
                     ],
-                    "emoji": "⬆",
+                    "emoji": "⬆️",
                     "name": "up arrow"
                 },
                 {
                     "code": [
                         "2197"
                     ],
-                    "emoji": "↗",
+                    "emoji": "↗️",
                     "name": "up-right arrow"
                 },
                 {
                     "code": [
                         "27A1"
                     ],
-                    "emoji": "➡",
+                    "emoji": "➡️",
                     "name": "right arrow"
                 },
                 {
                     "code": [
                         "2198"
                     ],
-                    "emoji": "↘",
+                    "emoji": "↘️",
                     "name": "down-right arrow"
                 },
                 {
                     "code": [
                         "2B07"
                     ],
-                    "emoji": "⬇",
+                    "emoji": "⬇️",
                     "name": "down arrow"
                 },
                 {
                     "code": [
                         "2199"
                     ],
-                    "emoji": "↙",
+                    "emoji": "↙️",
                     "name": "down-left arrow"
                 },
                 {
                     "code": [
                         "2B05"
                     ],
-                    "emoji": "⬅",
+                    "emoji": "⬅️",
                     "name": "left arrow"
                 },
                 {
                     "code": [
                         "2196"
                     ],
-                    "emoji": "↖",
+                    "emoji": "↖️",
                     "name": "up-left arrow"
                 },
                 {
                     "code": [
                         "2195"
                     ],
-                    "emoji": "↕",
+                    "emoji": "↕️",
                     "name": "up-down arrow"
                 },
                 {
                     "code": [
                         "2194"
                     ],
-                    "emoji": "↔",
+                    "emoji": "↔️",
                     "name": "left-right arrow"
                 },
                 {
                     "code": [
                         "21A9"
                     ],
-                    "emoji": "↩",
+                    "emoji": "↩️",
                     "name": "right arrow curving left"
                 },
                 {
                     "code": [
                         "21AA"
                     ],
-                    "emoji": "↪",
+                    "emoji": "↪️",
                     "name": "left arrow curving right"
                 },
                 {
                     "code": [
                         "2934"
                     ],
-                    "emoji": "⤴",
+                    "emoji": "⤴️",
                     "name": "right arrow curving up"
                 },
                 {
                     "code": [
                         "2935"
                     ],
-                    "emoji": "⤵",
+                    "emoji": "⤵️",
                     "name": "right arrow curving down"
                 },
                 {
@@ -11206,63 +11139,63 @@
                     "code": [
                         "269B"
                     ],
-                    "emoji": "⚛",
+                    "emoji": "⚛️",
                     "name": "atom symbol"
                 },
                 {
                     "code": [
                         "1F549"
                     ],
-                    "emoji": "🕉",
+                    "emoji": "🕉️",
                     "name": "om"
                 },
                 {
                     "code": [
                         "2721"
                     ],
-                    "emoji": "✡",
+                    "emoji": "✡️",
                     "name": "star of David"
                 },
                 {
                     "code": [
                         "2638"
                     ],
-                    "emoji": "☸",
+                    "emoji": "☸️",
                     "name": "wheel of dharma"
                 },
                 {
                     "code": [
                         "262F"
                     ],
-                    "emoji": "☯",
+                    "emoji": "☯️",
                     "name": "yin yang"
                 },
                 {
                     "code": [
                         "271D"
                     ],
-                    "emoji": "✝",
+                    "emoji": "✝️",
                     "name": "latin cross"
                 },
                 {
                     "code": [
                         "2626"
                     ],
-                    "emoji": "☦",
+                    "emoji": "☦️",
                     "name": "orthodox cross"
                 },
                 {
                     "code": [
                         "262A"
                     ],
-                    "emoji": "☪",
+                    "emoji": "☪️",
                     "name": "star and crescent"
                 },
                 {
                     "code": [
                         "262E"
                     ],
-                    "emoji": "☮",
+                    "emoji": "☮️",
                     "name": "peace symbol"
                 },
                 {
@@ -11406,7 +11339,7 @@
                     "code": [
                         "25B6"
                     ],
-                    "emoji": "▶",
+                    "emoji": "▶️",
                     "name": "play button"
                 },
                 {
@@ -11420,21 +11353,21 @@
                     "code": [
                         "23ED"
                     ],
-                    "emoji": "⏭",
+                    "emoji": "⏭️",
                     "name": "next track button"
                 },
                 {
                     "code": [
                         "23EF"
                     ],
-                    "emoji": "⏯",
+                    "emoji": "⏯️",
                     "name": "play or pause button"
                 },
                 {
                     "code": [
                         "25C0"
                     ],
-                    "emoji": "◀",
+                    "emoji": "◀️",
                     "name": "reverse button"
                 },
                 {
@@ -11448,7 +11381,7 @@
                     "code": [
                         "23EE"
                     ],
-                    "emoji": "⏮",
+                    "emoji": "⏮️",
                     "name": "last track button"
                 },
                 {
@@ -11483,28 +11416,28 @@
                     "code": [
                         "23F8"
                     ],
-                    "emoji": "⏸",
+                    "emoji": "⏸️",
                     "name": "pause button"
                 },
                 {
                     "code": [
                         "23F9"
                     ],
-                    "emoji": "⏹",
+                    "emoji": "⏹️",
                     "name": "stop button"
                 },
                 {
                     "code": [
                         "23FA"
                     ],
-                    "emoji": "⏺",
+                    "emoji": "⏺️",
                     "name": "record button"
                 },
                 {
                     "code": [
                         "23CF"
                     ],
-                    "emoji": "⏏",
+                    "emoji": "⏏️",
                     "name": "eject button"
                 },
                 {
@@ -11562,21 +11495,21 @@
                     "code": [
                         "2640"
                     ],
-                    "emoji": "♀",
+                    "emoji": "♀️",
                     "name": "female sign"
                 },
                 {
                     "code": [
                         "2642"
                     ],
-                    "emoji": "♂",
+                    "emoji": "♂️",
                     "name": "male sign"
                 },
                 {
                     "code": [
                         "26A7"
                     ],
-                    "emoji": "⚧",
+                    "emoji": "⚧️",
                     "name": "transgender symbol"
                 }
             ],
@@ -11585,7 +11518,7 @@
                     "code": [
                         "2716"
                     ],
-                    "emoji": "✖",
+                    "emoji": "✖️",
                     "name": "multiply"
                 },
                 {
@@ -11620,7 +11553,7 @@
                     "code": [
                         "267E"
                     ],
-                    "emoji": "♾",
+                    "emoji": "♾️",
                     "name": "infinity"
                 }
             ],
@@ -11629,14 +11562,14 @@
                     "code": [
                         "203C"
                     ],
-                    "emoji": "‼",
+                    "emoji": "➿",
                     "name": "double exclamation mark"
                 },
                 {
                     "code": [
                         "2049"
                     ],
-                    "emoji": "⁉",
+                    "emoji": "⁉️",
                     "name": "exclamation question mark"
                 },
                 {
@@ -11671,7 +11604,7 @@
                     "code": [
                         "3030"
                     ],
-                    "emoji": "〰",
+                    "emoji": "〰️",
                     "name": "wavy dash"
                 }
             ],
@@ -11696,21 +11629,21 @@
                     "code": [
                         "2695"
                     ],
-                    "emoji": "⚕",
+                    "emoji": "⚕️",
                     "name": "medical symbol"
                 },
                 {
                     "code": [
                         "267B"
                     ],
-                    "emoji": "♻",
+                    "emoji": "♻️",
                     "name": "recycling symbol"
                 },
                 {
                     "code": [
                         "269C"
                     ],
-                    "emoji": "⚜",
+                    "emoji": "⚜️",
                     "name": "fleur-de-lis"
                 },
                 {
@@ -11752,14 +11685,14 @@
                     "code": [
                         "2611"
                     ],
-                    "emoji": "☑",
+                    "emoji": "☑️",
                     "name": "check box with check"
                 },
                 {
                     "code": [
                         "2714"
                     ],
-                    "emoji": "✔",
+                    "emoji": "✔️",
                     "name": "check mark"
                 },
                 {
@@ -11794,57 +11727,50 @@
                     "code": [
                         "303D"
                     ],
-                    "emoji": "〽",
+                    "emoji": "〽️",
                     "name": "part alternation mark"
                 },
                 {
                     "code": [
                         "2733"
                     ],
-                    "emoji": "✳",
+                    "emoji": "✳️",
                     "name": "eight-spoked asterisk"
                 },
                 {
                     "code": [
                         "2734"
                     ],
-                    "emoji": "✴",
+                    "emoji": "✴️",
                     "name": "eight-pointed star"
                 },
                 {
                     "code": [
                         "2747"
                     ],
-                    "emoji": "❇",
+                    "emoji": "❇️",
                     "name": "sparkle"
                 },
                 {
                     "code": [
                         "00A9"
                     ],
-                    "emoji": "©",
+                    "emoji": "©️",
                     "name": "copyright"
                 },
                 {
                     "code": [
                         "00AE"
                     ],
-                    "emoji": "®",
+                    "emoji": "®️",
                     "name": "registered"
                 },
                 {
                     "code": [
                         "2122"
                     ],
-                    "emoji": "™",
+                    "emoji": "™️",
                     "name": "trade mark"
-                },
-                {
-                    "code": [
-                        "1FADF"
-                    ],
-                    "emoji": "🫟",
-                    "name": "splatter"
                 }
             ],
             "keycap": [
@@ -12004,7 +11930,7 @@
                     "code": [
                         "1F170"
                     ],
-                    "emoji": "🅰",
+                    "emoji": "🅰️",
                     "name": "A button (blood type)"
                 },
                 {
@@ -12018,7 +11944,7 @@
                     "code": [
                         "1F171"
                     ],
-                    "emoji": "🅱",
+                    "emoji": "🅱️",
                     "name": "B button (blood type)"
                 },
                 {
@@ -12046,7 +11972,7 @@
                     "code": [
                         "2139"
                     ],
-                    "emoji": "ℹ",
+                    "emoji": "ℹ️",
                     "name": "information"
                 },
                 {
@@ -12060,7 +11986,7 @@
                     "code": [
                         "24C2"
                     ],
-                    "emoji": "Ⓜ",
+                    "emoji": "Ⓜ️",
                     "name": "circled M"
                 },
                 {
@@ -12081,7 +12007,7 @@
                     "code": [
                         "1F17E"
                     ],
-                    "emoji": "🅾",
+                    "emoji": "🅾️",
                     "name": "O button (blood type)"
                 },
                 {
@@ -12095,7 +12021,7 @@
                     "code": [
                         "1F17F"
                     ],
-                    "emoji": "🅿",
+                    "emoji": "🅿️",
                     "name": "P button"
                 },
                 {
@@ -12130,14 +12056,14 @@
                     "code": [
                         "1F202"
                     ],
-                    "emoji": "🈂",
+                    "emoji": "🈂️",
                     "name": "Japanese “service charge” button"
                 },
                 {
                     "code": [
                         "1F237"
                     ],
-                    "emoji": "🈷",
+                    "emoji": "🈷️",
                     "name": "Japanese “monthly amount” button"
                 },
                 {
@@ -12214,14 +12140,14 @@
                     "code": [
                         "3297"
                     ],
-                    "emoji": "㊗",
+                    "emoji": "㊗️",
                     "name": "Japanese “congratulations” button"
                 },
                 {
                     "code": [
                         "3299"
                     ],
-                    "emoji": "㊙",
+                    "emoji": "㊙️",
                     "name": "Japanese “secret” button"
                 },
                 {
@@ -12370,14 +12296,14 @@
                     "code": [
                         "25FC"
                     ],
-                    "emoji": "◼",
+                    "emoji": "◼️",
                     "name": "black medium square"
                 },
                 {
                     "code": [
                         "25FB"
                     ],
-                    "emoji": "◻",
+                    "emoji": "◻️",
                     "name": "white medium square"
                 },
                 {
@@ -12398,14 +12324,14 @@
                     "code": [
                         "25AA"
                     ],
-                    "emoji": "▪",
+                    "emoji": "▪️",
                     "name": "black small square"
                 },
                 {
                     "code": [
                         "25AB"
                     ],
-                    "emoji": "▫",
+                    "emoji": "▫️",
                     "name": "white small square"
                 },
                 {
@@ -12514,7 +12440,7 @@
                     "code": [
                         "1F3F3"
                     ],
-                    "emoji": "🏳",
+                    "emoji": "🏳️",
                     "name": "white flag"
                 },
                 {

@@ -19,7 +19,7 @@ export const GroupRename = ({
 }: GroupRenameProps) => {
   return (
     <Popover open={isOpen} onOpenChange={onClose}>
-      <PopoverContent className="fixed left-5 w-[380px] p-0" style={{ top: `${height + 35}px` }}>
+      <PopoverContent className="fixed left-5 w-[336px] p-0" style={{ top: `${height + 35}px` }}>
         <div className="flex items-center p-1 gap-1">
           <EmojiPicker>
             <button className="transition flex items-center justify-center size-7 rounded-sm shadow-[inset_0_0_0_1px_rgba(55,53,47,0.16)] hover:bg-[#37352f0f] shrink-0">

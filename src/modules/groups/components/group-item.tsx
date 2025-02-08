@@ -35,8 +35,6 @@ export const GroupItem = ({ group }: GroupItemProps) => {
     }, 200);
   }
 
-  console.log(height);
-
   return (
     <>
       <div ref={itemRef} />

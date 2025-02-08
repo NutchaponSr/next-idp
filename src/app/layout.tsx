@@ -27,7 +27,7 @@ export default async function RootLayout({
 
   return (
     <SessionProvider session={session}>
-      <html lang="en">
+      <html lang="en" suppressHydrationWarning>
         <body className={cn(font.className, "antialiased")}>
           <QueryProvider>
             {children}
