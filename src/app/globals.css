@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -77,27 +78,15 @@ body {
   }
 }
 
-/* [data-side='top'] svg {
-  bottom: -9px;
-  left: 50%;
-  transform: translateX(-50%);
-  border-radius: 4px;
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
 }
 
-[data-side='bottom'] svg {
-  top: -9px;
-  left: 50%;
-  transform: translateX(-50%) rotate(180deg);
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #c0bebe;
+  border-radius: 10px;
 }
 
-[data-side='left'] svg {
-  right: -20.25px;
-  top: 50%;
-  transform: translateY(-50%) rotate(-90deg);
+.custom-scrollbar::-webkit-scrollbar-track {
+  background-color: transparent;
 }
-
-[data-side='right'] svg {
-  left: -20.25px;
-  top: 50%;
-  transform: translateY(-50%) rotate(90deg);
-} */

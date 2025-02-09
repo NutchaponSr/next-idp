@@ -65,7 +65,14 @@ export const GroupItem = ({ group }: GroupItemProps) => {
           trigger={<DotIcon className="size-6" />}
         />
       </SidebarItem>
-      <GroupRename isOpen={isRename} height={height} onClose={() => setIsRename(false)} />
+      <GroupRename 
+        isOpen={isRename} 
+        height={height} 
+        onClose={() => setIsRename(false)} 
+        id={group.id}
+        name={group.name}
+        emoji={group.icon}
+      />
     </>
   );
 }

@@ -30,9 +30,9 @@ export const Hint = ({
           align={align}
           side={side}
           sideOffset={sideOffset}
-          className="py-1 px-2"
+          className="py-1 px-1.5"
         >
-          <p className="text-sm font-medium">{label}</p>
+          <p className="text-xs font-medium">{label}</p>
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>

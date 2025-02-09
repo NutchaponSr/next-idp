@@ -74,7 +74,8 @@ export const Trigger = ({
 }: TriggerProps) => {
   const router = useRouter();
 
-  const iconMerged = React.createElement(icon!, {
+  const DefaultIcon = () => <div />;
+  const iconMerged = React.createElement(icon || DefaultIcon, {
     className: cn(iconVariant({ variant, size })),
     variant: IconVariant.BULK,
   });
@@ -92,7 +93,7 @@ export const Trigger = ({
                 <div 
                   role="button"
                   className={cn(
-                    "absolute inset-0 flex items-center justify-center rounded-sm transition-opacity duration-100 group-hover/workspace:opacity-0",
+                    "absolute inset-0 flex items-center justify-center rounded-sm transition-opacity duration-100 group-hover/workspace:opacity-0 text-lg",
                     backgroundVariant({ background }),
                     notChild && "group-hover/workspace:opacity-100"
                   )}
