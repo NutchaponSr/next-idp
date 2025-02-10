@@ -5,7 +5,7 @@ import { ChevronsLeftIcon } from "lucide-react";
 import { ElementRef, useRef, useState } from "react";
 
 import { cn } from "@/lib/utils";
-import { IconVariant } from "@/types/icon";
+import { sidebarIconProps } from "@/types/icon";
 
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -29,12 +29,7 @@ import { GroupSpace } from "@/modules/groups/components/group-space";
 import { SidebarItem } from "./sidebar-item";
 import { useSidebarToggle } from "../stores/use-sidebar-toggle";
 import { CompetencySpace } from "@/modules/competencies/components/competency-space";
-
-const iconProps = {
-  variant: IconVariant.BULK,
-  className: "size-[18px]",
-  fill: "#91918e",
-}
+import { Trash } from "./trash";
 
 export const Sidebar = () => {
   const { on, toggle } = useSidebarToggle();
@@ -144,11 +139,11 @@ export const Sidebar = () => {
         </Button>
         <div className="text-[#5f5e5b] flex flex-col max-h-full justify-between overflow-hidden relative">
           <UserButton side="left" />
-          <Menu icon={<SearchIcon {...iconProps} />} label="Search" onClick={() => {}} showBadge />
-          <Menu icon={<AiChatIcon {...iconProps} />} label="Jotion AI" onClick={() => {}} />
-          <Menu icon={<HomeIcon {...iconProps} />} label="Home" onClick={() => {}} />
-          <Menu icon={<InboxIcon {...iconProps} />} label="Inbox" onClick={() => {}} />
-          <Menu icon={<Settings1Icon {...iconProps} />} label="Settings" onClick={() => {}} />
+          <Menu icon={<SearchIcon {...sidebarIconProps} />} label="Search" onClick={() => {}} showBadge />
+          <Menu icon={<AiChatIcon {...sidebarIconProps} />} label="Jotion AI" onClick={() => {}} />
+          <Menu icon={<HomeIcon {...sidebarIconProps} />} label="Home" onClick={() => {}} />
+          <Menu icon={<InboxIcon {...sidebarIconProps} />} label="Inbox" onClick={() => {}} />
+          <Menu icon={<Settings1Icon {...sidebarIconProps} />} label="Settings" onClick={() => {}} />
           <ScrollArea className="z-[1] pt-1.5 grow overflow-x-hidden overflow-y-auto">
             <div className="flex flex-col space-y-3 pb-5 shadow-[0_-1px_0_rgba(0,0,0,0.024)]">
               <div className="flex flex-col gap-1">
@@ -183,8 +178,7 @@ export const Sidebar = () => {
                   </div>
                 </div>
               </div>
-              {/* Trash */}
-              <Menu icon={<TrashIcon {...iconProps} />} label="Trash" onClick={() => {}} />
+              <Trash />
             </div>
           </ScrollArea>
         </div>

@@ -4,28 +4,27 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { client } from "@/lib/rpc";
 
-type RequestType = InferRequestType<typeof client.api.groups["trash"][":id"]["$patch"]>;
-type ResponseType = InferResponseType<typeof client.api.groups["trash"][":id"]["$patch"]>;
+type RequestType = InferRequestType<typeof client.api.groups["duplicate"][":id"]["$post"]>;
+type ResponseType = InferResponseType<typeof client.api.groups["duplicate"][":id"]["$post"]>;
 
-export const useTrashGroup = () => {
+export const useDuplicateGroup = () => {
   const queryClient = useQueryClient();
   const mutation = useMutation<ResponseType, Error, RequestType>({
     mutationFn: async ({ param }) => {
-      const response = await client.api.groups["trash"][":id"]["$patch"]({ param });
+      const response = await client.api.groups["duplicate"][":id"]["$post"]({ param });
 
       if (!response.ok) {
-        throw new Error("Failed to trash group");
+        throw new Error("Failed to duplicate group");
       }
 
       return await response.json();
     },
     onSuccess: () => {
-      toast.success("Group trashed", { id: "trash-group" });
+      toast.success("Group duplicated", { id: "duplicate-group" });
       queryClient.invalidateQueries({ queryKey: ["groups"] });
-      queryClient.invalidateQueries({ queryKey: ["trashs"] });
     },
     onError: () => {
-      toast.error("Failed to trash group", { id: "trash-group" });
+      toast.error("Failed to duplicate group", { id: "duplicate-group" });
     },
   });
 

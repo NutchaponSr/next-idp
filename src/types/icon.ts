@@ -16,3 +16,9 @@ export interface IconBaseProps extends React.SVGAttributes<SVGElement> {
 export type IconDefinition = Record<IconVariant, JSX.Element>;
 
 export type IconType = (props: IconBaseProps) => JSX.Element;
+
+export const sidebarIconProps = {
+  variant: IconVariant.BULK,
+  className: "size-[18px]",
+  fill: "#91918e",
+}

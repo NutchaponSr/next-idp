@@ -113,7 +113,7 @@ const app = new Hono()
           year: query.year,
           createdBy: auth.token.sub,
           updatedBy: auth.token.sub,
-          name: query.name + "(Copy)",
+          name: query.name + " (Copy)",
         });
 
       return c.json(null, 200);

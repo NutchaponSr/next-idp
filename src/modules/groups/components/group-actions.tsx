@@ -29,6 +29,7 @@ import {
 
 import { ResponseType } from "@/modules/groups/api/use-get-groups";
 import { useTrashGroup } from "../api/use-trash-group";
+import { useDuplicateGroup } from "../api/use-duplicate-group";
 
 interface GroupActionsProps {
   group: ResponseType;
@@ -37,9 +38,12 @@ interface GroupActionsProps {
 
 export const GroupActions = ({ group, onRename }: GroupActionsProps) => {
   const { mutate: trash } = useTrashGroup();
+  const { mutate: duplicate } = useDuplicateGroup();
   
   const [isOpen, setIsOpen] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
+
+  const baseUrl = `${process.env.NEXT_PUBLIC_APP_URL}/groups/${group.id}`;
 
   const onOpenChange = (open: boolean) => {
     setIsOpen(open);
@@ -56,10 +60,21 @@ export const GroupActions = ({ group, onRename }: GroupActionsProps) => {
   }, [group.id, trash]);
 
   const onCopy = () => {
-    navigator.clipboard.writeText(`/groups/${group.id}`)
+    navigator.clipboard.writeText(baseUrl)
       .then(() => 
         toast.success("Copied link to cilpboard")
       );
+  }
+
+  const onNewTab = () => {
+    if (typeof window !== "undefined") {
+      window.open(baseUrl, "_blank");
+    }
+  }
+
+  const onDuplicate = () => {
+    toast.loading("Duplicating group...", { id: "duplicate-group" });
+    duplicate({ param: { id: group.id } });
   }
 
   return (
@@ -97,7 +112,7 @@ export const GroupActions = ({ group, onRename }: GroupActionsProps) => {
               <LinkIcon className="text-primary" />
               Copy link
             </DropdownMenuItem>
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={onDuplicate}>
               <CopyIcon className="text-primary" />
               Duplicate
             </DropdownMenuItem>
@@ -110,7 +125,7 @@ export const GroupActions = ({ group, onRename }: GroupActionsProps) => {
               Move to Trash
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={onNewTab}>
               <ArrowUpRightIcon className="text-primary" />
               Open in new tab
             </DropdownMenuItem>

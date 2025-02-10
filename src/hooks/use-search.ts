@@ -1,33 +1,27 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useMemo } from "react";
 
-type NestedKey<T> = {
-  [K in keyof T]: T[K] extends object ? K : never
-}[keyof T]
+type SearchableItem = {
+  [key: string]: any;
+}
 
-type NestedValue<T, K extends NestedKey<T>> = T[K] extends (infer U)[] ? U : never
-
-export const useSearch = <T, K extends NestedKey<T>>(
+export const useSearch = <T extends SearchableItem>(
   items: T[],
-  searchKeys: (keyof NestedValue<T, K>)[],
-  nestedKey: K,
+  searchKey: (keyof T)[],
 ) => {
-  const [searchQuery, setSearchQuery] = useState("")
+  const [searchQuery, setSearchQuery] = useState("");
 
   const filteredItems = useMemo(() => {
-    if (!searchQuery) return items
+    if (!searchQuery) return items;
 
-    return items
-      .map((item) => ({
-        ...item,
-        [nestedKey]: (item[nestedKey] as any[]).filter((nestedItem) =>
-          searchKeys.some((key) =>
-            nestedItem[key as keyof typeof nestedItem].toString().toLowerCase().includes(searchQuery.toLowerCase()),
-          ),
-        ),
-      }))
-      .filter((item) => (item[nestedKey] as any[]).length > 0)
-  }, [items, searchKeys, searchQuery, nestedKey])
-
-  return { searchQuery, setSearchQuery, filteredItems }
+    return items.filter((item) => 
+      searchKey.some((key) => item[key].toString().toLowerCase().includes(searchQuery.toLowerCase()))
+    );
+  }, [items, searchKey, searchQuery]);
+  
+  return {
+    searchQuery,
+    setSearchQuery,
+    filteredItems
+  };
 }

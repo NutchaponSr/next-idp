@@ -1,6 +1,7 @@
 import authConfig from "@/auth.config";
 
 import groups from "@/modules/groups/server/route";
+import trashs from "@/modules/dashboard/server/trashs";
 import competencies from "@/modules/competencies/server/route";
 
 import { Hono } from "hono";
@@ -29,6 +30,7 @@ app.use("*", initAuthConfig(getAuthConfig));
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const routes = app
   .route("/groups", groups)
+  .route("/trashs", trashs)
   .route("/competencies", competencies)
 
 export const GET = handle(app);
