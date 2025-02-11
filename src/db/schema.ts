@@ -36,7 +36,7 @@ export const groupsInsertSchema = createInsertSchema(groups);
 export const typesCompetency = pgEnum("typesCompetency", ["CC", "FC", "TC"]);
 
 export const competencies = pgTable("competency", {
-  id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
+  id: text("id").primaryKey().$defaultFn(() => cuid()),
   name: text("name").notNull(),
   icon: text("icon"),
   definition: text("definition"),

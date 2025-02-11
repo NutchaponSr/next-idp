@@ -12,6 +12,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useSidebarToggle } from "@/modules/dashboard/stores/use-sidebar-toggle";
 import { CompetencyType } from "@/types/competency";
 import { getEmojiForType } from "@/lib/utils";
+import { CompetencyActions } from "./competency-actions";
 
 export const CompetencySpace = () => {
   const {
@@ -87,6 +88,7 @@ export const CompetencySpace = () => {
                 href={`/competencies/${competency.id}`}
                 trigger={competency.icon}
                 background="none"
+                actions={<CompetencyActions />}
               />
             ))
           ) : (

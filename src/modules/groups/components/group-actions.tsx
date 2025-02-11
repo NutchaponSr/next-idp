@@ -50,15 +50,6 @@ export const GroupActions = ({ group, onRename }: GroupActionsProps) => {
     if (open) setShowTooltip(false);
   }
 
-  const onTrash = useCallback(() => {
-    toast.loading("Trashing group...", { id: "trash-group" });
-    trash({ 
-      param: {
-        id: group.id
-      }
-    });
-  }, [group.id, trash]);
-
   const onCopy = () => {
     navigator.clipboard.writeText(baseUrl)
       .then(() => 
@@ -71,6 +62,15 @@ export const GroupActions = ({ group, onRename }: GroupActionsProps) => {
       window.open(baseUrl, "_blank");
     }
   }
+
+  const onTrash = useCallback(() => {
+    toast.loading("Trashing group...", { id: "trash-group" });
+    trash({ 
+      param: {
+        id: group.id
+      }
+    });
+  }, [group.id, trash]);
 
   const onDuplicate = () => {
     toast.loading("Duplicating group...", { id: "duplicate-group" });

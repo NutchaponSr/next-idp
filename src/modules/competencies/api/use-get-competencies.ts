@@ -1,5 +1,9 @@
-import { client } from "@/lib/rpc";
+import { InferResponseType } from "hono";
 import { useQuery } from "@tanstack/react-query";
+
+import { client } from "@/lib/rpc";
+
+export type ResponseType = InferResponseType<typeof client.api.competencies.$get, 200>["data"][0];
 
 export const useGetCompetencies = () => {
   const query = useQuery({
