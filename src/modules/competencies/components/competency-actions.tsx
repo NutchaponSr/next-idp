@@ -1,6 +1,6 @@
 import { toast } from "sonner";
-import { useCallback, useState } from "react";
 import { format } from "date-fns";
+import { useCallback, useState } from "react";
 import { MoreHorizontalIcon } from "lucide-react";
 
 import {
@@ -31,17 +31,18 @@ import { useTrashCompetency } from "@/modules/competencies/api/use-trash-compete
 import { useDuplicateCompetency } from "@/modules/competencies/api/use-duplicate-competency";
 
 interface CompetencyActionsProps {
-  competency: ResponseType
+  competency: ResponseType;
+  onRename: () => void;
 }
 
-export const CompetencyActions = ({ competency }: CompetencyActionsProps) => {
+export const CompetencyActions = ({ competency, onRename }: CompetencyActionsProps) => {
   const { mutate: trash } = useTrashCompetency();
   const { mutate: duplicate } = useDuplicateCompetency();
 
   const [isOpen, setIsOpen] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
 
-  const baseUrl = `${process.env.NEXT_PUBLIC_APP_URL}/groups/${competency.id }`;
+  const baseUrl = `${process.env.NEXT_PUBLIC_APP_URL}/competencies/${competency.id }`;
   
   const onOpenChange = (open: boolean) => {
     setIsOpen(open);
@@ -62,18 +63,18 @@ export const CompetencyActions = ({ competency }: CompetencyActionsProps) => {
   }
 
   const onTrash = useCallback(() => {
-    toast.loading("Trashing group...", { id: "trash-group" });
+    toast.loading("Trashing competency...", { id: "trash-competency" });
     trash({ 
       param: {
-        id: group.id
+        id: competency.id
       }
     });
   }, [competency.id, trash]);
 
-  const onDuplicate = () => {
-    toast.loading("Duplicating group...", { id: "duplicate-group" });
-    duplicate({ param: { id: group.id } });
-  }
+  const onDuplicate = useCallback(() => {
+    toast.loading("Duplicating group...", { id: "duplicate-competency" });
+    duplicate({ param: { id: competency.id } });
+  }, [competency.id, duplicate]);
 
   return (
     <TooltipProvider>
@@ -101,24 +102,24 @@ export const CompetencyActions = ({ competency }: CompetencyActionsProps) => {
             className="w-[265px]" 
             onClick={(e) => e.stopPropagation()} 
           >
-          <DropdownMenuItem onClick={() => {}}>
+          <DropdownMenuItem onClick={onCopy}>
               <LinkIcon className="text-primary" />
               Copy link
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => {}}>
+            <DropdownMenuItem onClick={onDuplicate}>
               <CopyIcon className="text-primary" />
               Duplicate
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => {}}>
+            <DropdownMenuItem onClick={onRename}>
               <NoteEditIcon className="text-primary" />
               Rename
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => {}} className="group focus:text-destructive">
+            <DropdownMenuItem onClick={onTrash} className="group focus:text-destructive">
               <TrashIcon className="text-primary group-focus:text-destructive transition-colors" />
               Move to Trash
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => {}}>
+            <DropdownMenuItem onClick={onNewTab}>
               <ArrowUpRightIcon className="text-primary" />
               Open in new tab
             </DropdownMenuItem>

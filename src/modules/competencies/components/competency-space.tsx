@@ -12,7 +12,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useSidebarToggle } from "@/modules/dashboard/stores/use-sidebar-toggle";
 import { CompetencyType } from "@/types/competency";
 import { getEmojiForType } from "@/lib/utils";
-import { CompetencyActions } from "./competency-actions";
+import { CompetencyItem } from "./competency-item";
 
 export const CompetencySpace = () => {
   const {
@@ -80,16 +80,8 @@ export const CompetencySpace = () => {
           }
         >
           {initialCompetencies.length ? (
-            initialCompetencies.map((competency) => (
-              <SidebarItem 
-                key={competency.id}
-                label={competency.name}
-                indent="pl-5"
-                href={`/competencies/${competency.id}`}
-                trigger={competency.icon}
-                background="none"
-                actions={<CompetencyActions />}
-              />
+            initialCompetencies.map((competency, index) => (
+              <CompetencyItem key={index} competency={competency} />
             ))
           ) : (
             <div className="flex items-center min-h-[30px] p-1 pl-5 w-full text-sm">
