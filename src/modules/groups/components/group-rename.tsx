@@ -8,6 +8,7 @@ import { EmojiPicker } from "@/components/emoji-picker";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useRenameGroup } from "../api/use-rename-group";
+import { Input } from "@/components/ui/input";
 
 interface GroupRenameProps {
   height: number;
@@ -63,10 +64,11 @@ export const GroupRename = ({
               {emojiForm ? emojiForm : <HashIcon className="size-[18px] text-[#A5A29A]" />}
             </button>
           </EmojiPicker>
-          <input 
+          <Input 
             value={nameForm}
+            area="sm"
+            variant="secondary"
             onChange={(e) => setNameForm(e.target.value)}
-            className="w-full max-w-full focus:outline-none break-words whitespace-pre-wrap py-1 px-2.5 grow rounded-sm shadow-[inset_0_0_0_1px_rgba(55,53,47,0.16)] text-sm bg-[#f2f1ee99] text-primary"
           />
           <Button size="sm" variant="primary">
             Save

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useToggle } from "react-use";
 
 import { FilterVariant } from "@/types/filter";
@@ -24,14 +25,29 @@ import { TrashItem } from "@/modules/dashboard/components/trash-item";
 
 import { useGetTrashs } from "@/modules/dashboard/api/use-get-trashs";
 import { useSearch } from "@/hooks/use-search";
+import { TrashCategory } from "@/types/trash";
+import { useDeleteBulkTrash } from "../api/use-delete-bulk-trash";
+import { useConfirm } from "@/hooks/use-confirm";
+import { toast } from "sonner";
 
 export const Trash = () => {
   const [on, toggle] = useToggle(false);
+  const [ConfirmDialog, confirm] = useConfirm({
+    title: "Are you sure you want to delete \n this stuff from Trash?",
+    description: "",
+    className: "w-[300px]",
+    confirmLabel: "Yes. Delete this stuff",
+    cancelLabel: "Cancel",
+  });
   
   const { 
     data: queryData, 
     isLoading: loadingTrashs 
   } = useGetTrashs(on);
+  const { mutate: deleteAll } = useDeleteBulkTrash(); 
+
+  const [peoples, setPeoples] = useState<string[]>([]);
+  const [categories, setCategories] = useState<TrashCategory[]>([]);
 
   const trashs = queryData?.data.populatedData || [];
   const updatedBy = queryData?.data.updatedPeoples || [];
@@ -41,6 +57,22 @@ export const Trash = () => {
     setSearchQuery,
     filteredItems
   } = useSearch(trashs || [], ["name"]);
+
+  const finalFiltered = peoples.length <= 0 || categories.length || 0
+    ? filteredItems.filter((item) => 
+      peoples.length === 0 || peoples.includes(item.updatedBy) &&
+      categories.length === 0 || categories.includes(item.type)
+    )
+    : filteredItems;
+
+  const onDelete = async () => {
+    const ok = await confirm();
+
+    if (ok) {
+      toast.loading("Deleting...", { id: "delete-bulk-trash" });
+      deleteAll();
+    }
+  }
   
   return (
     <Popover>
@@ -55,6 +87,7 @@ export const Trash = () => {
         </button>
       </PopoverTrigger>
       <PopoverContent side="right" sideOffset={6} className="w-[414px] h-[40vh] max-h-[70vh] p-0">
+        <ConfirmDialog />
         <div className="flex flex-col h-full">
           <div className="shrink-0 space-y-2.5">
             <div className="flex items-center w-full min-h-7 p-2">
@@ -73,15 +106,17 @@ export const Trash = () => {
               label="Created By"
               icon={UserIcon}
               variant={FilterVariant.COMMAND} 
+              onSelect={(value: string[]) => setPeoples(value)}
             />
             <Filter 
               data={[
-                { label: "Group", icon: FolderLibraryIcon },
-                { label: "Competency", icon: Notebook1Icon },
+                { id: TrashCategory.GROUP, label: "Group", icon: FolderLibraryIcon },
+                { id: TrashCategory.COMPETENCY, label: "Competency", icon: Notebook1Icon },
               ]}
               label="In"
               icon={File1Icon}
               variant={FilterVariant.COMMAND} 
+              onSelect={(value: string[]) => setCategories(value as TrashCategory[])}
             />
           </div>
           <div className="grow overflow-x-hidden overflow-y-auto custom-scrollbar">
@@ -94,8 +129,8 @@ export const Trash = () => {
                   </span>
                 </div>
               ) : (
-                filteredItems.length ? (
-                  filteredItems.map((trash) => (
+                finalFiltered.length ? (
+                  finalFiltered.map((trash) => (
                     <TrashItem 
                       key={trash.id}
                       id={trash.id}
@@ -119,7 +154,7 @@ export const Trash = () => {
           <div className="p-2 bg-[#2383e212] shadow-[0_-1px_0_rgba(55,53,47,0.09)] rounded-b-md px-2 flex items-center justify-between">
             <p className="text-xs text-[#37352fa6] dark:text-[#ffffff71]">Pages in Trash for over 30 days will be automatically deleted</p>
             <Hint label="Delete all">
-              <Button variant="outline" size="icon">
+              <Button variant="outline" size="icon" onClick={onDelete}>
                 <TrashIcon className="text-[#91918e] size-4" />
               </Button>
             </Hint>

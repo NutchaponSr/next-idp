@@ -23,21 +23,21 @@ const app = new Hono()
         .from(groups)
         .where(eq(groups.inTrash, false))
 
-      const groupsWithUpdatedBy = await Promise.all(
+      const populatedData = await Promise.all(
         data.map(async (group) => {
-          const updatedByUser = await db
+          const [updatedByUser] = await db
             .select({ name: users.name })
             .from(users)
             .where(eq(users.id, group.updatedBy))
           
           return {
             ...group,
-            updatedBy: updatedByUser[0].name,
+            updatedBy: updatedByUser.name,
           };
         }),
       );
       
-      return c.json({ data: groupsWithUpdatedBy });
+      return c.json({ data: populatedData });
     }
   )
   .post(

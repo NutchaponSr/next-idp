@@ -6,17 +6,26 @@ interface FilterProps {
   label: string;
   icon: React.ElementType;
   variant: FilterVariant;
+  onSelect: (value: string[]) => void;
 }
 
 export const Filter = ({ 
   data,
   label,
   icon, 
-  variant 
+  variant,
+  onSelect
 }: FilterProps) => {
   switch (variant) {
     case FilterVariant.COMMAND: {
-      return <FilterCommand label={label} icon={icon} data={data} />
+      return (
+        <FilterCommand 
+          data={data} 
+          icon={icon} 
+          label={label} 
+          onSelect={onSelect}
+        />
+      );
     }
   }
 }

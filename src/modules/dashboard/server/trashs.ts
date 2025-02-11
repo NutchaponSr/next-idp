@@ -65,6 +65,7 @@ const app = new Hono()
 
       const updatedPeoples = await db
         .select({
+          id: users.id,
           label: users.name,
           header: users.image,
         })
@@ -192,6 +193,28 @@ const app = new Hono()
       }
 
       return c.json(null, 200)
+    }
+  )
+  .post(
+    "/bulk-delete",
+    verifyAuth(),
+    async (c) => {
+      const auth = c.get("authUser");
+
+      if (!auth.token?.sub) {
+        return c.json({ error: "Unauthorized" }, 401);
+      }
+
+      console.log("Here")
+
+      await Promise.all([
+        db.delete(groups)
+          .where(eq(groups.inTrash, true)),
+        db.delete(competencies)
+          .where(eq(competencies.inTrash, true)),
+      ]);
+
+      return c.json(null, 200);
     }
   )
 

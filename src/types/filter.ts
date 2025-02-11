@@ -6,6 +6,7 @@ export enum FilterVariant {
 }
 
 export type FilterData = {
+  id: string;
   label: string;
   header?: string | null;
   icon?: IconType;

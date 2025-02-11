@@ -2,9 +2,9 @@ import { Hono } from "hono";
 import { verifyAuth } from "@hono/auth-js";
 import { zValidator } from "@hono/zod-validator";
 
-import { eq } from "drizzle-orm";
 import { db } from "@/db/drizzle";
-import { compentenciesInsertSchema, competencies } from "@/db/schema";
+import { eq, desc } from "drizzle-orm";
+import { compentenciesInsertSchema, competencies, users } from "@/db/schema";
 
 const app = new Hono()
   .get(
@@ -21,8 +21,23 @@ const app = new Hono()
         .select()
         .from(competencies)
         .where(eq(competencies.inTrash, false))
+        .orderBy(desc(competencies.createdAt));
 
-      return c.json({ data });
+      const populatedData = await Promise.all(
+        data.map(async (competency) => {
+          const updatedByUser = await db
+            .select({ name: users.name })
+            .from(users)
+            .where(eq(users.id, competencies.updatedBy))
+
+          return {
+            ...competency,
+            updatedBy: updatedByUser[0].name,
+          };
+        }),
+      );
+
+      return c.json({ data: populatedData });
     }
   )
   .post(
