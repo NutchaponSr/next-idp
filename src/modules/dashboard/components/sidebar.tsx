@@ -6,6 +6,8 @@ import { ElementRef, useRef, useState } from "react";
 
 import { cn } from "@/lib/utils";
 import { sidebarIconProps } from "@/types/icon";
+import { WorkspaceKey } from "@/types/workspace";
+import { useKeyboard } from "@/hooks/use-keyboard";
 
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -18,20 +20,21 @@ import {
   Notebook1Icon, 
   SearchIcon, 
   Settings1Icon,
-  TrashIcon
 } from "@/components/icons";
 
 import { Menu } from "@/modules/dashboard/components/menu";
+import { Trash } from "@/modules/dashboard/components/trash";
 import { Navbar } from "@/modules/dashboard/components/navbar";
 import { UserButton } from "@/modules/auth/components/user-button";
-import { WorkspaceKey } from "@/types/workspace";
 import { GroupSpace } from "@/modules/groups/components/group-space";
-import { SidebarItem } from "./sidebar-item";
-import { useSidebarToggle } from "../stores/use-sidebar-toggle";
+import { SidebarItem } from "@/modules/dashboard/components/sidebar-item";
 import { CompetencySpace } from "@/modules/competencies/components/competency-space";
-import { Trash } from "./trash";
+
+import { useSearchCommand } from "@/modules/dashboard/stores/use-search-command";
+import { useSidebarToggle } from "@/modules/dashboard/stores/use-sidebar-toggle";
 
 export const Sidebar = () => {
+  const { onOpen } = useSearchCommand();
   const { on, toggle } = useSidebarToggle();
 
   const isMobile = useMedia("(max-width: 768px)");
@@ -117,6 +120,14 @@ export const Sidebar = () => {
     } 
   }
 
+  useKeyboard([
+    {
+      key: "k",
+      ctrl: true,
+      fn: () => onOpen(),
+    }
+  ]);
+
   return (
     <>
       <aside 
@@ -139,7 +150,7 @@ export const Sidebar = () => {
         </Button>
         <div className="text-[#5f5e5b] flex flex-col max-h-full justify-between overflow-hidden relative">
           <UserButton side="left" />
-          <Menu icon={<SearchIcon {...sidebarIconProps} />} label="Search" onClick={() => {}} showBadge />
+          <Menu icon={<SearchIcon {...sidebarIconProps} />} label="Search" onClick={onOpen} showBadge />
           <Menu icon={<AiChatIcon {...sidebarIconProps} />} label="Jotion AI" onClick={() => {}} />
           <Menu icon={<HomeIcon {...sidebarIconProps} />} label="Home" onClick={() => {}} />
           <Menu icon={<InboxIcon {...sidebarIconProps} />} label="Inbox" onClick={() => {}} />

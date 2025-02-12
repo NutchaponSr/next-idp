@@ -1,17 +1,28 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+// import localFont from "next/font/local";
 import "./globals.css";
 
 import { cn } from "@/lib/utils";
 
 import { auth } from "@/auth";
 import { SessionProvider } from "next-auth/react";
-import { QueryProvider } from "@/components/providers/query-provider";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
+
 import { Toaster } from "@/components/ui/sonner";
+
+import { QueryProvider } from "@/components/providers/query-provider";
+import { ModalProvider } from "@/components/providers/modal-provider";
 
 const font = Inter({
   subsets: ["latin"],
 });
+
+// const geistSans = localFont({
+//   src: "./fonts/GeistVF.woff",
+//   variable: "--font-geist-sans",
+//   weight: "100 900",
+// });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -29,10 +40,13 @@ export default async function RootLayout({
     <SessionProvider session={session}>
       <html lang="en" suppressHydrationWarning>
         <body className={cn(font.className, "antialiased")}>
-          <QueryProvider>
-            {children}
-            <Toaster richColors />
-          </QueryProvider>
+          <NuqsAdapter>
+            <QueryProvider>
+              {children}
+              <Toaster richColors />
+              <ModalProvider />
+            </QueryProvider>
+          </NuqsAdapter>
         </body>
       </html>
     </SessionProvider>

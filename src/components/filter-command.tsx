@@ -22,7 +22,7 @@ interface FilterCommandProps {
   data: FilterData;
   label: string;
   icon: React.ElementType;
-  onSelect: (value: string[]) => void
+  onSelect?: (value: string[]) => void
 }
 
 export const FilterCommand = ({ data, label, icon, onSelect }: FilterCommandProps) => {
@@ -49,7 +49,7 @@ export const FilterCommand = ({ data, label, icon, onSelect }: FilterCommandProp
                       : [...selectedValues, item.id]; 
 
                     setSelectedValues(newSelection); 
-                    onSelect(newSelection); 
+                    if (onSelect) onSelect(newSelection); 
                   }}
                 >
                   {item.icon ? (

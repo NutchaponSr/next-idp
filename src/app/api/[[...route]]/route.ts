@@ -1,6 +1,7 @@
 import authConfig from "@/auth.config";
 
 import groups from "@/modules/groups/server/route";
+import search from "@/modules/dashboard/server/search";
 import trashs from "@/modules/dashboard/server/trashs";
 import competencies from "@/modules/competencies/server/route";
 
@@ -30,6 +31,7 @@ app.use("*", initAuthConfig(getAuthConfig));
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const routes = app
   .route("/groups", groups)
+  .route("/search", search)
   .route("/trashs", trashs)
   .route("/competencies", competencies)
 
