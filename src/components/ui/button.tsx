@@ -17,8 +17,9 @@ const buttonVariants = cva(
         link: "text-primary underline-offset-4 hover:underline",
         primary: "bg-[#2383e2] hover:bg-[#0077d4] shadow-[inset_0_0_0_1px_rgba(15,15,15,0.1),0_1px_2px_rgba(15,15,15,0.1)] text-white",
         primaryOutline: "bg-[#ebf5fe] text-[#087fe7] hover:bg-[#d6e1f5]",
-        filterAct: "bg-[#2383e208] text-[#2383e2] hover:bg-[#2383e212] border border-[#2383e259]",
         filter: "text-[#7c7c78] hover:bg-[#37352f0f] dark:hover:bg-[#ffffff0e] border border-[#37352f29] dark:border-[#ffffff21]",
+        filterAct1: "bg-[#2383e208] text-[#2383e2] hover:bg-[#2383e212] border border-[#2383e259]",
+        filterAct2: "hover:bg-[#ebf5fe] dark:hover:bg-[#2383e212] text-[#2383e2]",
         gray: "border text-primary border-[#37352f29] hover:bg-[#37352f0f]",
       },
       size: {

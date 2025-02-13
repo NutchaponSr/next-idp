@@ -22,16 +22,16 @@ interface FilterCommandProps {
   data: FilterData;
   label: string;
   icon: React.ElementType;
-  onSelect?: (value: string[]) => void
+  isFilter: boolean;
 }
 
-export const FilterCommand = ({ data, label, icon, onSelect }: FilterCommandProps) => {
+export const FilterCommand = ({ data, label, icon, isFilter }: FilterCommandProps) => {
   const [selectedValues, setSelectedValues] = useState<string[]>([]);
 
   return (
     <Popover>
       <PopoverTrigger>
-        <FilterButton label={label} icon={icon} />
+        <FilterButton label={label} icon={icon} isFilter={isFilter} />
       </PopoverTrigger>
       <PopoverContent className="p-0 w-60" align="start">
         <Command>
@@ -48,8 +48,9 @@ export const FilterCommand = ({ data, label, icon, onSelect }: FilterCommandProp
                       ? selectedValues.filter((v) => v !== item.id)
                       : [...selectedValues, item.id]; 
 
-                    setSelectedValues(newSelection); 
-                    if (onSelect) onSelect(newSelection); 
+                    setSelectedValues(newSelection);
+                    
+                    if (item.onSelect) item.onSelect(newSelection); 
                   }}
                 >
                   {item.icon ? (

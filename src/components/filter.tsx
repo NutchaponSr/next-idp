@@ -9,7 +9,7 @@ interface FilterProps {
   label: string;
   icon: React.ElementType;
   variant: FilterVariant;
-  onSelect?: (value: string[]) => void;
+  isFilter: boolean;
 }
 
 export const Filter = ({ 
@@ -17,7 +17,7 @@ export const Filter = ({
   label,
   icon, 
   variant,
-  onSelect
+  isFilter
 }: FilterProps) => {
   switch (variant) {
     case FilterVariant.COMMAND: {
@@ -26,15 +26,17 @@ export const Filter = ({
           data={data} 
           icon={icon} 
           label={label} 
-          onSelect={onSelect}
+          isFilter={isFilter}
         />
       );
     }
     case FilterVariant.DROPDOWN: {
       return (
-        <FilterDropdownMenu 
+        <FilterDropdownMenu
+          isFilter={isFilter} 
           label={label}
           icon={icon}
+          data={data}
         />
       );
     }

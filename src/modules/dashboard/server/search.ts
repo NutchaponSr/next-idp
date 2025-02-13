@@ -6,8 +6,9 @@ import { zValidator } from "@hono/zod-validator";
 import { sortMap } from "@/types/filter";
 
 import { db } from "@/db/drizzle";
-import { and, eq, inArray, sql } from "drizzle-orm";
+import { and, eq, inArray, ilike } from "drizzle-orm";
 import { competencies, groups, users } from "@/db/schema";
+import { TrashCategory } from "@/types/trash";
 
 const app = new Hono()
   .get(
@@ -29,9 +30,11 @@ const app = new Hono()
         return c.json({ error: "Unauthorized" }, 401);
       }
 
-      const searchTerm = search && search.trim() !== "" ? `${search}` : null;
+      const searchTerm = search && search.trim() !== "" ? `${search.toLowerCase()}` : null;
 
       const [sortFn, field] = sortMap[sort as keyof typeof sortMap] ?? sortMap.DEFAULT;
+
+      console.log(searchTerm);
 
       const [group, competency] = await Promise.all([
         db
@@ -47,7 +50,7 @@ const app = new Hono()
           .where(
             and(
               eq(groups.inTrash, false),
-              searchTerm ? sql`LOWER(${groups.name}) LIKE ${searchTerm}` : undefined,
+              searchTerm ? ilike(groups.name, `${searchTerm}%`) : undefined
             )
           )
           .orderBy(sortFn(groups[field])),
@@ -64,7 +67,7 @@ const app = new Hono()
           .where(
             and(
               eq(competencies.inTrash, false),
-              searchTerm ? sql`LOWER(${competencies.name}) LIKE ${searchTerm}` : undefined,
+              searchTerm ? ilike(competencies.name, `${searchTerm}%`) : undefined
             )
           )
           .orderBy(sortFn(competencies[field])),
@@ -91,8 +94,8 @@ const app = new Hono()
 
       return c.json({
         data: [
-          { label: "Group", data: group.map(item => ({ ...item, category: "Group" })) },
-          { label: "Competency", data: parsedCompetency.map(item => ({ ...item, category: "Competency" })) },
+          { label: "Group", data: group.map(item => ({ ...item, category: TrashCategory.GROUP })) },
+          { label: "Competency", data: parsedCompetency.map(item => ({ ...item, category: TrashCategory.COMPETENCY })) },
         ],
         createdPeoples,
       })

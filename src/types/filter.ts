@@ -12,6 +12,8 @@ export type FilterData = {
   label: string;
   header?: string | null;
   icon?: IconType;
+  onClick?: (id: string) => void;
+  onSelect?: (id: string[]) => void;
 }[]
 
 export const sortMap = {
@@ -22,10 +24,33 @@ export const sortMap = {
   DEFAULT: [desc, "id"],
 } as const;
 
+export type SortSearchOptions = {
+  DEFAULT: () => void;
+  EDITED_DESC: () => void;
+  EDITED_ASC: () => void;
+  CREATED_DESC: () => void;
+  CREATED_ASC: () => void;
+};
+
 export const sortSearchs: FilterData = [
-  { id: "DEFAULT", label: "Best match" },
-  { id: "EDITED_DESC", label: "Last edited: Newest first" },
-  { id: "EDITED_ASC", label: "Last edited: Oldest first" },
-  { id: "CREATED_DESC", label: "Created: Newest first" },
-  { id: "CREATED_ASC", label: "Created: Oldest first" },
+  { 
+    id: "DEFAULT", 
+    label: "Best match",
+  },
+  { 
+    id: "EDITED_DESC", 
+    label: "Last edited: Newest first" ,
+  },
+  { 
+    id: "EDITED_ASC", 
+    label: "Last edited: Oldest first",
+  },
+  { 
+    id: "CREATED_DESC", 
+    label: "Created: Newest first",
+  },
+  { 
+    id: "CREATED_ASC", 
+    label: "Created: Oldest first",
+  },
 ]

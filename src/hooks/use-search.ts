@@ -18,10 +18,16 @@ export const useSearch = <T extends SearchableItem>(
       searchKey.some((key) => item[key].toString().toLowerCase().includes(searchQuery.toLowerCase()))
     );
   }, [items, searchKey, searchQuery]);
+
+  const isSearch = searchQuery.length > 0;
+
+  const onClear = () => setSearchQuery("");
   
   return {
     searchQuery,
     setSearchQuery,
-    filteredItems
+    filteredItems,
+    isSearch,
+    onClear
   };
 }

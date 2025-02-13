@@ -83,7 +83,7 @@ export const SearchList = ({ searchs }: SearchListProps) => {
                     <div className="flex items-center justify-center ml-2.5 mr-1 self-center">
                       <div className={cn(
                         "flex items-center justify-center size-6 rounded-[0.25em] shrink-0 text-lg",
-                        !item.icon && "border rounded-md group-hover:bg-white"
+                        !item.icon && "border rounded-md group-hover:bg-background"
                       )}>
                         {item.icon ? item.icon : <HashIcon className="size-4 text-[#a5a29a]" />}
                       </div>
