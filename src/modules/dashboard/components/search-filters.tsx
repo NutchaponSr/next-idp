@@ -1,14 +1,14 @@
 import { 
   FilterVariant, 
   SortSearchOptions, 
-  sortSearchs 
 } from "@/types/filter";
 
 import { Filter } from "@/components/filter";
-import { ArrowUpDownIcon, File1Icon, UserIcon } from "@/components/icons";
+import { ArrowUpDownIcon, CalendarDaysIcon, File1Icon, UserIcon } from "@/components/icons";
 import { useFilterSearch } from "../hooks/use-filter-search";
 import { useSearchCommand } from "../stores/use-search-command";
 import { trashCategoryies } from "@/constants/trashs";
+import { sortSearchs } from "@/constants/filters";
 
 interface SearchFiltersProps {
   peoples: {
@@ -19,7 +19,16 @@ interface SearchFiltersProps {
 }
 
 export const SearchFilters = ({ peoples }: SearchFiltersProps) => {
-  const { sortOptions, isFilter } = useFilterSearch();
+  const { 
+    to,
+    from,
+    sortOptions, 
+    isFilter ,
+    onRange,
+    isInRange,
+    onClearDate,
+  } = useFilterSearch();
+
   const { 
     isSelectPeople,
     isSelectCategory,
@@ -59,6 +68,19 @@ export const SearchFilters = ({ peoples }: SearchFiltersProps) => {
             ...item, 
             onSelect: onSelectCategory,
           }))}
+        />
+        <Filter 
+          label="Date"
+          isFilter={isSelectCategory}
+          icon={CalendarDaysIcon}
+          variant={FilterVariant.CALENDAR}
+          onRange={onRange}
+          date={{
+            start: from,
+            end: to, 
+          }}
+          isInRange={isInRange}
+          onClearDate={onClearDate}
         />
       </div>
     </div>

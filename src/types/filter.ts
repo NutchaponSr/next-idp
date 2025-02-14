@@ -5,6 +5,7 @@ import { IconType } from "@/types/icon";
 export enum FilterVariant {
   COMMAND = "COMMAND", 
   DROPDOWN = "DROPDOWN", 
+  CALENDAR = "CALENDAR",
 }
 
 export type FilterData = {
@@ -32,25 +33,29 @@ export type SortSearchOptions = {
   CREATED_ASC: () => void;
 };
 
-export const sortSearchs: FilterData = [
-  { 
-    id: "DEFAULT", 
-    label: "Best match",
-  },
-  { 
-    id: "EDITED_DESC", 
-    label: "Last edited: Newest first" ,
-  },
-  { 
-    id: "EDITED_ASC", 
-    label: "Last edited: Oldest first",
-  },
-  { 
-    id: "CREATED_DESC", 
-    label: "Created: Newest first",
-  },
-  { 
-    id: "CREATED_ASC", 
-    label: "Created: Oldest first",
-  },
-]
+interface BaseFilterProps {
+  label: string;
+  icon: React.ElementType;
+  variant: FilterVariant;
+  isFilter: boolean;
+}
+
+interface DateRange {
+  start: Date | null;
+  end: Date | null;
+}
+
+interface CommonFilterProps extends BaseFilterProps {
+  variant: FilterVariant.COMMAND | FilterVariant.DROPDOWN;
+  data: FilterData;
+}
+
+interface CalendarFilterProps extends BaseFilterProps {
+  variant: FilterVariant.CALENDAR;
+  date: DateRange;
+  onClearDate: () => void;
+  onRange: (date: Date) => void;
+  isInRange: (date: Date) => boolean;
+}
+
+export type FilterProps = CommonFilterProps | CalendarFilterProps

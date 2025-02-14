@@ -35,7 +35,7 @@ export const SearchCommand = () => {
   const debouncedSort = useDebounce(sort, 300);
 
   const { isOpen, categories, peoples, onClose } = useSearchCommand();
-  const { data, refetch } = useGetSearch({ 
+  const { data, refetch, isLoading } = useGetSearch({ 
     search, 
     sort: debouncedSort ?? undefined 
   });
@@ -64,10 +64,6 @@ export const SearchCommand = () => {
     }
   }, [debouncedSort, refetch]);
 
-  const flatedData = filteredData?.flatMap((item) => (item.data.map((f) => f))) ?? [];
-
-  console.log({ flatedData })
-
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-[775px] min-h-[max(50vh,570px)] max-h-[max(50vh,570px)] p-0 flex flex-row justify-between">
@@ -89,9 +85,16 @@ export const SearchCommand = () => {
             </div>
           </div>
           {on && <SearchFilters peoples={creators} />}
-          <ScrollArea className="w-full h-full overflow-y-auto overflow-x-hidden">
-            <SearchList searchs={filteredData} />
-          </ScrollArea>
+          {isLoading ? (
+            // TODO: Loading skeleton
+            <div>
+              Loading
+            </div>
+          ) : (
+            <ScrollArea className="w-full h-full overflow-y-auto overflow-x-hidden">
+              <SearchList searchs={filteredData} />
+            </ScrollArea>
+          )}
           {/* 🦶🏼 Footer */}
           <div className="shadow-[0_-1px_0_rgba(55,53,47,0.09)] mt-[1px] flex flex-row justify-between items-center dark:shadow-[0_-1px_0_rgba(255,255,255,0.094)]">
             <div className="flex items-center w-full min-h-8 whitespace-nowrap overflow-hidden text-ellipsis">
