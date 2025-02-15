@@ -8,6 +8,11 @@ export enum FilterVariant {
   CALENDAR = "CALENDAR",
 }
 
+export enum RangeBy {
+  CREATE = "CREATE",
+  EDIT = "EDIT",
+}
+
 export type FilterData = {
   id: string;
   label: string;
@@ -40,9 +45,17 @@ interface BaseFilterProps {
   isFilter: boolean;
 }
 
-interface DateRange {
+export interface DateRange {
   start: Date | null;
   end: Date | null;
+}
+
+export interface Range {
+  label: string;
+  ranges: {
+    label: string;
+    onClick: () => Promise<URLSearchParams>;
+  }[];
 }
 
 interface CommonFilterProps extends BaseFilterProps {
@@ -56,6 +69,11 @@ interface CalendarFilterProps extends BaseFilterProps {
   onClearDate: () => void;
   onRange: (date: Date) => void;
   isInRange: (date: Date) => boolean;
+  presets: {
+    label: string;
+    onClick: () => void;
+  }[];
+  ranges: Range;
 }
 
-export type FilterProps = CommonFilterProps | CalendarFilterProps
+export type FilterProps = CommonFilterProps | CalendarFilterProps;

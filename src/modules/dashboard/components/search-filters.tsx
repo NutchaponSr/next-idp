@@ -23,10 +23,18 @@ export const SearchFilters = ({ peoples }: SearchFiltersProps) => {
     to,
     from,
     sortOptions, 
-    isFilter ,
-    onRange,
+    isSort,
+    isRangeDate,
     isInRange,
+    onCreate,
     onClearDate,
+    onEdit,
+    onRange,
+    setMonth,
+    setToday,
+    setWeek,
+    formatDateRange,
+    formatRangeBy
   } = useFilterSearch();
 
   const { 
@@ -41,7 +49,7 @@ export const SearchFilters = ({ peoples }: SearchFiltersProps) => {
       <div className="flex items-center py-2.5 px-3 overflow-x-auto overflow-y-hidden space-x-1.5">
         <Filter 
           label="Sort"
-          isFilter={isFilter}
+          isFilter={isSort}
           icon={ArrowUpDownIcon}
           variant={FilterVariant.DROPDOWN}
           data={sortSearchs.map((item) => ({ 
@@ -70,8 +78,8 @@ export const SearchFilters = ({ peoples }: SearchFiltersProps) => {
           }))}
         />
         <Filter 
-          label="Date"
-          isFilter={isSelectCategory}
+          label={formatDateRange()}
+          isFilter={isRangeDate}
           icon={CalendarDaysIcon}
           variant={FilterVariant.CALENDAR}
           onRange={onRange}
@@ -81,6 +89,18 @@ export const SearchFilters = ({ peoples }: SearchFiltersProps) => {
           }}
           isInRange={isInRange}
           onClearDate={onClearDate}
+          presets={[
+            { label: "Today", onClick: setToday },
+            { label: "Last 7 days", onClick: setWeek },
+            { label: "Last 30 days", onClick: setMonth },
+          ]}
+          ranges={{
+            label: formatRangeBy(),
+            ranges: [
+              { label: "Created", onClick: onCreate },
+              { label: "Last edited", onClick: onEdit },
+            ]
+          }}
         />
       </div>
     </div>

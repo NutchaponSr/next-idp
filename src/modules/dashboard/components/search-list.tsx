@@ -3,9 +3,12 @@ import { useEffect, useRef, useState } from "react";
 
 import { cn, formatTimeElapsed } from "@/lib/utils";
 
+import { Skeleton } from "@/components/ui/skeleton";
+
 import { HashIcon } from "@/components/icons";
 
 import { ResponseType } from "@/modules/dashboard/api/use-get-search";
+import { CornerDownLeftIcon } from "lucide-react";
 
 interface SearchListProps {
   searchs: ResponseType;
@@ -67,19 +70,23 @@ export const SearchList = ({ searchs }: SearchListProps) => {
     <div className="flex flex-col h-full space-y-1 mx-1"
       onMouseLeave={() => setIndex(null)}
     >
-      {searchs.map(({ label, data }) => (
+      {searchs
+        .filter(({ data }) => data.length > 0)
+        .map(({ label, data }) => (
         <div key={label} className="mb-[18px]">
           <div className="flex px-3 my-2 text-[#37352fa6] dark:text-[#ffffff71] text-xs font-semibold">
             {label}
           </div>
           {data.map((item) => {
             const globalIndex = mappedData.findIndex(data => data.id === item.id);
+            const isCurrentIndex = globalIndex === index;
+
             return (
               <div 
                 key={item.id} 
                 className={cn(
                   "cursor-pointer w-[calc(100%-8px)] mx-1 rounded-[6px] group",
-                  globalIndex === index && "bg-[#37352f0f]"
+                  isCurrentIndex && "bg-[#37352f0f]"
                 )}
                 ref={(el) => {
                   if (el) itemsRef.current[globalIndex] = el;
@@ -110,12 +117,30 @@ export const SearchList = ({ searchs }: SearchListProps) => {
                   </div>
                   {/* 📅 time elapsed */}
                   <div className="mr-3 self-start text-xs text-[#51493c52] font-light grow-0 shrink-0 basis-auto mt-1.5">
-                    {formatTimeElapsed(item.createdAt)}
+                    {isCurrentIndex ? <CornerDownLeftIcon className="size-3.5 text-[#acaba9] stroke-[1.75]" /> : formatTimeElapsed(item.createdAt)}
                   </div>
                 </div>
               </div>
             );
           })}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+SearchList.Skeleton = function SkeletonSearchList() {
+  return (
+    <div className="flex-1 w-full h-full px-3.5 overflow-y-hidden">
+      {Array.from({ length: 10 }, (_, i) => (
+        <div key={i} className="flex items-center space-x-2 py-2">
+          <div className="flex items-center justify-center shrink-0 grow-0">
+            <Skeleton className="rounded-[6px] size-8" />
+          </div>
+          <div className="flex flex-col w-full space-y-1">
+            <Skeleton className="rounded-sm w-full h-4" />
+            <Skeleton className="rounded-[2px] w-40 h-2" />
+          </div>
         </div>
       ))}
     </div>

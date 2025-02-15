@@ -4,26 +4,26 @@ import {
   eachDayOfInterval,
   endOfMonth,
   format,
-  isSameDay,
-  isSameMonth,
-  isToday,
   startOfMonth, 
   subDays, 
   subMonths
 } from "date-fns";
-import { JSX, useState } from "react";
-import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
-
-import { cn } from "@/lib/utils";
+import {  useState } from "react";
+import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 
 import {
   Popover,
   PopoverContent,
   PopoverTrigger
 } from "@/components/ui/popover";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 
 import { FilterButton } from "@/components/filter-button";
+import { CalendarDaysIcon } from "./icons";
+import { IconVariant } from "@/types/icon";
+import { Calendar } from "./calendar";
+import { Range } from "@/types/filter";
 
 interface FilterCalendarProps {
   label: string;
@@ -32,14 +32,21 @@ interface FilterCalendarProps {
   onRange: (date: Date) => void;
   isInRange: (date: Date) => boolean;
   onClearDate: () => void;
+  presets: {
+    label: string;
+    onClick: () => void;
+  }[];
+  ranges: Range;
   date: { start: Date | null; end: Date | null; };
 }
 
 export const FilterCalendar = ({ 
   date,
+  ranges,
   onRange, 
   isInRange, 
   onClearDate,
+  presets,
   ...props
 }: FilterCalendarProps) => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
@@ -79,44 +86,6 @@ export const FilterCalendar = ({
     return format(date, "MMM yyyy");
   }
 
-  const renderCalendarDays = () => {
-    const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-    const days: JSX.Element[] = [];
-
-    weekdays.forEach((day) => {
-      days.push(
-        <div key={day} className="text-center text-xs font-medium text-gray-400 py-2">
-          {day}
-        </div>
-      );
-    });
-
-    allDays.forEach(day => {
-      const isSelected = date.start && (
-        isSameDay(day, date.start) || 
-        (date.end && isSameDay(day, date.end))
-      );
-
-      days.push(
-        <button
-          key={day.toISOString()}
-          onClick={() => onRange(day)}
-          className={cn(
-            "size-8 text-sm transition text-primary flex items-center justify-center relative rounded-[2px] hover:ring-[1.5px] hover:ring-[#2383e280]",
-            isSelected && "bg-[#2383e2] text-white hover:bg-[#2383e2]",
-            isInRange(day) && !isSelected && "bg-[#ebf5fe] text-[#2383e2]",
-            isToday(day) && !isSelected && "ring-[1.5px] ring-[#2383e280] font-semibold text-[#2383e2]",
-            !isSameMonth(day, currentMonth) && "text-gray-300",
-          )}
-        >
-          {format(day, "d")}
-        </button>
-      );
-    });
-
-    return days
-  } 
-
   return (
     <Popover>
       <PopoverTrigger>
@@ -124,15 +93,25 @@ export const FilterCalendar = ({
           {...props}
         />
       </PopoverTrigger>
-      <PopoverContent align="start" className="w-64 p-2">
-        <div className="flex items-center justify-between text-left min-h-6 px-1">
-          <div />
-          <Button variant="ghost" size="xs" onClick={onClearDate} className="text-[#37352f80] hover:text-[#37352f80]">
-            clear
+      <PopoverContent align="start" className="w-64 p-0">
+        <div className="flex items-center justify-between text-left min-h-6 px-2 pt-2">
+          <RangeDropdown ranges={ranges.ranges} label={ranges.label} />
+          <Button variant="ghost" size="xs" onClick={onClearDate} className="text-[#37352fa6] hover:text-[#37352fa6]">
+            Clear
           </Button>
         </div>
-        <div className="flex items-center justify-between text-left min-h-6 px-1">
-          <h2 className="text-sm text-primary font-semibold">{formatDate(currentMonth)}</h2>
+        <div className="my-2 shadow-[0_1px_0_rgba(55,53,47,0.09)] pb-2">
+          <div className="flex flex-col p-1 gap-px">
+            {presets.map((set) => (
+              <Button variant="ghost" size="sm" key={set.label} onClick={set.onClick} className="text-primary hover:text-primary w-full justify-start">
+                <CalendarDaysIcon variant={IconVariant.SOLID} className="size-4 fill-primary" />
+                {set.label}
+              </Button>
+            ))}
+          </div>
+        </div>
+        <div className="flex items-center justify-between text-left min-h-6 px-3">
+          <h2 className="text-sm text-primary">{formatDate(currentMonth)}</h2>
           <div>
             <Button variant="ghost" size="icon" onClick={prevMonth}>
               <ChevronLeftIcon className="text-[#37352fd9] size-4" />
@@ -142,10 +121,37 @@ export const FilterCalendar = ({
             </Button>
           </div>
         </div>
-        <div className="grid grid-cols-7 gap-1">
-          {renderCalendarDays()}
-        </div>
+        <Calendar 
+          date={date}
+          days={allDays}
+          onRange={onRange}
+          isInRange={isInRange}
+          currentMonth={currentMonth}
+        />
       </PopoverContent>
     </Popover>
+  );
+}
+
+const RangeDropdown = ({
+  label,
+  ranges
+}: Range) => {
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger>
+        <Button variant="ghost" size="xs" className="text-[#37352fa6] hover:text-[#37352fa6] gap-1">
+          {label}
+          <ChevronDownIcon className="size-3 text-[#37352f59]" /> 
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="start">
+        {ranges.map((item) => (
+          <DropdownMenuItem key={item.label} onClick={item.onClick}>
+            {item.label}
+          </DropdownMenuItem>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }

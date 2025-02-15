@@ -2,8 +2,11 @@ import {
   ArrowUpDownIcon, 
   CornerDownLeftIcon 
 } from "lucide-react";
+import { format } from "date-fns";
 import { useEffect } from "react";
 import { useToggle } from "react-use";
+
+import { cn } from "@/lib/utils";
 
 import { useDebounce } from "@/hooks/use-debounce";
 
@@ -26,17 +29,36 @@ import { useGetSearch } from "@/modules/dashboard/api/use-get-search";
 import { useCurrentUser } from "@/modules/auth/hooks/use-current-user";
 import { useFilterSearch } from "@/modules/dashboard/hooks/use-filter-search";
 import { useSearchCommand } from "@/modules/dashboard/stores/use-search-command";
-import { cn } from "@/lib/utils";
 
 export const SearchCommand = () => {
   const currentUser = useCurrentUser();
-  const { sort, search, onChangeSearch, isFilter } = useFilterSearch();
+
+  const { 
+    to,
+    from,
+    sort, 
+    rangeBy,
+    search, 
+    isSort,
+    isRangeDate,
+    onChangeSearch, 
+  } = useFilterSearch();
 
   const debouncedSort = useDebounce(sort, 300);
 
-  const { isOpen, categories, peoples, onClose } = useSearchCommand();
+  const { 
+    isOpen, 
+    categories, 
+    peoples,
+    isSelectCategory,
+    isSelectPeople, 
+    onClose 
+  } = useSearchCommand();
   const { data, refetch, isLoading } = useGetSearch({ 
     search, 
+    rangeBy,
+    to: to ? format(to, "yyyy-MM-dd") : undefined, 
+    from: from ? format(from, "yyyy-MM-dd") : undefined,
     sort: debouncedSort ?? undefined 
   });
 
@@ -57,6 +79,10 @@ export const SearchCommand = () => {
             (categories.length === 0 || categories.includes(f.category))
           )
         }));
+
+  const isFilter = isSort || isSelectCategory || isSelectPeople || isRangeDate;
+
+  const mappedData = searchs.flatMap((item) => item.data);
 
   useEffect(() => {
     if (debouncedSort) {
@@ -86,34 +112,46 @@ export const SearchCommand = () => {
           </div>
           {on && <SearchFilters peoples={creators} />}
           {isLoading ? (
-            // TODO: Loading skeleton
-            <div>
-              Loading
-            </div>
+            <SearchList.Skeleton />
           ) : (
-            <ScrollArea className="w-full h-full overflow-y-auto overflow-x-hidden">
-              <SearchList searchs={filteredData} />
-            </ScrollArea>
+            mappedData.length  ? (
+              <ScrollArea className="w-full h-full overflow-y-auto overflow-x-hidden">
+                <SearchList searchs={filteredData} />
+              </ScrollArea>
+            ) : (
+              <div className="flex flex-col items-center justify-center h-full">
+                <div className="text-sm font-semibold text-[#787774] dark:text-[#ffffff71]">
+                  No results
+                </div>
+                <div className="text-sm text-[#37352f80] dark:text-[#7f7f7f]">
+                  Some result may be in your the Trash
+                </div>
+                <div className="text-sm text-[#2383e2] cursor-pointer">
+                  Search in trash
+                </div>
+              </div>
+            )
           )}
-          {/* 🦶🏼 Footer */}
-          <div className="shadow-[0_-1px_0_rgba(55,53,47,0.09)] mt-[1px] flex flex-row justify-between items-center dark:shadow-[0_-1px_0_rgba(255,255,255,0.094)]">
-            <div className="flex items-center w-full min-h-8 whitespace-nowrap overflow-hidden text-ellipsis">
-              <div className="px-3 flex-auto">
-                <div className="whitespace-nowrap overflow-hidden text-ellipsis">
-                  <ul className="whitespace-nowrap overflow-hidden text-ellipsis inline-flex items-center text-xs text-[#37352f80] dark:text-[#ffffff48] gap-5">
-                    <li className="flex gap-1.5 items-center h-max">
-                      <ArrowUpDownIcon className="size-3 text-[#9a9a97]" />
-                      Select
-                    </li>
-                    <li className="flex gap-1.5 items-center h-max">
-                      <CornerDownLeftIcon className="size-3 text-[#9a9a97]" />
-                      Open
-                    </li>
-                  </ul>
+          <footer className="shrink-0">
+            <div className="shadow-[0_-1px_0_rgba(55,53,47,0.09)] mt-[1px] flex flex-row justify-between items-center dark:shadow-[0_-1px_0_rgba(255,255,255,0.094)]">
+              <div className="flex items-center w-full min-h-8 whitespace-nowrap overflow-hidden text-ellipsis">
+                <div className="px-3 flex-auto">
+                  <div className="whitespace-nowrap overflow-hidden text-ellipsis">
+                    <ul className="whitespace-nowrap overflow-hidden text-ellipsis inline-flex items-center text-xs text-[#37352f80] dark:text-[#ffffff48] gap-5">
+                      <li className="flex gap-1.5 items-center h-max">
+                        <ArrowUpDownIcon className="size-3 text-[#9a9a97]" />
+                        Select
+                      </li>
+                      <li className="flex gap-1.5 items-center h-max">
+                        <CornerDownLeftIcon className="size-3 text-[#9a9a97]" />
+                        Open
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          </footer>
         </div>
       </DialogContent>
     </Dialog>

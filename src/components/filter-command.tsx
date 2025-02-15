@@ -42,7 +42,6 @@ export const FilterCommand = ({ data, label, icon, isFilter }: FilterCommandProp
               {data.map((item, index) => (
                 <CommandItem
                   key={index}
-                  className="space-x-2"
                   onSelect={() => {
                     const newSelection = selectedValues.includes(item.id)
                       ? selectedValues.filter((v) => v !== item.id)
