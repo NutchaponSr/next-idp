@@ -19,15 +19,12 @@ export const useSearch = <T extends SearchableItem>(
     );
   }, [items, searchKey, searchQuery]);
 
-  const isSearch = searchQuery.length > 0;
-
   const onClear = () => setSearchQuery("");
   
   return {
     searchQuery,
     setSearchQuery,
     filteredItems,
-    isSearch,
     onClear
   };
 }

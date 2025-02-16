@@ -3,8 +3,8 @@ import { Hono } from "hono";
 import { verifyAuth } from "@hono/auth-js";
 import { zValidator } from "@hono/zod-validator";
 
-import { eq } from "drizzle-orm";
 import { db } from "@/db/drizzle";
+import { eq, and } from "drizzle-orm";
 import { groups, groupsInsertSchema, users } from "@/db/schema";
 
 const app = new Hono()
@@ -37,6 +37,51 @@ const app = new Hono()
         }),
       );
       
+      return c.json({ data: populatedData });
+    }
+  )
+  .get(
+    "/:year",
+    verifyAuth(),
+    zValidator(
+      "param",
+      z.object({
+        year: z.string(),
+      })
+    ),
+    async (c) => {
+      const auth = c.get("authUser");
+
+      const { year } = c.req.valid("param");
+
+      if (!auth.token?.id) {
+        return c.json({ error: "Unauthorized" }, 401);
+      }
+
+      const data = await db 
+        .select()
+        .from(groups)
+        .where(
+          and(
+            eq(groups.year, year),
+            eq(groups.inTrash, false),
+          )
+        );
+
+      const populatedData = await Promise.all(
+        data.map(async (group) => {
+          const [updatedByUser] = await db
+            .select({ name: users.name })
+            .from(users)
+            .where(eq(users.id, group.updatedBy))
+          
+          return {
+            ...group,
+            updatedBy: updatedByUser.name,
+          };
+        }),
+      );
+
       return c.json({ data: populatedData });
     }
   )

@@ -25,7 +25,7 @@ export const useDeleteTrash = () => {
     onSuccess: () => {
       toast.success("Deleted successful", { id: "delete-trash" });
 
-      queryClient.invalidateQueries({ queryKey: ["trashs"] });
+      queryClient.invalidateQueries({ queryKey: ["trashs"], exact: true });
       queryClient.invalidateQueries({ queryKey: ["groups"] });
       queryClient.invalidateQueries({ queryKey: ["competencies"] });
     },

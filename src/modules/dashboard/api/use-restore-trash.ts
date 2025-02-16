@@ -25,7 +25,7 @@ export const useRestoreTrash = () => {
     onSuccess: () => {
       toast.success("Restored successful", { id: "restore-trash" });
 
-      queryClient.invalidateQueries({ queryKey: ["trashs"] });
+      queryClient.invalidateQueries({ queryKey: ["trashs"], exact: true });
       queryClient.invalidateQueries({ queryKey: ["groups"] });
       queryClient.invalidateQueries({ queryKey: ["competencies"] });
     },

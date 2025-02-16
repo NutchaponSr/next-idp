@@ -18,6 +18,7 @@ export const iconVariant = cva("size-[18px]", {
       green: "fill-[#598164]",
     },
     size: {
+      lg: "size-8",
       sm: "size-5",
       icon: "size-4",
     },

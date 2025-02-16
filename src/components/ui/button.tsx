@@ -13,7 +13,8 @@ const buttonVariants = cva(
         destructive: "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
         outline: "bg-background shadow-[0_0_0_1px_rgba(15,15,15,0.1)] hover:bg-accent hover:text-accent-foreground",
         secondary: "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
-        ghost: "hover:bg-accent hover:text-accent-foreground text-accent-foreground",
+        ghost: "hover:bg-accent hover:text-primary text-primary",
+        ghostFlow: "hover:bg-ghost hover:text-primary text-primary",
         link: "text-primary underline-offset-4 hover:underline",
         primary: "bg-[#2383e2] hover:bg-[#0077d4] shadow-[inset_0_0_0_1px_rgba(15,15,15,0.1),0_1px_2px_rgba(15,15,15,0.1)] text-white",
         primaryOutline: "bg-[#ebf5fe] text-[#087fe7] hover:bg-[#d6e1f5]",
@@ -24,10 +25,12 @@ const buttonVariants = cva(
       },
       size: {
         default: "h-9 px-4 py-2",
+        lg: "h-10 rounded-md px-8",
+        md: "h-8 rounded-md py-2 px-3",
         sm: "h-7 rounded-sm px-[10px] text-xs",
         xs: "h-6 w-fit rounded-sm px-2 text-xs",
-        lg: "h-10 rounded-md px-8",
         icon: "h-6 w-6 rounded-sm",
+        smIcon: "h-7 w-7 rounded-sm",
         lgIcon: "h-8 w-8 rounded-sm",
         filter: "h-6 rounded-full px-2"
       },

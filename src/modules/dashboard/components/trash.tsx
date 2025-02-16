@@ -4,7 +4,7 @@ import { useToggle } from "react-use";
 
 import { TrashCategory } from "@/types/trash";
 import { FilterVariant } from "@/types/filter";
-import { IconVariant, sidebarIconProps } from "@/types/icon";
+import { sidebarIconProps } from "@/types/icon";
 import { trashCategoryies } from "@/constants/trashs";
 
 import { useSearch } from "@/hooks/use-search";
@@ -18,13 +18,13 @@ import {
 import { Button } from "@/components/ui/button";
 
 import { 
-  CircleCancelIcon,
   File1Icon,
   TrashIcon, 
   UserIcon 
 } from "@/components/icons";
 import { Hint } from "@/components/hint";
 import { Filter } from "@/components/filter";
+import { ClearableInput } from "@/components/clearable-input";
 
 import { TrashItem } from "@/modules/dashboard/components/trash-item";
 
@@ -57,7 +57,6 @@ export const Trash = () => {
     searchQuery,
     setSearchQuery,
     filteredItems,
-    isSearch,
     onClear
   } = useSearch(trashs || [], ["name"]);
 
@@ -100,19 +99,15 @@ export const Trash = () => {
         <ConfirmDialog />
         <div className="flex flex-col h-full">
           <div className="shrink-0 space-y-2.5">
-            <div className="flex items-center w-full min-h-7 p-2 relative">
-              <input 
-                type="text"
+            <div className="flex items-center w-full min-h-7 p-2">
+              <ClearableInput 
+                area="sm"
+                variant="search"
                 value={searchQuery}
                 placeholder="Search stuff in Trash"
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="max-w-full w-full whitespace-pre-wrap break-words grow text-sm py-1 px-2.5 rounded-sm shadow-[inset_0_0_0_1px_rgba(15,15,15,0.1)] bg-[#f2f1ee99] focus-visible:outline-none text-[#37352f] placeholder:text-[#91918e] font-light dark:bg-[#ffffff0e] dark:shadow-[inset_0_0_0_1px_rgba(255,255,255,0.075)] dark:text-[#ffffffcf] focus-within:shadow-[inset_0_0_0_1px_rgba(35,131,226,0.57),0_0_0_2px_rgba(35,131,226,0.35)]"
+                onClear={onClear}
               />
-              {isSearch && (
-                <button className="absolute right-3 top-1/2 -translate-y-1/2 inline-flex items-center justify-center shrink-0 grow-0 rounded-full size-5 hover:bg-[#37352f29]" onClick={onClear}>
-                  <CircleCancelIcon className="fill-[#37352f59] size-4" variant={IconVariant.SOLID} />
-                </button>
-              )}
             </div>
           </div>
           <div className="flex flex-row space-x-1.5 px-2">
