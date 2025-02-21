@@ -29,8 +29,10 @@ const buttonVariants = cva(
         md: "h-8 rounded-md py-2 px-3",
         sm: "h-7 rounded-sm px-[10px] text-xs",
         xs: "h-6 w-fit rounded-sm px-2 text-xs",
+        xxs: "h-5 w-fit rounded-sm px-0.5 text-xs gap-0.5",
         icon: "h-6 w-6 rounded-sm",
         smIcon: "h-7 w-7 rounded-sm",
+        xxsIcon: "h-5 w-5 rounded-sm",
         lgIcon: "h-8 w-8 rounded-sm",
         filter: "h-6 rounded-full px-2"
       },

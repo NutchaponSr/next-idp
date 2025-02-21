@@ -12,6 +12,7 @@ import {
 } from "@/types/icon";
 import { CompetencyType } from "@/types/competency";
 import { EmojiData, EmojiItem } from "@/types/emoji";
+import { FilterColumnProps, FilterCondition } from "@/types/filter";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -102,4 +103,50 @@ export function formatGreeting(date: Date) {
   } else {
     return "Good night"
   }
+}
+
+export function applyCondition(
+  condition: FilterCondition, 
+  value: string,
+  searchQuery: string
+): boolean {
+  if (value == null) return false;
+
+  const stringValue = value.toString().toLowerCase();
+  const query = searchQuery != null ? String(searchQuery).toLowerCase() : "";
+
+  switch (condition) {
+    case FilterCondition.IS:
+      return stringValue === query;
+    case FilterCondition.IS_NOT: 
+      return stringValue !== query;
+    case FilterCondition.CONTAINS:
+      return stringValue.includes(query);
+    case FilterCondition.DOES_NOT_CONTAIN:
+      return !stringValue.includes(query);
+    case FilterCondition.STARTS_WITH:
+      return stringValue.startsWith(query);
+    case FilterCondition.ENDS_WITH:
+      return stringValue.endsWith(query);
+    case FilterCondition.IS_EMPTY:
+      return stringValue === "";
+    case FilterCondition.IS_NOT_EMPTY:
+      return stringValue !== "";
+    default:
+      return false;
+  }
+}
+
+export function filterDataByConditions<T extends object>(
+  data: T[],
+  filters: FilterColumnProps<T>[],
+): T[] {
+  if (!data || !filters || filters.length === 0) return data;
+
+  return data.filter((item) => {
+    return filters.every((filter) => {
+      const value = item[filter.label];
+      return applyCondition(filter.condition, String(value), String(filter.searchQuery));
+    });
+  });
 }

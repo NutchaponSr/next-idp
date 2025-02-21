@@ -1,17 +1,20 @@
-import { ColumnDef } from "@tanstack/react-table"; 
-import { ResponseType } from "../api/use-get-groups-by-year";
-import { Button } from "@/components/ui/button";
-import { CalendarDayIcon, GripVerticalIcon, HashIcon, TextFontIcon } from "@/components/icons";
+import { GripVerticalIcon } from "lucide-react";
+import { ColumnDef } from "@tanstack/react-table";
+
 import { Checkbox } from "@/components/ui/checkbox";
+
+import { HashIcon, TextFontIcon } from "@/components/icons";
+
+import { ResponseType } from "@/modules/groups/api/use-get-groups-by-year";
 
 export const columns: ColumnDef<ResponseType>[] = [
   {
     id: "actions",
     cell: ({}) => (
-      <Button variant="ghost">
+      <button className="flex items-center justify-center rounded-sm w-[18px] h-6 transition hover:bg-[#37352f0f]">
         <GripVerticalIcon className="text-[#b9b9b7]" />
-      </Button>
-    )
+      </button>
+    ),
   },
   {
     id: "select",
@@ -48,24 +51,14 @@ export const columns: ColumnDef<ResponseType>[] = [
             {row.original.name}
           </p>
         </div>
-        <div className="whitespace-normal relative hidden group-hover:block border">
+        {/* <div className="whitespace-normal relative hidden group-hover:block border">
           <div className="flex justify-end absolute -top-3 right-0 left-0 mr-1">
             <div className="flex pointer-events-auto sticky right-1">
-              {/* <GroupButtonPanel data={row.original} /> */}
+              <GroupButtonPanel data={row.original} /> *
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     ),
-  },
-  {
-    accessorKey: "year",
-    header: ({  }) => (
-      <div className="flex items-center">
-        <CalendarDayIcon className="size-3.5 text-[#A4A4A2] mr-1.5" />
-        Year
-      </div>
-    ),
-    cell: ({ row }) => row.getValue("year"),
   },
 ];

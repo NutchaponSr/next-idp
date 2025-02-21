@@ -6,6 +6,7 @@ export enum FilterVariant {
   COMMAND = "COMMAND", 
   DROPDOWN = "DROPDOWN", 
   CALENDAR = "CALENDAR",
+  COLUMN = "COLUMN",
 }
 
 export enum RangeBy {
@@ -77,3 +78,26 @@ interface CalendarFilterProps extends BaseFilterProps {
 }
 
 export type FilterProps = CommonFilterProps | CalendarFilterProps;
+
+export enum ColumnVariant {
+  TEXT = "TEXT",
+}
+
+export enum FilterCondition {
+  IS = "is",
+  IS_NOT = "isNot",
+  CONTAINS = "contains",
+  DOES_NOT_CONTAIN = "doesNotContain",
+  STARTS_WITH = "startsWith",
+  ENDS_WITH = "endsWith",
+  IS_EMPTY = "isEmpty",
+  IS_NOT_EMPTY = "isNotEmpty"
+}
+
+export interface FilterColumnProps<T extends object> {
+  icon: React.ElementType;
+  label: keyof T;
+  variant: ColumnVariant;
+  searchQuery?: string;
+  condition: FilterCondition;
+}

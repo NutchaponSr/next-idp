@@ -28,8 +28,8 @@ import {
 } from "@/components/icons";
 
 import { ResponseType } from "@/modules/groups/api/use-get-groups";
-import { useTrashGroup } from "../api/use-trash-group";
-import { useDuplicateGroup } from "../api/use-duplicate-group";
+import { useTrashGroup } from "@/modules/groups/api/use-trash-group";
+import { useDuplicateGroup } from "@/modules/groups/api/use-duplicate-group";
 
 interface GroupActionsProps {
   group: ResponseType;
