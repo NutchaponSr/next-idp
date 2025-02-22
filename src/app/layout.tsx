@@ -13,6 +13,7 @@ import { Toaster } from "@/components/ui/sonner";
 
 import { QueryProvider } from "@/components/providers/query-provider";
 import { ModalProvider } from "@/components/providers/modal-provider";
+import { ReactScan } from "@/components/providers/react-scan";
 
 const font = Inter({
   subsets: ["latin"],
@@ -38,6 +39,7 @@ export default async function RootLayout({
 
   return (
     <SessionProvider session={session}>
+      <ReactScan />
       <html lang="en" suppressHydrationWarning>
         <body className={cn(font.className, "antialiased")}>
           <NuqsAdapter>

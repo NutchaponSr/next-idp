@@ -95,8 +95,9 @@ export enum FilterCondition {
 }
 
 export interface FilterColumnProps<T extends object> {
-  icon: React.ElementType;
   label: keyof T;
+  isFilter: boolean;
+  icon: React.ElementType;
   variant: ColumnVariant;
   searchQuery?: string;
   condition: FilterCondition;

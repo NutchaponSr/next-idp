@@ -33,8 +33,9 @@ export const sortSearchs: FilterData = [
 
 export const groupColumns: FilterColumnProps<ResponseType>[] = [
   {
-    icon: TextFontIcon,
     label: "name",
+    isFilter: false,
+    icon: TextFontIcon,
     variant: ColumnVariant.TEXT,
     condition: FilterCondition.CONTAINS,
   },

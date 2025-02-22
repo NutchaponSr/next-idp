@@ -1,10 +1,13 @@
 import { useMemo } from "react";
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
 
-import { useGetGroupsByYear } from "@/modules/groups/api/use-get-groups-by-year";
-import { columns } from "../components/columns";
-import { useFilterTable } from "@/stores/use-filter-table";
 import { filterDataByConditions } from "@/lib/utils";
+
+import { useFilterTable } from "@/stores/use-filter-table";
+
+import { columns } from "@/modules/groups/components/columns";
+
+import { useGetGroupsByYear } from "@/modules/groups/api/use-get-groups-by-year";
 
 export const useGroupsTable = (year: string) => {
   const { selectedColumns } = useFilterTable();
