@@ -7,7 +7,7 @@ import {
 
 import { cn } from "@/lib/utils";
 
-import { useFilterTable } from "@/stores/use-filter-table";
+import { useFilter } from "@/stores/use-filter";
 
 import {
   Table,
@@ -17,6 +17,7 @@ import {
   TableHeader,
   TableRow
 } from "@/components/ui/table";
+import { useSort } from "@/stores/use-sort";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 interface DateTableProps<TData, TValue> {
@@ -26,7 +27,8 @@ interface DateTableProps<TData, TValue> {
 export const DateTable = <TData, TValue>({
   table
 }: DateTableProps<TData, TValue>) => {
-  const { isFilter } = useFilterTable();
+  const { isSort } = useSort();
+  const { isFilter } = useFilter();
 
   return (
     <div className="relative float-left min-w-full pb-[180px] pr-24 pl-16">
@@ -38,13 +40,13 @@ export const DateTable = <TData, TValue>({
                 <TableHead 
                   key={header.id} 
                   className={cn(
-                    isFilter && "border-none",
+                    (isFilter || isSort) && "border-none",
                     (index === 0 || index === 1) && "w-8",
                     (index !== 0 && index !== 1) && "hover:bg-[#37352f0f]",
                     (index !== 0 && index !== 1 && index !== headerGroup.headers.length - 1) && "border-r border-[#e9e9e7]",
                     header.column.id === "actions"
                       ? "shadow-none"
-                      : isFilter
+                      : (isFilter || isSort)
                         ? "shadow-[inset_0_-1px_0_rgb(233,233,231)]"
                         : "shadow-[inset_0_-1px_0_rgb(233,233,231),inset_0_1px_0_rgb(233,233,231)]"
                   )}

@@ -1,6 +1,6 @@
 import { 
   ColumnVariant, 
-  FilterColumnProps, 
+  ColumnProps, 
   FilterCondition, 
   FilterData 
 } from "@/types/filter";
@@ -31,13 +31,15 @@ export const sortSearchs: FilterData = [
   },
 ]
 
-export const groupColumns: FilterColumnProps<ResponseType>[] = [
+export const groupColumns: ColumnProps<ResponseType>[] = [
   {
     label: "name",
     isFilter: false,
     icon: TextFontIcon,
     variant: ColumnVariant.TEXT,
     condition: FilterCondition.CONTAINS,
+    searchQuery: "",
+    sortOrder: null,
   },
 ];
 

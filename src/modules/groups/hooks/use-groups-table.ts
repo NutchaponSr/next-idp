@@ -3,14 +3,14 @@ import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
 
 import { filterDataByConditions } from "@/lib/utils";
 
-import { useFilterTable } from "@/stores/use-filter-table";
+import { useFilter } from "@/stores/use-filter";
 
 import { columns } from "@/modules/groups/components/columns";
 
 import { useGetGroupsByYear } from "@/modules/groups/api/use-get-groups-by-year";
 
 export const useGroupsTable = (year: string) => {
-  const { selectedColumns } = useFilterTable();
+  const { selectedColumns } = useFilter();
   const { data, isLoading } = useGetGroupsByYear(year);
 
   const filteredData = useMemo(() => {

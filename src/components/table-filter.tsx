@@ -2,7 +2,7 @@ import React from "react";
 
 import { PlusIcon } from "lucide-react";
 
-import { FilterColumnProps } from "@/types/filter";
+import { ColumnProps } from "@/types/filter";
 
 import {
   Command,
@@ -26,13 +26,13 @@ import {
 import { Button } from "@/components/ui/button";
 
 interface TableFilterProps<T extends object> {
-  columns: FilterColumnProps<T>[];
+  columns: ColumnProps<T>[];
   children: React.ReactNode;
   isOpen: boolean;
   tooltipOpen: boolean;
   onClose: () => void;
   openFilter: () => void;
-  addColumn: (filter: FilterColumnProps<T>) => void;
+  addColumn: (filter: ColumnProps<T>) => void;
 }
 
 export const TableFilter = <T extends object>({

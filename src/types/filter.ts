@@ -94,11 +94,19 @@ export enum FilterCondition {
   IS_NOT_EMPTY = "isNotEmpty"
 }
 
-export interface FilterColumnProps<T extends object> {
+export type SortOrder = "asc" | "desc";
+
+export const sorts: Record<SortOrder, { label: string; value: SortOrder }> = {
+  asc: { label: "Ascending", value: "asc" },
+  desc: { label: "Descending", value: "desc" },
+}
+
+export interface ColumnProps<T extends object> {
   label: keyof T;
   isFilter: boolean;
   icon: React.ElementType;
   variant: ColumnVariant;
   searchQuery?: string;
   condition: FilterCondition;
+  sortOrder: (typeof sorts)[keyof typeof sorts] | null;
 }

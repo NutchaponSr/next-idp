@@ -1,31 +1,31 @@
 import { create } from "zustand";
 
 import { groupColumns } from "@/constants/filters";
-import { FilterColumnProps, FilterCondition } from "@/types/filter";
+import { ColumnProps, FilterCondition } from "@/types/filter";
 
-type FilterTableStore<T extends object> = {
+type FilterStore<T extends object> = {
+  isOpen: boolean;
   isFilter: boolean;
-  isColumn: boolean;
   isAnyFilterActive: boolean;
-  columns: FilterColumnProps<T>[];
-  selectedColumns: FilterColumnProps<T>[];
-  onOpenColumn: () => void;
-  onCloseColumn: () => void;
-  addColumn: (filter: FilterColumnProps<T>) => void;
+  columns: ColumnProps<T>[];
+  selectedColumns: ColumnProps<T>[];
+  onOpen: () => void;
+  onClose: () => void;
+  addColumn: (filter: ColumnProps<T>) => void;
   deleteColumn: (label: string) => void;
   onSearchQuery: (label: string, searchQuery: string) => void;
   onCondition: (label: string, condition: FilterCondition) => void;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const useFilterTable = create<FilterTableStore<any>>((set) => ({
+export const useFilter = create<FilterStore<any>>((set) => ({
+  isOpen: false,
   isFilter: false,
   columns: groupColumns,
   selectedColumns: [],
-  isColumn: false,
   isAnyFilterActive: false,
-  onOpenColumn: () => set({ isColumn: true }),
-  onCloseColumn: () => set({ isColumn: false }),
+  onOpen: () => set({ isOpen: true }),
+  onClose: () => set({ isOpen: false }),
   addColumn: (filter) => set((state) => {
     const updatedFilter = {...filter, searchQuery: "", isFilter: false };
     const newSelectedColumns = [...state.selectedColumns, updatedFilter];

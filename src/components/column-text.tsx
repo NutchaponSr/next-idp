@@ -10,7 +10,7 @@ import { IconVariant } from "@/types/icon";
 import { FilterCondition } from "@/types/filter";
 import { filterConditions } from "@/constants/filters";
 
-import { useFilterTable } from "@/stores/use-filter-table";
+import { useFilter } from "@/stores/use-filter";
 
 import {
   DropdownMenu,
@@ -47,7 +47,7 @@ export const ColumnText = ({
     deleteColumn, 
     onCondition,
     onSearchQuery 
-  } = useFilterTable();
+  } = useFilter();
 
   return (
     <Popover>

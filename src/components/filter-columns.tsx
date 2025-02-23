@@ -1,8 +1,8 @@
-import { ColumnVariant, FilterColumnProps } from "@/types/filter";
-import { ColumnText } from "./column-text";
+import { ColumnText } from "@/components/column-text";
 
+import { ColumnVariant, ColumnProps } from "@/types/filter";
 
-export const FilterColumns = <T extends object>({ ...props }: FilterColumnProps<T>) => {
+export const FilterColumns = <T extends object>({ ...props }: ColumnProps<T>) => {
   switch (props.variant) {
     case ColumnVariant.TEXT: {
       return (
