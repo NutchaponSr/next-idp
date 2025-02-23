@@ -11,12 +11,12 @@ import { useSort } from "@/stores/use-sort";
 import { useFilter } from "@/stores/use-filter";
 
 import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 
 import { TableSort } from "@/components/table-sort";
 import { TableFilter } from "@/components/table-filter";
-import { FilterColumns } from "@/components/filter-columns";
-import { Separator } from "@/components/ui/separator";
 import { SortColumns } from "@/components/sort-columns";
+import { FilterColumns } from "@/components/filter-columns";
 
 export const Toolbar = () => {
   const { 
@@ -84,7 +84,7 @@ export const Toolbar = () => {
                 size="icon" 
                 variant="ghost" 
                 onClick={() => {
-                  if (isOpenSort) toggle();
+                  if (isSort) toggle();
                   else setTimeout(() => onOpenSort(), 10);
                 }}
               >
@@ -94,7 +94,7 @@ export const Toolbar = () => {
           </div>
         </div>
       </div>
-      {on && (
+      {(on && (isFilter || isSort)) && (
         <div className="flex items-center relative grow-0 overflow-hidden min-h-10 h-10 w-full">
           <div className="flex items-center pt-3 pb-2 overflow-x-auto overflow-y-hidden space-x-2 w-full">
             {isSort && <SortColumns />}

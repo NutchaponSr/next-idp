@@ -40,6 +40,17 @@ export const groupColumns: ColumnProps<ResponseType>[] = [
     condition: FilterCondition.CONTAINS,
     searchQuery: "",
     sortOrder: null,
+    order: 0,
+  },
+  {
+    label: "year",
+    isFilter: false,
+    icon: TextFontIcon,
+    variant: ColumnVariant.TEXT,
+    condition: FilterCondition.CONTAINS,
+    searchQuery: "",
+    sortOrder: null,
+    order: 0,
   },
 ];
 

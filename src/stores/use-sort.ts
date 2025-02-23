@@ -25,7 +25,11 @@ export const useSort = create<SortStore<any>>((set) => ({
   onOpen: () => set({ isOpen: true }),
   onClose: () => set({ isOpen: false }),
   addColumn: (column) => set((state) => {
-    const updatedSort = { ...column, sortOrder: sorts.asc }
+    const maxOrder = state.selectedColumns.length > 0
+      ? Math.max(...state.selectedColumns.map((col) => col.order))
+      : 0;
+
+    const updatedSort = { ...column, sortOrder: sorts.asc, order: maxOrder + 100 };
     const newSelectedColumns = [...state.selectedColumns, updatedSort];
 
     return {
@@ -39,5 +43,19 @@ export const useSort = create<SortStore<any>>((set) => ({
       item.label === label ? { ...item, sortOrder: sorts[key] } : item
     )
   })),
-  onRemove: (label) => set((staet) => )
+  onRemove: (label) => set((state) => {
+    const newSelectedColumns = state.selectedColumns.filter((item) => item.label !== label);
+    const removedColumn = state.selectedColumns.find((item) => item.label === label);
+
+    return {
+      selectedColumns: newSelectedColumns,
+      isSort: newSelectedColumns.length > 0,
+      columns: removedColumn ? [...state.columns, { ...removedColumn, sortOrder: null }] : state.columns,
+    };
+  }),
+  onRemoveAll: () => set({
+    selectedColumns: [],
+    isSort: false,
+    columns: groupColumns.map((col) => ({ ...col, sortOrder: null })),
+  }),
 }));

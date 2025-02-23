@@ -109,4 +109,5 @@ export interface ColumnProps<T extends object> {
   searchQuery?: string;
   condition: FilterCondition;
   sortOrder: (typeof sorts)[keyof typeof sorts] | null;
+  order: number;
 }
