@@ -84,6 +84,9 @@ export const DateTable = <TData, TValue>({
                       </div>
                     </TableCell>
                   ))}
+                  {isSelected && (
+                    <div className="absolute inset-0 top-[0.75px] bottom-0 bg-[#2383e224] z-[86] rounded-sm pointer-events-none ml-8" />
+                  )}
                 </TableRow>
               );
             })

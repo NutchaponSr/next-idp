@@ -7,7 +7,7 @@ import { HashIcon, TextFontIcon } from "@/components/icons";
 
 import { ResponseType } from "@/modules/groups/api/use-get-groups-by-year";
 
-export const columns: ColumnDef<ResponseType>[] = [
+export const getColumns = (): ColumnDef<ResponseType>[] => [
   {
     id: "actions",
     cell: ({}) => (
@@ -39,26 +39,28 @@ export const columns: ColumnDef<ResponseType>[] = [
         Name
       </div>
     ),
-    cell: ({ row }) => (
-      <div className="flex justify-between items-center">
-        <div className="flex items-center">
-          <div className="size-[22px] inline-flex items-center justify-center mr-1">
-            <div className="flex items-center justify-center size-5 text-lg">
-              {row.original.icon ? row.original.icon : <HashIcon className="size-4" />}
+    cell: ({ row }) => {
+      return (
+        <div className="flex justify-between items-center">
+          <div className="flex items-center">
+            <div className="size-[22px] inline-flex items-center justify-center mr-1">
+              <div className="flex items-center justify-center size-5 text-lg">
+                {row.original.icon ? row.original.icon : <HashIcon className="size-4" />}
+              </div>
             </div>
+            <p className="text-sm font-medium">
+              {row.original.name}
+            </p>
           </div>
-          <p className="text-sm font-medium">
-            {row.original.name}
-          </p>
+          {/* <div className="whitespace-normal relative hidden group-hover:block border">
+            <div className="flex justify-end absolute -top-3 right-0 left-0 mr-1">
+              <div className="flex pointer-events-auto sticky right-1">
+                <GroupButtonPanel data={row.original} /> *
+              </div>
+            </div>
+          </div> */}
         </div>
-        {/* <div className="whitespace-normal relative hidden group-hover:block border">
-          <div className="flex justify-end absolute -top-3 right-0 left-0 mr-1">
-            <div className="flex pointer-events-auto sticky right-1">
-              <GroupButtonPanel data={row.original} /> *
-            </div>
-          </div>
-        </div> */}
-      </div>
-    ),
+      );
+    },
   },
 ];

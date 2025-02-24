@@ -25,8 +25,8 @@ export const Banner = ({ workspace }: BannerProps) => {
     <div className="w-full flex flex-col items-center shrink-0 grow-0 sticky left-0 group">
       <div className="w-full px-24 max-w-full">
         <div className="flex opacity-0 group-hover:opacity-100 justify-start flex-wrap transition-opacity duration-100 py-1">
-          <Button variant="ghostFlow" size="md" onClick={() => setHide(!hide)}>
-            <InfoIcon className="size-4" variant={IconVariant.SOLID} />
+          <Button variant="ghostFlow" size="md" onClick={() => setHide(!hide)} className="text-[#37352f80] hover:text-[#37352f80]">
+            <InfoIcon className="size-4 text-[#9A9A97]" variant={IconVariant.SOLID} />
             Hide description
           </Button>
         </div>

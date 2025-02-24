@@ -1,7 +1,10 @@
 import { 
   ArrowUpDownIcon, 
   ListFilterIcon,
-  PlusIcon, 
+  MoreHorizontalIcon,
+  PlusIcon,
+  SearchIcon,
+  ZapIcon, 
 } from "lucide-react";
 import { useState } from "react";
 import { useToggle } from "react-use";
@@ -14,12 +17,25 @@ import { useFilter } from "@/stores/use-filter";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 
+import { Hint } from "@/components/hint";
 import { TableSort } from "@/components/table-sort";
 import { TableFilter } from "@/components/table-filter";
 import { SortColumns } from "@/components/sort-columns";
 import { FilterColumns } from "@/components/filter-columns";
+import { IconVariant } from "@/types/icon";
+import { CircleCancelIcon } from "@/components/icons";
+import { Input } from "@/components/ui/input";
+import { AnimatePresence, motion } from "framer-motion";
 
-export const Toolbar = () => {
+interface ToolbarProps {
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+export const Toolbar = ({
+  value,
+  onChange
+}: ToolbarProps) => {
   const { 
     isFilter,
     columns: filterColumns, 
@@ -40,7 +56,8 @@ export const Toolbar = () => {
     onClose: onCloseSort,
   } = useSort();
 
-  const [on, toggle] = useToggle(false);
+  const [isOpenSearch, onSearch] = useToggle(false);
+  const [isSubToolbar, onSubToolbar] = useToggle(false);
 
   const [tooltipOpen ,setTooltipOpen] = useState(false);
   
@@ -61,13 +78,13 @@ export const Toolbar = () => {
               tooltipOpen={tooltipOpen}
               addColumn={addFilter} 
               onClose={onCloseFilter}
-              openFilter={() => toggle(true)}
+              openFilter={() => onSubToolbar(true)}
             >
               <Button 
                 size="icon" 
                 variant="ghost" 
                 onClick={() => {
-                  if (isFilter) toggle();
+                  if (isFilter) onSubToolbar();
                   else setTimeout(() => onOpenFilter(), 10);
                 }}
                 onMouseEnter={() => setTooltipOpen(true)}
@@ -82,23 +99,76 @@ export const Toolbar = () => {
               columns={sortColumns}
               addColumn={addSort}
               onClose={onCloseSort}
-              onOpenSort={() => toggle(true)}
+              onOpenSort={() => onSubToolbar(true)}
             >
               <Button 
                 size="icon" 
                 variant="ghost" 
                 onClick={() => {
-                  if (isSort) toggle();
+                  if (isSort) onSubToolbar();
                   else setTimeout(() => onOpenSort(), 10);
                 }}
               >
                 <ArrowUpDownIcon className={cn("h-4 w-4", isAnySortActive ? "text-[#2383e2]" : "text-[#9A9A97]")} />
               </Button>
             </TableSort>
+            {/* TODO: Automation ex: send an email */}
+            <Hint label="Create and view automations" side="top">
+              <Button size="icon" variant="ghost">
+                <ZapIcon className="h-4 w-4 text-transparent fill-[#9A9A97]" />
+              </Button>
+            </Hint>
+            <div className="flex items-center relative">
+              <Hint label="Search" side="top">
+                <Button size="icon" variant="ghost" onClick={onSearch}>
+                  <SearchIcon className="h-4 w-4 text-[#9A9A97]" />
+                </Button>
+              </Hint>
+              <motion.div
+                animate={{ width: isOpenSearch ? 150 : 0 }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+                className="overflow-hidden flex items-center"
+              >
+                <AnimatePresence>
+                  {isOpenSearch && (
+                    <motion.div
+                      initial={{ x: 50, opacity: 0 }}  
+                      animate={{ x: 0, opacity: 1 }}   
+                      exit={{ x: 50, opacity: 0 }}      
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                      className="flex items-center w-[150px]"
+                    >
+                      <div className="flex items-center border-none w-full text-sm text-primary px-1">
+                        <Input
+                          autoFocus
+                          area="none"
+                          variant="none"
+                          value={value}
+                          placeholder="Type to search"
+                          onChange={(e) => onChange(e)}
+                          className="resize-none p-0 block w-[120px] border-none bg-none"
+                        />
+                        <button
+                          className="absolute right-1 top-1/2 -translate-y-1/2 inline-flex items-center justify-center shrink-0 grow-0 rounded-full size-5 hover:bg-[#37352f29]"
+                          onClick={() => {}}
+                        >
+                          <CircleCancelIcon className="fill-[#37352f59] size-4" variant={IconVariant.SOLID}/>
+                        </button>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            </div>
+            <Hint label="Edit layout and more...">
+              <Button size="icon" variant="ghost">
+                <MoreHorizontalIcon className="h-4 w-4 text-[#9A9A97]" />
+              </Button>
+            </Hint>
           </div>
         </div>
       </div>
-      {(on && (isFilter || isSort)) && (
+      {(isSubToolbar && (isFilter || isSort)) && (
         <div className="flex items-center relative grow-0 overflow-hidden min-h-10 h-10 w-full">
           <div className="flex items-center pt-3 pb-2 overflow-x-auto overflow-y-hidden space-x-2 w-full">
             {isSort && <SortColumns />}
