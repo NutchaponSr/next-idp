@@ -12,7 +12,7 @@ import {
 } from "@/types/icon";
 import { CompetencyType } from "@/types/competency";
 import { EmojiData, EmojiItem } from "@/types/emoji";
-import { FilterColumnProps, FilterCondition } from "@/types/filter";
+import { ColumnProps, FilterCondition } from "@/types/filter";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -139,7 +139,7 @@ export function applyCondition(
 
 export function filterDataByConditions<T extends object>(
   data: T[],
-  filters: FilterColumnProps<T>[],
+  filters: ColumnProps<T>[],
 ): T[] {
   if (!data || !filters || filters.length === 0) return data;
 
@@ -148,5 +148,32 @@ export function filterDataByConditions<T extends object>(
       const value = item[filter.label];
       return applyCondition(filter.condition, String(value), String(filter.searchQuery));
     });
+  });
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function sortDataByColumns<T extends object>(
+  data: T[],
+  sorts: ColumnProps<T>[]
+): T[] {
+  if (!data || sorts.length === 0) return data;
+
+  return [...data].sort((a, b) => {
+    for (const sort of sorts) {
+      const { label, sortOrder } = sort;
+
+      if (!sortOrder || sortOrder.value === null) continue;
+
+      const valueA = a[label] ?? "";
+      const valueB = b[label] ?? "";
+
+      const comparison = String(valueA).localeCompare(String(valueB), undefined, { numeric: true });
+
+      if (comparison !== 0) {
+        return sortOrder.value === "asc" ? comparison : -comparison;
+      }
+    }
+
+    return 0;
   });
 }

@@ -27,6 +27,7 @@ interface TableFilterProps<T extends object> {
   showTooltip?: boolean;
   columns: ColumnProps<T>[];
   children: React.ReactNode;
+  align?: "start" | "center" |"end";
   addColumn: (filter: ColumnProps<T>) => void;
   onClose?: () => void;
   onOpenSort?: () => void;
@@ -37,12 +38,13 @@ export const TableSort = <T extends object>({
   showTooltip,
   columns,
   children,
+  align = "end",
   addColumn,
   onClose,
   onOpenSort
 }: TableFilterProps<T>) => {
   const popoverContent = useMemo(() => (
-    <PopoverContent className="p-0 w-60" align="end">
+    <PopoverContent className="p-0 w-60" align={align}>
       <Command>
         <CommandInput placeholder="Sort by..." />
         <CommandList>
@@ -66,7 +68,7 @@ export const TableSort = <T extends object>({
         </CommandList>
       </Command>
     </PopoverContent>
-  ), [columns, onClose, onOpenSort, addColumn]);
+  ), [columns, onClose, onOpenSort, addColumn, align]);
 
   const triggerElement = <PopoverTrigger asChild>{children}</PopoverTrigger>
 

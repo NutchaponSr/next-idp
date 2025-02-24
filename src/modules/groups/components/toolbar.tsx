@@ -1,6 +1,7 @@
 import { 
   ArrowUpDownIcon, 
-  ListFilterIcon, 
+  ListFilterIcon,
+  PlusIcon, 
 } from "lucide-react";
 import { useState } from "react";
 import { useToggle } from "react-use";
@@ -31,6 +32,7 @@ export const Toolbar = () => {
   } = useFilter();
   const {
     isSort,
+    isAnySortActive,
     isOpen: isOpenSort,
     columns: sortColumns,
     addColumn: addSort,
@@ -53,6 +55,7 @@ export const Toolbar = () => {
           <div />
           <div className="flex items-center space-x-0.5">
             <TableFilter 
+              showTooltip
               columns={filterColumns} 
               isOpen={isOpenFilter} 
               tooltipOpen={tooltipOpen}
@@ -67,13 +70,14 @@ export const Toolbar = () => {
                   if (isFilter) toggle();
                   else setTimeout(() => onOpenFilter(), 10);
                 }}
-                onMouseEnter={() => {if (!isFilter) setTooltipOpen(true)}}
+                onMouseEnter={() => setTooltipOpen(true)}
                 onMouseLeave={() => setTooltipOpen(false)}
               >
                 <ListFilterIcon className={cn("h-4 w-4", isAnyFilterActive ? "text-[#2383e2]" : "text-[#9A9A97]")} />
               </Button>
             </TableFilter>
             <TableSort 
+              showTooltip
               isOpen={isOpenSort}
               columns={sortColumns}
               addColumn={addSort}
@@ -88,7 +92,7 @@ export const Toolbar = () => {
                   else setTimeout(() => onOpenSort(), 10);
                 }}
               >
-                <ArrowUpDownIcon className="h-4 w-4 text-[#9A9A97]" />
+                <ArrowUpDownIcon className={cn("h-4 w-4", isAnySortActive ? "text-[#2383e2]" : "text-[#9A9A97]")} />
               </Button>
             </TableSort>
           </div>
@@ -102,12 +106,20 @@ export const Toolbar = () => {
             {selectedColumns.map((column, index) => (
               <FilterColumns key={index} {...{ ...column, label: column.label.toString() }} />
             ))}
-            {/* <TableFilter columns={columns} addColumn={addColumn}>
-              <Button size="xs" variant="ghostFlow" className="px-1 gap-1 text-[#37352f80] hover:text-[#37352f80]">
+            <TableFilter 
+              align="center"
+              columns={filterColumns} 
+              addColumn={addFilter}
+            >
+              <Button 
+                size="xs" 
+                variant="ghostFlow" 
+                className="px-1 gap-1 text-[#37352f80] hover:text-[#37352f80]"
+              >
                 <PlusIcon className="size-4 text-[#9A9A97]" />
                 Add filter
               </Button>
-            </TableFilter> */}
+            </TableFilter>
           </div>
         </div>
       )}
