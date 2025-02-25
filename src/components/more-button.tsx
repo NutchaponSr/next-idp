@@ -9,7 +9,7 @@ interface MoreButtonProps {
   label: string;
   description?: string;
   variant?: IconVariant;
-  onClick: () => void;
+  onClick?: () => void;
   action?: JSX.Element;
 }
 

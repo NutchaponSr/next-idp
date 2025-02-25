@@ -4,10 +4,22 @@ import {
   FilterCondition, 
   FilterData, 
   Layout,
-  LayoutConfig
+  LayoutConfig,
+  PageView,
+  PageViewProps
 } from "@/types/filter";
 
-import { Layout3ColumnsIcon, ListIcon, Square1Icon, TableIcon, TextFontIcon } from "@/components/icons";
+import { 
+  CenterIcon, 
+  FullScreenIcon, 
+  Layout3ColumnsIcon, 
+  ListIcon, 
+  SidebarRightIcon, 
+  Square1Icon, 
+  TableIcon, 
+  TextFontIcon 
+} from "@/components/icons";
+
 import { ResponseType } from "@/modules/groups/api/use-get-groups-by-year";
 
 export const sortSearchs: FilterData = [
@@ -79,3 +91,24 @@ export const layouts: Record<Layout, LayoutConfig> = {
     label: "Gallery",
   },
 };
+
+export const pageViews: Record<PageView, PageViewProps> = {
+  [PageView.SIDE]: {
+    view: PageView.SIDE,
+    icon: SidebarRightIcon,
+    label: "Side peek",
+    description: "Open pages on this side. Keeps the view behind interactive.",
+  },
+  [PageView.CENTER]: {
+    view: PageView.CENTER,
+    icon: CenterIcon,
+    label: "Center peek",
+    description: "Open pages in a focused, centered modal.",
+  },
+  [PageView.FULL]: {
+    view: PageView.FULL,
+    icon: FullScreenIcon,
+    label: "Full page",
+    description: "Open page in full page.",
+  },
+}

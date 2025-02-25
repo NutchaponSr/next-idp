@@ -6,8 +6,8 @@ import {
   SearchIcon,
   ZapIcon, 
 } from "lucide-react";
-import { useState } from "react";
 import { useToggle } from "react-use";
+import { useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
 import { cn } from "@/lib/utils";
@@ -62,6 +62,8 @@ export const Toolbar = ({
   const [isSubToolbar, onSubToolbar] = useToggle(false);
 
   const [tooltipOpen ,setTooltipOpen] = useState(false);
+
+  const toggleRef = useRef<HTMLDivElement>(null);
   
   return (
     <div className="min-h-10 px-24 sticky left-0 shrink-0 z-[80]">
@@ -72,7 +74,7 @@ export const Toolbar = ({
         <div className="flex items-center justify-between h-full grow space-x-1">
           {/* TODO: Group each year */}
           <div />
-          <div className="flex items-center space-x-0.5">
+          <div className="flex items-center space-x-1">
             <TableFilter 
               showTooltip
               columns={filterColumns} 
@@ -162,11 +164,16 @@ export const Toolbar = ({
                 </AnimatePresence>
               </motion.div>
             </div>
-            <Hint label="Edit layout and more...">
-              <Button size="icon" variant="ghost" onClick={onMoreSide} className={cn(isMoreSide && "bg-accent")}>
-                <MoreHorizontalIcon className="h-4 w-4 text-[#9A9A97]" />
-              </Button>
-            </Hint>
+            <div ref={toggleRef}> 
+              <Hint label="Edit layout and more...">
+                <Button size="icon" variant="ghost" onClick={onMoreSide} className={cn(isMoreSide && "bg-accent")}>
+                  <MoreHorizontalIcon className="h-4 w-4 text-[#9A9A97]" />
+                </Button>
+              </Hint>
+            </div>
+            <Button variant="primary" size="xs">
+              New
+            </Button>
           </div>
         </div>
       </div>
@@ -197,11 +204,9 @@ export const Toolbar = ({
       )}
       <motion.div
         animate={{ width: isMoreSide ? 386 : 0 }}
-        transition={{ duration: 0.3, ease: "easeIn" }}
+        transition={{ duration: 0.15, ease: "easeIn" }}
       >
-        <AnimatePresence>
-          {isMoreSide && <MoreSidebar onClose={() => onMoreSide(false)} />}
-        </AnimatePresence>
+        {isMoreSide && <MoreSidebar onClose={() => onMoreSide(false)} toggleRef={toggleRef} />}
       </motion.div>
     </div>
   );

@@ -112,6 +112,7 @@ export interface ColumnProps<T extends object> {
   order: number;
 }
 
+
 export enum Layout {
   TABLE = "TABLE",
   BOARD = "BOARD",
@@ -119,8 +120,21 @@ export enum Layout {
   GALLERY = "GALLERY",
 }
 
-export type LayoutConfig = {
+export interface LayoutConfig {
   mode: Layout;
   icon: React.ElementType;
   label: string;
 };
+
+export enum PageView {
+  SIDE = "SIDE",
+  CENTER = "CENTER",
+  FULL = "FULL",
+}
+
+export interface PageViewProps {
+  view: PageView;
+  icon: React.ElementType;
+  label: string;
+  description: string;
+}
