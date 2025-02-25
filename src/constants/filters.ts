@@ -2,10 +2,12 @@ import {
   ColumnVariant, 
   ColumnProps, 
   FilterCondition, 
-  FilterData 
+  FilterData, 
+  Layout,
+  LayoutConfig
 } from "@/types/filter";
 
-import { TextFontIcon } from "@/components/icons";
+import { Layout3ColumnsIcon, ListIcon, Square1Icon, TableIcon, TextFontIcon } from "@/components/icons";
 import { ResponseType } from "@/modules/groups/api/use-get-groups-by-year";
 
 export const sortSearchs: FilterData = [
@@ -54,3 +56,26 @@ export const filterConditions: Record<FilterCondition, { label: string; value: F
   [FilterCondition.IS_EMPTY]: { label: "Is empty", value: FilterCondition.IS_EMPTY },
   [FilterCondition.IS_NOT_EMPTY]: { label: "Is not empty", value: FilterCondition.IS_NOT_EMPTY }
 }
+
+export const layouts: Record<Layout, LayoutConfig> = {
+  [Layout.TABLE]: {
+    mode: Layout.TABLE,
+    icon: TableIcon,
+    label: "Table",
+  },
+  [Layout.BOARD]: {
+    mode: Layout.BOARD,
+    icon: Layout3ColumnsIcon,
+    label: "Board",
+  },
+  [Layout.LIST]: {
+    mode: Layout.LIST,
+    icon: ListIcon,
+    label: "List",
+  },
+  [Layout.GALLERY]: {
+    mode: Layout.GALLERY,
+    icon: Square1Icon,
+    label: "Gallery",
+  },
+};

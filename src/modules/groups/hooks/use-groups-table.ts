@@ -3,14 +3,14 @@ import {
   getFilteredRowModel, 
   useReactTable 
 } from "@tanstack/react-table";
-import { useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 
 import { filterDataByConditions, sortDataByColumns } from "@/lib/utils";
 
 import { useSort } from "@/stores/use-sort";
 import { useFilter } from "@/stores/use-filter";
 
-import { getColumns } from "@/modules/groups/components/columns";
+import { columns } from "@/modules/groups/components/columns";
 
 import { useGetGroupsByYear } from "@/modules/groups/api/use-get-groups-by-year";
 
@@ -32,7 +32,7 @@ export const useGroupsTable = (year: string) => {
   }, [filteredData, sortColumns]);
 
   const table = useReactTable({
-    columns: getColumns(), 
+    columns, 
     data: sortedData,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
@@ -42,10 +42,16 @@ export const useGroupsTable = (year: string) => {
     },
   });
 
+  const onChangeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+
+    setGlobalFilter(e.target.value);
+  }
+
   return {
     isLoading,
     globalFilter,
     table,
-    setGlobalFilter,
+    onChangeSearch,
   };
 }

@@ -1,13 +1,17 @@
 import { GripVerticalIcon } from "lucide-react";
 import { ColumnDef } from "@tanstack/react-table";
 
+import { highlightText } from "@/lib/utils";
+
 import { Checkbox } from "@/components/ui/checkbox";
 
 import { HashIcon, TextFontIcon } from "@/components/icons";
 
+import { GroupPanelButton } from "@/modules/groups/components/group-panel-button";
+
 import { ResponseType } from "@/modules/groups/api/use-get-groups-by-year";
 
-export const getColumns = (): ColumnDef<ResponseType>[] => [
+export const columns: ColumnDef<ResponseType>[] = [
   {
     id: "actions",
     cell: ({}) => (
@@ -39,7 +43,9 @@ export const getColumns = (): ColumnDef<ResponseType>[] => [
         Name
       </div>
     ),
-    cell: ({ row }) => {
+    cell: ({ row, table }) => {
+      const globalFilter = table.getState().globalFilter;
+
       return (
         <div className="flex justify-between items-center">
           <div className="flex items-center">
@@ -49,16 +55,16 @@ export const getColumns = (): ColumnDef<ResponseType>[] => [
               </div>
             </div>
             <p className="text-sm font-medium">
-              {row.original.name}
+              {highlightText(row.original.name, globalFilter)}
             </p>
           </div>
-          {/* <div className="whitespace-normal relative hidden group-hover:block border">
+          <div className="whitespace-normal relative hidden group-hover:block border">
             <div className="flex justify-end absolute -top-3 right-0 left-0 mr-1">
               <div className="flex pointer-events-auto sticky right-1">
-                <GroupButtonPanel data={row.original} /> *
+                <GroupPanelButton group={row.original} /> 
               </div>
             </div>
-          </div> */}
+          </div>
         </div>
       );
     },

@@ -111,3 +111,16 @@ export interface ColumnProps<T extends object> {
   sortOrder: (typeof sorts)[keyof typeof sorts] | null;
   order: number;
 }
+
+export enum Layout {
+  TABLE = "TABLE",
+  BOARD = "BOARD",
+  LIST = "LIST",
+  GALLERY = "GALLERY",
+}
+
+export type LayoutConfig = {
+  mode: Layout;
+  icon: React.ElementType;
+  label: string;
+};

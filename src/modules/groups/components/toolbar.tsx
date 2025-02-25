@@ -8,24 +8,25 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { useToggle } from "react-use";
+import { AnimatePresence, motion } from "framer-motion";
 
 import { cn } from "@/lib/utils";
+import { IconVariant } from "@/types/icon";
 
 import { useSort } from "@/stores/use-sort";
 import { useFilter } from "@/stores/use-filter";
 
+import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 
 import { Hint } from "@/components/hint";
 import { TableSort } from "@/components/table-sort";
+import { CircleCancelIcon } from "@/components/icons";
+import { MoreSidebar } from "@/components/more-sidebar";
 import { TableFilter } from "@/components/table-filter";
 import { SortColumns } from "@/components/sort-columns";
 import { FilterColumns } from "@/components/filter-columns";
-import { IconVariant } from "@/types/icon";
-import { CircleCancelIcon } from "@/components/icons";
-import { Input } from "@/components/ui/input";
-import { AnimatePresence, motion } from "framer-motion";
 
 interface ToolbarProps {
   value: string;
@@ -56,6 +57,7 @@ export const Toolbar = ({
     onClose: onCloseSort,
   } = useSort();
 
+  const [isMoreSide, onMoreSide] = useToggle(false);
   const [isOpenSearch, onSearch] = useToggle(false);
   const [isSubToolbar, onSubToolbar] = useToggle(false);
 
@@ -161,7 +163,7 @@ export const Toolbar = ({
               </motion.div>
             </div>
             <Hint label="Edit layout and more...">
-              <Button size="icon" variant="ghost">
+              <Button size="icon" variant="ghost" onClick={onMoreSide} className={cn(isMoreSide && "bg-accent")}>
                 <MoreHorizontalIcon className="h-4 w-4 text-[#9A9A97]" />
               </Button>
             </Hint>
@@ -193,6 +195,14 @@ export const Toolbar = ({
           </div>
         </div>
       )}
+      <motion.div
+        animate={{ width: isMoreSide ? 386 : 0 }}
+        transition={{ duration: 0.3, ease: "easeIn" }}
+      >
+        <AnimatePresence>
+          {isMoreSide && <MoreSidebar onClose={() => onMoreSide(false)} />}
+        </AnimatePresence>
+      </motion.div>
     </div>
   );
 }

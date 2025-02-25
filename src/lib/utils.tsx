@@ -195,7 +195,7 @@ export function highlightText(text: string, highlight: string) {
     <span className="leading-[1.5] whitespace-pre-wrap break-words inline font-medium bg-[linear-gradient(to_right,rgba(55,53,47,0.16)_0%,rgba(55,53,47,0.16)_100%)] bg-repeat-x bg-[length:100%_1px] bg-bottom mr-1.5">
       {parts.map((part, i) =>
         part.toLowerCase() === highlight.toLowerCase() ? ( 
-          <span key={i} className="bg-yellow-300/40 text-[#1d1b16] outline outline-yellow-300/40 outline-2 outline-offset-[0.5px] rounded border-b-0">
+          <span key={i} className="bg-[#ffcd3866] text-[#1d1b16] outline outline-[#ffcd3866] outline-2 outline-offset-[-0.5px] rounded border-b-0">
             {part}
           </span>
         ) : (

@@ -85,6 +85,40 @@ const app = new Hono()
       return c.json({ data: populatedData });
     }
   )
+  .get(
+    "/:id",
+    verifyAuth(),
+    zValidator(
+      "param",
+      z.object({
+        id: z.string(),
+      })
+    ),
+    async (c) => {
+      const auth = c.get("authUser");
+
+      const { id } = c.req.valid("param");
+
+      if (!auth.token?.sub) {
+        return c.json({ error: "Unauthorized" }, 401);
+      }
+
+      if (!id) {
+        return c.json({ error: "Missing id" }, 400);
+      }
+
+      const [data] = await db
+        .select()
+        .from(groups)
+        .where(eq(groups.id, id));
+
+      if (!data) {
+        return c.json({ error: "Not found" }, 404);
+      }
+
+      return c.json({ data });
+    }
+  )
   .post(
     "/",
     verifyAuth(),
