@@ -3,9 +3,12 @@ import {
   getFilteredRowModel, 
   useReactTable 
 } from "@tanstack/react-table";
-import React, { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
-import { filterDataByConditions, sortDataByColumns } from "@/lib/utils";
+import { 
+  filterDataByConditions, 
+  sortDataByColumns 
+} from "@/lib/utils";
 
 import { useSort } from "@/stores/use-sort";
 import { useFilter } from "@/stores/use-filter";

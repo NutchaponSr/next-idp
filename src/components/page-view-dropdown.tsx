@@ -1,14 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
 
+import { PageView } from "@/types/filter";
 import { pageViews } from "@/constants/filters";
 
+import { useView } from "@/stores/use-view";
+
+import { Check1Icon } from "@/components/icons";
 import { MoreButton } from "@/components/more-button";
-import { useView } from "@/hooks/use-view";
-import { PageView } from "@/types/filter";
-import { Check1Icon } from "./icons";
 
 export const PageViewDropdown = () => {
-  const { view, setView } = useView();
+  const { view, onChangeView } = useView();
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -28,8 +29,8 @@ export const PageViewDropdown = () => {
   const handleToggle = () => setIsOpen(!isOpen);
 
   const handleSelect = (view: PageView) => {
-    setView(view);
     setIsOpen(false);
+    onChangeView(view);
   }
 
   return (

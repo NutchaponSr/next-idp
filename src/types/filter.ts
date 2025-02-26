@@ -110,6 +110,7 @@ export interface ColumnProps<T extends object> {
   condition: FilterCondition;
   sortOrder: (typeof sorts)[keyof typeof sorts] | null;
   order: number;
+  width: number;
 }
 
 

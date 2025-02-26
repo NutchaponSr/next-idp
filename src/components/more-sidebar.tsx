@@ -1,6 +1,6 @@
 import { ArrowLeftIcon, XIcon } from "lucide-react";
 import { motion } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import { ScrollArea } from "@/components/ui/scroll-area";
 
@@ -42,6 +42,11 @@ export const MoreSidebar = ({ onClose, toggleRef }: MoreSidebarProps) => {
     }
   }
 
+  const handleClose = useCallback(() => {
+    onClose();
+    onBack();
+  }, [onBack, onClose])
+
   useEffect(() => {
     updateHeight();
 
@@ -63,12 +68,7 @@ export const MoreSidebar = ({ onClose, toggleRef }: MoreSidebarProps) => {
 
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
-  const handleClose = () => {
-    onClose();
-    onBack();
-  }
+  }, [handleClose, toggleRef]);
 
   return (
     <motion.aside

@@ -1,17 +1,20 @@
-import { Table } from "@tanstack/react-table";
+import { ColumnProps, Layout } from "@/types/filter";
 
-import { Layout } from "@/types/filter";
-import { DateTable } from "./data-table";
+import { TableLayout } from "@/components/table-layout";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-interface LayoutsProps<TData, TValue> {
-  table: Table<TData>;
+interface LayoutsProps<T extends object> {
+  data: T[];
+  columns: ColumnProps<T>[];
   mode: Layout;
 }
 
-export const Layouts = <TData, TValue>({ table, mode }: LayoutsProps<TData, TValue>) => {
+export const Layouts = <T extends object>({ 
+  data, 
+  columns,
+  mode,
+}: LayoutsProps<T>) => {
   switch (mode) {
     case Layout.TABLE:
-      return <DateTable table={table} />
+      return <TableLayout data={data} columns={columns}  />
   }
 }

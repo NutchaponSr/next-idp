@@ -55,6 +55,7 @@ export const groupColumns: ColumnProps<ResponseType>[] = [
     searchQuery: "",
     sortOrder: null,
     order: 0,
+    width: 248,
   },
 ];
 
