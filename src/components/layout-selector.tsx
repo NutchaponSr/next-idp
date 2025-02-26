@@ -31,7 +31,7 @@ export const LayoutSelector = ({ onClose }: LayoutSelectorProps) => {
   }
 
   return (
-    <div className="shrink-0">
+    <div className="shrink-0 h-full">
       <MoreHeader label="Layout" onClose={handleClose} onBack={onBack} />
       <ScrollArea className="flex flex-col h-full">
         <div className="flex flex-col py-1">

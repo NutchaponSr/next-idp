@@ -39,7 +39,7 @@ export default async function RootLayout({
 
   return (
     <SessionProvider session={session}>
-      <ReactScan />
+      {/* <ReactScan /> */}
       <html lang="en" suppressHydrationWarning>
         <body className={cn(font.className, "antialiased")}>
           <NuqsAdapter>

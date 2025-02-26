@@ -137,4 +137,5 @@ export interface PageViewProps {
   icon: React.ElementType;
   label: string;
   description: string;
+  default?: boolean;
 }

@@ -98,6 +98,7 @@ export const pageViews: Record<PageView, PageViewProps> = {
     icon: SidebarRightIcon,
     label: "Side peek",
     description: "Open pages on this side. Keeps the view behind interactive.",
+    default: true,
   },
   [PageView.CENTER]: {
     view: PageView.CENTER,
