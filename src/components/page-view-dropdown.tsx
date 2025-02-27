@@ -3,13 +3,13 @@ import React, { useEffect, useRef, useState } from "react";
 import { PageView } from "@/types/filter";
 import { pageViews } from "@/constants/filters";
 
-import { useView } from "@/stores/use-view";
+import { useSettings } from "@/stores/use-settings";
 
 import { Check1Icon } from "@/components/icons";
 import { MoreButton } from "@/components/more-button";
 
 export const PageViewDropdown = () => {
-  const { view, onChangeView } = useView();
+  const { view, onChangeView } = useSettings();
 
   const [isOpen, setIsOpen] = useState(false);
 

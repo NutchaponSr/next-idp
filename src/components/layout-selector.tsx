@@ -5,6 +5,7 @@ import { layouts } from "@/constants/filters";
 
 import { useMore } from "@/stores/use-more";
 import { useLayout } from "@/stores/use-layout";
+import { useSettings } from "@/stores/use-settings";
 
 import { Switch } from "@/components/ui/switch";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -18,8 +19,14 @@ interface LayoutSelectorProps {
 }
 
 export const LayoutSelector = ({ onClose }: LayoutSelectorProps) => {
-  const { mode: currentMode, onChange } = useLayout();
+  const { 
+    showIcon,
+    showVerticalLine,
+    onSwitchIcon,
+    onSwitchVerticalLine
+  } = useSettings();
   const { isOpen, type, onBack } = useMore();
+  const { mode: currentMode, onChange } = useLayout();
 
   const open = isOpen && type === "layout";
 
@@ -56,14 +63,12 @@ export const LayoutSelector = ({ onClose }: LayoutSelectorProps) => {
         <div className="flex flex-col py-1 h-full">
           <PageViewDropdown />
           <MoreButton 
-            onClick={() => {}}
             label="Show vertical lines"
-            action={<Switch />} 
+            action={<Switch checked={showVerticalLine} onCheckedChange={onSwitchVerticalLine} />} 
           />
           <MoreButton 
-            onClick={() => {}}
             label="Show page icon"
-            action={<Switch />} 
+            action={<Switch checked={showIcon} onCheckedChange={onSwitchIcon} />} 
           />
         </div>
       </ScrollArea> 

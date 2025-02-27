@@ -8,7 +8,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 
 import { HashIcon, TextFontIcon } from "@/components/icons";
 
-import { GroupPanelButton } from "@/components/panel-button";
+import { GroupPanelButton } from "@/modules/groups/components/group-panel-button";
 
 import { ResponseType } from "@/modules/groups/api/use-get-groups-by-year";
 

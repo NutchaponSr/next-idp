@@ -1,9 +1,16 @@
 "use client";
 
-import { Layouts } from "@/components/layouts";
-import { useLayout } from "@/stores/use-layout";
-import { useInitialGroups } from "../hooks/use-initial-groups";
+import { useCallback, useState } from "react";
+
 import { groupColumns } from "@/constants/filters";
+
+import { Layouts } from "@/components/layouts";
+
+import { GroupCell } from "@/modules/groups/components/render-cell";
+
+import { Toolbar } from "../../../components/toolbar";
+import { useGroupsTable } from "@/modules/groups/hooks/use-groups-table";
+import { SelectMenu } from "@/components/select-menu";
 
 export const Content = () => {
   // TODO: Query year **?year=2025
@@ -12,14 +19,54 @@ export const Content = () => {
   const {
     data,
     isLoading,
-  } = useInitialGroups(year);
-  const { mode } = useLayout();
+    searchQuery,
+    setSearchQuery
+  } = useGroupsTable(year);
+
+  const [selectedRows, setSelectedRows] = useState<Record<string, boolean>>({});
+  
+  const selectRow = useCallback((key: string) => {
+    setSelectedRows((prev) => ({
+      ...prev,
+      [key]: !prev[key],
+    }));
+  }, []);
+
+  const selectAll = useCallback(() => {
+    const allSelected = data.every((item) => selectedRows[item.id]);
+    
+    if (allSelected) {
+      setSelectedRows({});
+    } else {
+      const newSelectedRow: Record<string, boolean> = {};
+      data.forEach((item) => { newSelectedRow[item.id] = true; });
+      setSelectedRows(newSelectedRow);
+    }
+  }, [data, selectedRows]);
+  
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+  }
 
   if (isLoading) return null;
 
+  const selectedData = data.filter(item => selectedRows[item.id]);
+
   return (
     <div className="contents">
-      <Layouts data={data} columns={groupColumns} mode={mode} />
+      <SelectMenu selectedData={selectedData} />
+      <Toolbar value={searchQuery} onChange={onChange} />
+      <Layouts 
+        data={data} 
+        renderCell={(cell, column, searchQuery) => (
+          <GroupCell {...{ cell, column, searchQuery }} />
+        )} 
+        searchQuery={searchQuery}
+        columns={groupColumns} 
+        selectedRows={selectedRows}
+        selectRow={selectRow}
+        selectAll={selectAll}
+      />
       <div className="px-24 border-t border-[#e9e9e7] h-3" />
     </div>
   );

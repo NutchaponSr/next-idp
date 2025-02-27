@@ -14,6 +14,7 @@ import { cn } from "@/lib/utils";
 import { IconVariant } from "@/types/icon";
 
 import { useSort } from "@/stores/use-sort";
+import { useMore } from "@/stores/use-more";
 import { useFilter } from "@/stores/use-filter";
 
 import { Input } from "@/components/ui/input";
@@ -56,6 +57,7 @@ export const Toolbar = ({
     onOpen: onOpenSort,
     onClose: onCloseSort,
   } = useSort();
+  const { onBack } = useMore();
 
   const [isMoreSide, onMoreSide] = useToggle(false);
   const [isOpenSearch, onSearch] = useToggle(false);
@@ -64,6 +66,11 @@ export const Toolbar = ({
   const [tooltipOpen ,setTooltipOpen] = useState(false);
 
   const toggleRef = useRef<HTMLDivElement>(null);
+
+  const handleMoreSide = () => {
+    onBack();
+    onMoreSide();
+  }
   
   return (
     <div className="min-h-10 px-24 sticky left-0 shrink-0 z-[80]">
@@ -166,7 +173,7 @@ export const Toolbar = ({
             </div>
             <div ref={toggleRef}> 
               <Hint label="Edit layout and more...">
-                <Button size="icon" variant="ghost" onClick={onMoreSide} className={cn(isMoreSide && "bg-accent")}>
+                <Button size="icon" variant="ghost" onClick={handleMoreSide} className={cn(isMoreSide && "bg-accent")}>
                   <MoreHorizontalIcon className="h-4 w-4 text-[#9A9A97]" />
                 </Button>
               </Hint>
