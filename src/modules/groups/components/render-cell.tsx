@@ -44,5 +44,13 @@ export const GroupCell = ({
           </div>
         </div>
       );
+    case "year":
+      return (
+        <div className="transition relative block overflow-clip w-full whitespace-normal min-h-8 py-1.5 px-2">
+          <span className="leading-[1.5] whitespace-pre-wrap break-words font-medium text-primary text-sm">
+            {highlightText(value as string, searchQuery)}
+          </span>
+        </div>
+      );
   }
 }

@@ -1,5 +1,6 @@
 import { create } from "zustand"; 
 
+// TODO: MoreSide interface
 export type MoreType = "layout" | "property" | "filter" | "sort" | "grouping" | "automations";
 
 type MoreStore = {

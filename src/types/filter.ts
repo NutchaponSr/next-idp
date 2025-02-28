@@ -111,8 +111,31 @@ export interface ColumnProps<T extends object> {
   sortOrder: (typeof sorts)[keyof typeof sorts] | null;
   order: number;
   width: number;
+  calculation: CalculationType | null;
+  isHide: boolean;
 }
 
+export enum CalculationType {
+  COUNT_ALL = "COUNT_ALL",
+  COUNT_VALUES = "COUNT_VALUES",
+  COUNT_UNIQUE = "COUNT_UNIQUE",
+  COUNT_EMPTY = "COUNT_EMPTY",
+  COUNT_NOT_EMPTY = "COUNT_NOT_EMPTY",
+  PERCENT_EMPTY = "PERCENT_EMPTY",
+  PERCENT_NOT_EMPTY = "PERCENT_NOT_EMPTY",
+}
+
+interface CalculationOption {
+  type: CalculationType;
+  label: string;
+  image: string;
+  description: string;
+}
+
+export interface CalculationCategory {
+  label: string;
+  options: CalculationOption[];
+}
 
 export enum Layout {
   TABLE = "TABLE",

@@ -6,7 +6,9 @@ import {
   Layout,
   LayoutConfig,
   PageView,
-  PageViewProps
+  PageViewProps,
+  CalculationType,
+  CalculationCategory
 } from "@/types/filter";
 
 import { 
@@ -56,6 +58,8 @@ export const groupColumns: ColumnProps<ResponseType>[] = [
     sortOrder: null,
     order: 0,
     width: 248,
+    calculation: null,
+    isHide: false,
   },
   {
     label: "year",
@@ -67,8 +71,75 @@ export const groupColumns: ColumnProps<ResponseType>[] = [
     sortOrder: null,
     order: 0,
     width: 248,
+    calculation: null,
+    isHide: true,
   },
 ];
+
+export const calculationPrefixes: Record<CalculationType, string> = {
+  [CalculationType.COUNT_ALL]: "COUNT",
+  [CalculationType.COUNT_VALUES]: "VALUES",
+  [CalculationType.COUNT_UNIQUE]: "UNIQUE",
+  [CalculationType.COUNT_EMPTY]: "EMPTY",
+  [CalculationType.COUNT_NOT_EMPTY]: "NOT EMPTY",
+  [CalculationType.PERCENT_EMPTY]: "EMPTY",
+  [CalculationType.PERCENT_NOT_EMPTY]: "NOT EMPTY",
+};
+
+export const calculations: CalculationCategory[] = [
+  {
+    label: "Count",
+    options: [
+      { 
+        type: CalculationType.COUNT_ALL, 
+        label: "Count all",  
+        image: "/count.png",
+        description: "Counts the total page number of pages, including blank pages.",
+      },
+      { 
+        type: CalculationType.COUNT_VALUES, 
+        label: "Count values",  
+        image: "/countValues.png",
+        description: "Counts the number of non-empty values for this property. For a type that can contain multiple values like multi-select or person, this will count the number of selected values for each page.",
+      },
+      { 
+        type: CalculationType.COUNT_UNIQUE, 
+        label: "Count unique",  
+        image: "/unique.png",
+        description: "Counts the number of unique values for this property. For a type that can contain multiple values like multi-select or person, this will count the unique values across all pages.",
+      },
+      { 
+        type: CalculationType.COUNT_EMPTY, 
+        label: "Count empty",  
+        image: "/empty.png",
+        description: "Counts the number of pages with an empty value for this property.",
+      },
+      { 
+        type: CalculationType.COUNT_NOT_EMPTY, 
+        label: "Count not empty",  
+        image: "/notEmpty.png",
+        description: "Counts the number of pages with a non-empty value for this property.",
+      },
+    ],
+  },
+  {
+    label: "Percent",
+    options: [
+      { 
+        type: CalculationType.PERCENT_EMPTY, 
+        label: "Percent empty",  
+        image: "/empty.png",
+        description: "Displays the percentage of pages that have an empty value for this property.",
+      },
+      { 
+        type: CalculationType.PERCENT_NOT_EMPTY, 
+        label: "Percent not empty",  
+        image: "/notEmpty.png",
+        description: "Displays the percentage of pages that have a non-empty value for this property.",
+      },
+    ],
+  },
+]
 
 export const filterConditions: Record<FilterCondition, { label: string; value: FilterCondition }> = {
   [FilterCondition.IS]: { label: "Is", value: FilterCondition.IS },

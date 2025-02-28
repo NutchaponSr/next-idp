@@ -12,7 +12,7 @@ import {
 } from "@/types/icon";
 import { CompetencyType } from "@/types/competency";
 import { EmojiData, EmojiItem } from "@/types/emoji";
-import { ColumnProps, FilterCondition } from "@/types/filter";
+import { CalculationType, ColumnProps, FilterCondition } from "@/types/filter";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -204,4 +204,28 @@ export function highlightText(text: string, highlight: string) {
       )}
     </span>
   );
+}
+
+export function calculateColumnValues<T extends object>(
+  values: T[],
+  type: CalculationType | null,
+) {
+  if (type === null) return null;
+
+  switch (type) {
+    case CalculationType.COUNT_ALL:
+      return values.length.toString();
+    case  CalculationType.COUNT_EMPTY:
+      return values.filter((val) => val === null || val === undefined).length.toString();
+    case  CalculationType.COUNT_NOT_EMPTY:
+      return values.filter((val) => val !== null && val !== undefined).length.toString();
+    case CalculationType.COUNT_UNIQUE:
+      return new Set(values).size.toString();
+    case CalculationType.COUNT_VALUES:
+      return values.filter((val) => val !== null && val !== undefined).length.toString();
+    case CalculationType.PERCENT_EMPTY:
+      return ((values.filter((val) => val === null || val === undefined).length / values.length) * 100).toFixed(2) + "%";
+    case CalculationType.PERCENT_NOT_EMPTY:
+      return ((values.filter((val) => val !== null && val !== undefined).length / values.length) * 100).toFixed(2) + "%";
+  }
 }

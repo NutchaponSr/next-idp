@@ -20,6 +20,7 @@ import { cn } from "@/lib/utils";
 import { useLayout } from "@/stores/use-layout";
 import { layouts } from "@/constants/filters";
 import { Button } from "./ui/button";
+import { Properties } from "./properties";
 
 interface MoreSidebarProps {
   onClose: () => void;
@@ -107,6 +108,7 @@ export const MoreSidebar = ({ onClose, toggleRef }: MoreSidebarProps) => {
               </ScrollArea>
             </div>
             <LayoutSelector onClose={onClose} />
+            <Properties onClose={onClose} />
           </div>
         </div>
         <div className="w-24" />
