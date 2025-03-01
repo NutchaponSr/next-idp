@@ -12,10 +12,10 @@ import { AnimatePresence, motion } from "framer-motion";
 
 import { cn } from "@/lib/utils";
 import { IconVariant } from "@/types/icon";
+import { ColumnProps } from "@/types/filter";
 
-import { useSort } from "@/stores/use-sort";
 import { useMore } from "@/stores/use-more";
-import { useFilter } from "@/stores/use-filter";
+import { useTable } from "@/stores/use-table";
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -29,34 +29,34 @@ import { TableFilter } from "@/components/table-filter";
 import { SortColumns } from "@/components/sort-columns";
 import { FilterColumns } from "@/components/filter-columns";
 
-interface ToolbarProps {
+interface ToolbarProps<T extends object> {
   value: string;
+  columns: ColumnProps<T>[];
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const Toolbar = ({
+export const Toolbar = <T extends object>({
   value,
+  columns,
   onChange
-}: ToolbarProps) => {
-  const { 
-    isFilter,
-    columns: filterColumns, 
-    isOpen: isOpenFilter,
-    selectedColumns, 
-    isAnyFilterActive,
-    addColumn: addFilter,
-    onOpen: onOpenFilter,
-    onClose: onCloseFilter,
-  } = useFilter();
+}: ToolbarProps<T>) => {
   const {
     isSort,
+    isFilter,
+    isOpenSort,
+    isOpenFilter,
+    sortColumns,
+    filterColumns,
     isAnySortActive,
-    isOpen: isOpenSort,
-    columns: sortColumns,
-    addColumn: addSort,
-    onOpen: onOpenSort,
-    onClose: onCloseSort,
-  } = useSort();
+    isAnyFilterActive,
+    selectedFilterColumns,
+    addSortColumn,
+    addFilterColumn,
+    onOpenSort,
+    onOpenFilter,
+    onCloseSort,
+    onCloseFilter,
+  } = useTable();
   const { onBack } = useMore();
 
   const [isMoreSide, onMoreSide] = useToggle(false);
@@ -87,7 +87,7 @@ export const Toolbar = ({
               columns={filterColumns} 
               isOpen={isOpenFilter} 
               tooltipOpen={tooltipOpen}
-              addColumn={addFilter} 
+              addColumn={addFilterColumn} 
               onClose={onCloseFilter}
               openFilter={() => onSubToolbar(true)}
             >
@@ -108,7 +108,7 @@ export const Toolbar = ({
               showTooltip
               isOpen={isOpenSort}
               columns={sortColumns}
-              addColumn={addSort}
+              addColumn={addSortColumn}
               onClose={onCloseSort}
               onOpenSort={() => onSubToolbar(true)}
             >
@@ -189,13 +189,13 @@ export const Toolbar = ({
           <div className="flex items-center pt-3 pb-2 overflow-x-auto overflow-y-hidden space-x-2 w-full">
             {isSort && <SortColumns />}
             {(isSort && isFilter) && <Separator orientation="vertical" className="h-6" />}
-            {selectedColumns.map((column, index) => (
+            {selectedFilterColumns.map((column, index) => (
               <FilterColumns key={index} {...{ ...column, label: column.label.toString() }} />
             ))}
             <TableFilter 
               align="center"
               columns={filterColumns} 
-              addColumn={addFilter}
+              addColumn={addFilterColumn}
             >
               <Button 
                 size="xs" 
@@ -213,7 +213,7 @@ export const Toolbar = ({
         animate={{ width: isMoreSide ? 386 : 0 }}
         transition={{ duration: 0.15, ease: "easeIn" }}
       >
-        {isMoreSide && <MoreSidebar onClose={() => onMoreSide(false)} toggleRef={toggleRef} />}
+        {isMoreSide && <MoreSidebar onClose={() => onMoreSide(false)} toggleRef={toggleRef} columns={columns} />}
       </motion.div>
     </div>
   );

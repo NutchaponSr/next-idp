@@ -10,8 +10,6 @@ import { IconVariant } from "@/types/icon";
 import { FilterCondition } from "@/types/filter";
 import { filterConditions } from "@/constants/filters";
 
-import { useFilter } from "@/stores/use-filter";
-
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -27,6 +25,7 @@ import { Button } from "@/components/ui/button";
 
 import { TrashIcon } from "@/components/icons";
 import { ClearableInput } from "@/components/clearable-input";
+import { useTable } from "@/stores/use-table";
 
 interface ColumnTextProps {
   label: string;
@@ -44,10 +43,10 @@ export const ColumnText = ({
   condition, 
 }: ColumnTextProps) => {
   const { 
-    deleteColumn, 
+    removeFilterColumn, 
     onCondition,
     onSearchQuery 
-  } = useFilter();
+  } = useTable();
 
   return (
     <Popover>
@@ -96,7 +95,7 @@ export const ColumnText = ({
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent side="right" className="w-[220px]">
-              <DropdownMenuItem className="group focus:text-destructive" onClick={() => deleteColumn(label)}>
+              <DropdownMenuItem className="group focus:text-destructive" onClick={() => removeFilterColumn(label)}>
                 <TrashIcon className="size-4 text-[#37352f] group-focus:text-destructive transition-colors" />
                 Delete filter
               </DropdownMenuItem>

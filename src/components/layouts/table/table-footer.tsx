@@ -57,8 +57,6 @@ export const TableFooter = <T extends { id: string }>({
     setActive(prev => ({ ...prev, [index]: false }));
   }
 
-  console.log({ calculatedValues });
-
   return (
     <div className="h-12 w-full relative group">
       <div className="border-t border-[#e9e9e7] flex min-w-full">

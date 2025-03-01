@@ -50,7 +50,8 @@ export const sortSearchs: FilterData = [
 export const groupColumns: ColumnProps<ResponseType>[] = [
   {
     label: "name",
-    isFilter: false,
+    isSorted: false,
+    isFiltered: false,
     icon: TextFontIcon,
     variant: ColumnVariant.TEXT,
     condition: FilterCondition.CONTAINS,
@@ -63,7 +64,8 @@ export const groupColumns: ColumnProps<ResponseType>[] = [
   },
   {
     label: "year",
-    isFilter: false,
+    isSorted: false,
+    isFiltered: false,
     icon: TextFontIcon,
     variant: ColumnVariant.TEXT,
     condition: FilterCondition.CONTAINS,
@@ -72,7 +74,7 @@ export const groupColumns: ColumnProps<ResponseType>[] = [
     order: 0,
     width: 248,
     calculation: null,
-    isHide: true,
+    isHide: false,
   },
 ];
 

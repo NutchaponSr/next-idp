@@ -8,7 +8,7 @@ export const FilterColumns = <T extends object>({ ...props }: ColumnProps<T>) =>
       return (
         <ColumnText 
           {...props} 
-          isFilter={props.isFilter} 
+          isFilter={props.isFiltered} 
           searchQuery={props.searchQuery!} 
           label={props.label as string} 
         />

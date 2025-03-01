@@ -55,7 +55,11 @@ export const Content = () => {
   return (
     <div className="contents">
       <SelectMenu selectedData={selectedData} />
-      <Toolbar value={searchQuery} onChange={onChange} />
+      <Toolbar 
+        value={searchQuery} 
+        onChange={onChange} 
+        columns={groupColumns} 
+      />
       <Layouts 
         data={data} 
         renderCell={(cell, column, searchQuery) => (

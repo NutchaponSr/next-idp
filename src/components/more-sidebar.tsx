@@ -1,7 +1,22 @@
-import { ArrowLeftIcon, XIcon } from "lucide-react";
+import { 
+  useCallback, 
+  useEffect, 
+  useRef, 
+  useState 
+} from "react";
 import { motion } from "framer-motion";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { ArrowLeftIcon, XIcon } from "lucide-react";
 
+import { cn } from "@/lib/utils";
+import { IconVariant } from "@/types/icon";
+import { ColumnProps } from "@/types/filter";
+
+import { layouts } from "@/constants/filters";
+
+import { useMore } from "@/stores/use-more";
+import { useLayout } from "@/stores/use-layout";
+
+import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 import {
@@ -13,21 +28,20 @@ import {
   ZapIcon
 } from "@/components/icons";
 import { MoreButton } from "@/components/more-button";
-import { IconVariant } from "@/types/icon";
-import { useMore } from "@/stores/use-more";
-import { LayoutSelector } from "./layout-selector";
-import { cn } from "@/lib/utils";
-import { useLayout } from "@/stores/use-layout";
-import { layouts } from "@/constants/filters";
-import { Button } from "./ui/button";
-import { Properties } from "./properties";
+import { Properties } from "@/components/properties";
+import { LayoutSelector } from "@/components/layout-selector";
 
-interface MoreSidebarProps {
+interface MoreSidebarProps<T extends object> {
   onClose: () => void;
+  columns: ColumnProps<T>[];
   toggleRef: React.RefObject<HTMLDivElement>;
 }
 
-export const MoreSidebar = ({ onClose, toggleRef }: MoreSidebarProps) => {
+export const MoreSidebar = <T extends object>({ 
+  onClose, 
+  columns,
+  toggleRef 
+}: MoreSidebarProps<T>) => {
   const { mode } = useLayout();
   const { type, onOpen, onBack } = useMore();
 
@@ -96,7 +110,12 @@ export const MoreSidebar = ({ onClose, toggleRef }: MoreSidebarProps) => {
                   />
                 </div>
                 <div className="py-1 flex flex-col shadow-[0_-1px_0_rgba(55,53,47,0.09)]">
-                  <MoreButton label="Properties" icon={ListIcon} description="1 Shown" onClick={() => onOpen("property")} />
+                  <MoreButton 
+                    label="Properties" 
+                    icon={ListIcon} 
+                    description={`${columns.filter((col) => !col.isHide).length} shown`} 
+                    onClick={() => onOpen("property")} 
+                  />
                   <MoreButton label="Filter" icon={FilterIcon} description="None" onClick={() => onOpen("filter")} />
                   <MoreButton label="Sort" icon={ArrowUpDownIcon} description="None" onClick={() => onOpen("sort")} />
                   <MoreButton label="Grouping" icon={InsertRowUpIcon} description="None" onClick={() => onOpen("grouping")} />
@@ -108,7 +127,7 @@ export const MoreSidebar = ({ onClose, toggleRef }: MoreSidebarProps) => {
               </ScrollArea>
             </div>
             <LayoutSelector onClose={onClose} />
-            <Properties onClose={onClose} />
+            <Properties onClose={onClose} columns={columns} />
           </div>
         </div>
         <div className="w-24" />

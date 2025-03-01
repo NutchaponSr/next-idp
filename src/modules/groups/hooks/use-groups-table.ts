@@ -1,23 +1,29 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 
 import { 
   filterDataByConditions, 
   sortDataByColumns 
 } from "@/lib/utils";
-
-import { useSort } from "@/stores/use-sort";
-import { useSearch } from "@/hooks/use-search";
-import { useFilter } from "@/stores/use-filter";
-
-import { useGetGroupsByYear } from "@/modules/groups/api/use-get-groups-by-year";
 import { groupColumns } from "@/constants/filters";
 
-export const useGroupsTable = (year: string) => {
-  const { selectedColumns: sortColumns } = useSort();
-  const { selectedColumns: filterColumns } = useFilter();
-  
+import { useSearch } from "@/hooks/use-search";
 
+import { useTable } from "@/stores/use-table";
+
+import { useGetGroupsByYear } from "@/modules/groups/api/use-get-groups-by-year";
+
+export const useGroupsTable = (year: string) => {
   const { data, isLoading } = useGetGroupsByYear(year);
+
+  const { 
+    setColumns,
+    selectedFilterColumns,
+    selectedSortColumns
+  } = useTable();
+
+  useEffect(() => {
+    setColumns(groupColumns);
+  }, [setColumns]);
   
   const {
     searchQuery,
@@ -26,12 +32,12 @@ export const useGroupsTable = (year: string) => {
   } = useSearch(data || [], groupColumns.map((col) => col.label))
 
   const filteredData = useMemo(() => {
-    return filterDataByConditions(filteredItems, filterColumns);
-  }, [filteredItems, filterColumns]);
+    return filterDataByConditions(filteredItems, selectedFilterColumns);
+  }, [filteredItems, selectedFilterColumns]);
   
   const sortedData = useMemo(() => {
-    return sortDataByColumns(filteredData, sortColumns);
-  }, [filteredData, sortColumns]);
+    return sortDataByColumns(filteredData, selectedSortColumns);
+  }, [filteredData, selectedSortColumns]);
 
   return {
     data: sortedData,
