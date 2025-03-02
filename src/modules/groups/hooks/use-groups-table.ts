@@ -16,9 +16,12 @@ export const useGroupsTable = (year: string) => {
   const { data, isLoading } = useGetGroupsByYear(year);
 
   const { 
+    columns,
     setColumns,
     selectedFilterColumns,
-    selectedSortColumns
+    selectedSortColumns,
+    isSort,
+    isFilter
   } = useTable();
 
   useEffect(() => {
@@ -39,10 +42,14 @@ export const useGroupsTable = (year: string) => {
     return sortDataByColumns(filteredData, selectedSortColumns);
   }, [filteredData, selectedSortColumns]);
 
+  const isOpenToolbar = isSort || isFilter;
+
   return {
     data: sortedData,
     isLoading,
+    isOpenToolbar,
     searchQuery,
+    columns,
     setSearchQuery
   };
 }

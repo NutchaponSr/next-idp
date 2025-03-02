@@ -29,7 +29,9 @@ import {
 } from "@/components/icons";
 import { MoreButton } from "@/components/more-button";
 import { Properties } from "@/components/properties";
+import { FilterSidebar } from "@/components/filter-sidebar";
 import { LayoutSelector } from "@/components/layout-selector";
+import { useTable } from "@/stores/use-table";
 
 interface MoreSidebarProps<T extends object> {
   onClose: () => void;
@@ -44,6 +46,7 @@ export const MoreSidebar = <T extends object>({
 }: MoreSidebarProps<T>) => {
   const { mode } = useLayout();
   const { type, onOpen, onBack } = useMore();
+  const { selectedFilterColumns } = useTable();
 
   const [height, setHeight] = useState(0);
 
@@ -116,7 +119,16 @@ export const MoreSidebar = <T extends object>({
                     description={`${columns.filter((col) => !col.isHide).length} shown`} 
                     onClick={() => onOpen("property")} 
                   />
-                  <MoreButton label="Filter" icon={FilterIcon} description="None" onClick={() => onOpen("filter")} />
+                  <MoreButton 
+                    label="Filter" 
+                    icon={FilterIcon} 
+                    description={
+                      selectedFilterColumns.length > 0 
+                        ? `${selectedFilterColumns.length} filter${selectedFilterColumns.length > 1 ? 's' : ''}` 
+                        : "None"
+                    }
+                    onClick={() => onOpen("filter")} 
+                  />
                   <MoreButton label="Sort" icon={ArrowUpDownIcon} description="None" onClick={() => onOpen("sort")} />
                   <MoreButton label="Grouping" icon={InsertRowUpIcon} description="None" onClick={() => onOpen("grouping")} />
                   <MoreButton label="Automations" icon={ZapIcon} variant={IconVariant.SOLID} description="None" onClick={() => onOpen("automations")}/>
@@ -128,6 +140,7 @@ export const MoreSidebar = <T extends object>({
             </div>
             <LayoutSelector onClose={onClose} />
             <Properties onClose={onClose} columns={columns} />
+            <FilterSidebar onClose={onClose} />
           </div>
         </div>
         <div className="w-24" />

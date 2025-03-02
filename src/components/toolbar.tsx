@@ -190,7 +190,7 @@ export const Toolbar = <T extends object>({
             {isSort && <SortColumns />}
             {(isSort && isFilter) && <Separator orientation="vertical" className="h-6" />}
             {selectedFilterColumns.map((column, index) => (
-              <FilterColumns key={index} {...{ ...column, label: column.label.toString() }} />
+              <FilterColumns key={index} {...{ ...column, label: column.label as keyof T }} />
             ))}
             <TableFilter 
               align="center"

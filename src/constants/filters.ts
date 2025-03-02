@@ -49,6 +49,7 @@ export const sortSearchs: FilterData = [
 
 export const groupColumns: ColumnProps<ResponseType>[] = [
   {
+    id: 1,
     label: "name",
     isSorted: false,
     isFiltered: false,
@@ -61,8 +62,10 @@ export const groupColumns: ColumnProps<ResponseType>[] = [
     width: 248,
     calculation: null,
     isHide: false,
+    isLock: true,
   },
   {
+    id: 2,
     label: "year",
     isSorted: false,
     isFiltered: false,
@@ -75,6 +78,7 @@ export const groupColumns: ColumnProps<ResponseType>[] = [
     width: 248,
     calculation: null,
     isHide: false,
+    isLock: false,
   },
 ];
 

@@ -2,11 +2,13 @@ import React from "react";
 
 import { ChevronRightIcon } from "lucide-react";
 
+import { cn } from "@/lib/utils";
 import { IconVariant } from "@/types/icon";
 
 interface MoreButtonProps {
   icon?: React.ElementType;
   label: string;
+  className?: string;
   description?: string;
   variant?: IconVariant;
   onClick?: () => void;
@@ -17,19 +19,23 @@ export const MoreButton = ({
   icon,
   label,
   description,
+  className,
   variant,
   onClick,
   action
 }: MoreButtonProps) => {
   return (
-    <button onClick={onClick} className="w-[calc(100%-8px)] mx-1 rounded-md text-primary hover:bg-[#37352f0f]">
+    <button 
+      onClick={onClick} 
+      className={cn("w-[calc(100%-8px)] mx-1 rounded-md text-primary hover:bg-[#37352f0f]", className)}
+    >
       <div className="flex items-center w-full min-h-7 text-sm">
         {icon && (
           <div className="flex items-center justify-center ml-2.5 mr-1">
-            {React.createElement(icon, { className: "size-4 text-primary", variant })}
+            {React.createElement(icon, { className: cn("size-4 text-primary", className), variant })}
           </div>
         )}
-        <span className="mx-2 min-w-0 flex-auto whitespace-nowrap overflow-hidden text-ellipsis text-start">
+        <span className="mx-2 min-w-0 flex-auto whitespace-nowrap overflow-hidden text-ellipsis text-start capitalize">
           {label}
         </span>
         <div className="ml-auto mr-2 shrink-0 flex items-center text-[#37352f80]">

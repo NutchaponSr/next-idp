@@ -51,7 +51,10 @@ type FilterComputed = {
 }
 
 type PropertiesActions<T extends object> = {
+  showAll: () => void;
+  hideAll: () => void;
   toggleColumnVisible: (label: keyof T) => void;
+  reorderColumn: (columns: ColumnProps<T>[]) => void;
 }
 
 export type TableStore<T extends object> = 

@@ -2,8 +2,6 @@
 
 import { useCallback, useState } from "react";
 
-import { groupColumns } from "@/constants/filters";
-
 import { Layouts } from "@/components/layouts";
 
 import { GroupCell } from "@/modules/groups/components/render-cell";
@@ -18,8 +16,10 @@ export const Content = () => {
 
   const {
     data,
+    columns,
     isLoading,
     searchQuery,
+    isOpenToolbar,
     setSearchQuery
   } = useGroupsTable(year);
 
@@ -51,22 +51,23 @@ export const Content = () => {
   if (isLoading) return null;
 
   const selectedData = data.filter(item => selectedRows[item.id]);
-
+  
   return (
     <div className="contents">
       <SelectMenu selectedData={selectedData} />
       <Toolbar 
         value={searchQuery} 
         onChange={onChange} 
-        columns={groupColumns} 
+        columns={columns} 
       />
       <Layouts 
         data={data} 
         renderCell={(cell, column, searchQuery) => (
           <GroupCell {...{ cell, column, searchQuery }} />
         )} 
+        isOpenToolbar={isOpenToolbar}
         searchQuery={searchQuery}
-        columns={groupColumns} 
+        columns={columns.filter((col) => !col.isHide)} 
         selectedRows={selectedRows}
         selectRow={selectRow}
         selectAll={selectAll}

@@ -1,10 +1,10 @@
 import { create } from "zustand";
 
 import { TableStore } from "@/types/table";
-import { ColumnProps, sorts } from "@/types/filter";
+import { ColumnProps, FilterCondition, sorts } from "@/types/filter";
 
 const calIsAnySortActive = <T extends object>(columns: ColumnProps<T>[]) => 
-  columns.some((col) => col.sortOrder !== null);
+  columns.some((col) => col.isSorted);
 const calIsAnyFilterActive = <T extends object>(columns: ColumnProps<T>[]) => 
   columns.some((col) => col.isFiltered);
 
@@ -53,23 +53,31 @@ export const useTable = create<TableStore<any>>((set) => ({
         : 0;
 
       const updatedSort = { ...column, sortOrder: sorts.asc, order: maxOrder + 100 };
+      const newSelectedColumns = [...state.selectedSortColumns, updatedSort];
       
       return {
-        selectedSortColumns: [...state.selectedSortColumns, updatedSort],
-        isSort: state.selectedSortColumns.length > 0,
-        isAnySortActive: calIsAnySortActive([...state.selectedSortColumns, updatedSort]),
+        isSort: newSelectedColumns.length > 0,
+        isAnySortActive: calIsAnySortActive(newSelectedColumns),
+        selectedSortColumns: newSelectedColumns,
+        sortColumns: state.sortColumns.filter((item) => item.label !== column.label),
       };
     }),
-    removeSortColumn: (label) => set((state) => ({
-      selectedSortColumns: state.selectedSortColumns.filter((item) => item.label !== label),
-      isSort: state.selectedSortColumns.length > 0,
-      isAnySortActive: calIsAnySortActive(state.selectedSortColumns),
-    })),
+    removeSortColumn: (label) => set((state) => {
+      const newSelectedColumns = state.selectedSortColumns.filter((item) => item.label !== label);
+      const removedColumn = state.selectedSortColumns.find((item) => item.label === label);
+
+      return {
+        isSort: newSelectedColumns.length > 0,
+        isAnySortActive: calIsAnySortActive(newSelectedColumns),
+        selectedSortColumns: newSelectedColumns,
+        sortColumns: removedColumn ? [...state.sortColumns, { ...removedColumn, sortOrder: null }] : state.sortColumns,
+      };
+    }),
     removeSortAll: () => set((state) => ({
       isSort: false,
       isAnySortActive: false,
       selectedSortColumns: [],
-      columns: state.columns.map((col) => ({ ...col, sortOrder: null })),
+      sortColumns: state.sortColumns.map((col) => ({ ...col, sortOrder: null })),
     })),
     onSortReorder: (newOrder) => set((state) => ({
       selectedSortColumns: newOrder.map((col, index) => ({ ...col, order: ((index + 1) * 100) })),
@@ -81,26 +89,36 @@ export const useTable = create<TableStore<any>>((set) => ({
     onCloseFilter: () => set({ isOpenFilter: false }),
     addFilterColumn: (column) => set((state) => {
       const updatedFilter = { ...column, searchQuery: "", isFiltered: false };
+      const newSelectedColumns = [...state.selectedFilterColumns, updatedFilter];
 
       return {
-        selectedFilterColumns: [...state.selectedFilterColumns, updatedFilter],
+        selectedFilterColumns: newSelectedColumns,
         filterColumns: state.filterColumns.filter((item) => item.label !== column.label),
-        isFilter: state.selectedFilterColumns.length > 0,
-        isAnyFilterActive: calIsAnyFilterActive(state.selectedFilterColumns),
+        isFilter: newSelectedColumns.length > 0,
+        isAnyFilterActive: newSelectedColumns.some((item) => item.isFiltered),
       };
     }),
-    removeFilterColumn: (label) => set((state) => ({
-      selectedFilterColumns: state.selectedFilterColumns.filter((item) => item.label !== label),
-      isFilter: state.selectedFilterColumns.length > 0,
-      isAnyFilterActive: calIsAnyFilterActive(state.selectedFilterColumns),
-    })),
-    onSearchQuery: (label, query) => set((state) => ({
-      selectedFilterColumns: state.selectedFilterColumns.map((item) =>
-        item.label === label 
-          ? { ...item, searchQuery: query, isFiltered: query.length > 0 } 
-          : item),
-      isAnyFilterActive: calIsAnyFilterActive(state.selectedFilterColumns),
-    })),
+    removeFilterColumn: (label) => set((state) => {
+      const newColumns = state.selectedFilterColumns.filter((item) => item.label !== label);
+      const removedColumn = state.selectedFilterColumns.find((item) => item.label === label);
+
+      return {
+        selectedFilterColumns: newColumns,
+        isFilter: newColumns.length > 0,
+        isAnyFilterActive: calIsAnyFilterActive(newColumns),
+        filterColumns: removedColumn ? [...state.filterColumns, { ...removedColumn, searchQuery: "", condition: FilterCondition.CONTAINS }] : state.filterColumns,
+      };
+    }),
+    onSearchQuery: (label, query) => set((state) => {
+      const newSelectedColumns = state.selectedFilterColumns.map((item) =>
+        item.label === label ? { ...item, searchQuery: query, isFiltered: query.length > 0 } : item
+      );
+  
+      return {
+        selectedFilterColumns: newSelectedColumns,
+        isAnyFilterActive: calIsAnyFilterActive(newSelectedColumns), 
+      };
+    }),
     onCondition: (label, condition) => set((state) => ({
       selectedFilterColumns: state.selectedFilterColumns.map((item) =>
         item.label === label ? { ...item, condition } : item),
@@ -111,5 +129,21 @@ export const useTable = create<TableStore<any>>((set) => ({
         col.label === label ? { ...col, isHide: !col.isHide } : col
       ),
     })),
+    showAll: () => set((state) => ({
+      columns: state.columns.map((col) => ({ ...col, isHide: false })),
+    })),
+    hideAll: () => set((state) => ({
+      columns: state.columns.map((col) => ({ ...col, isHide: col.isLock ? col.isHide : true })),
+    })),
+    reorderColumn: (columns) => set(() => {
+      console.log("Here")
+
+      return {
+        columns: columns.map((col, index) => ({
+          ...col,
+          id: index + 1,
+        }))
+      }
+    }),
   })
 )

@@ -10,6 +10,7 @@ interface TableLayoutProps<T extends { id: string }> {
   data: T[];
   searchQuery: string;
   columns: ColumnProps<T>[];
+  isOpenToolbar: boolean;
   selectedRows: Record<string, boolean>;
   selectAll: () => void;
   selectRow: (key: string) => void;
@@ -21,6 +22,7 @@ export const TableLayout = <T extends { id: string }>({
   columns,
   searchQuery,
   selectedRows,
+  isOpenToolbar,
   selectAll,
   selectRow,
   renderCell
@@ -30,6 +32,7 @@ export const TableLayout = <T extends { id: string }>({
       <div className="h-full relative float-left min-w-full select-none lining-nums pb-[180px] px-24">
         <div className="relative">
           <TableHeader 
+            isOpenToolbar={isOpenToolbar}
             columns={columns}
             data={data}
             selectedRows={selectedRows}

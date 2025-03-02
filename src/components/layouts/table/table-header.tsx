@@ -12,6 +12,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 interface TableHeaderProps<T extends { id: string }> {
   columns: ColumnProps<T>[];
   data: T[];
+  isOpenToolbar: boolean;
   selectedRows: Record<string, boolean>;
   selectAll: () => void;
 }
@@ -19,6 +20,7 @@ interface TableHeaderProps<T extends { id: string }> {
 export const TableHeader = <T extends { id: string }>({
   columns,
   data,
+  isOpenToolbar,
   selectedRows,
   selectAll
 }: TableHeaderProps<T>) => {
@@ -26,7 +28,10 @@ export const TableHeader = <T extends { id: string }>({
 
   return (
     <div className="h-[34px] relative">
-      <div className="flex h-[34px] text-[#37352fa6] shadow-[inset_0_-1px_0_rgb(233,233,231),inset_0_1px_0_rgb(233,233,231)] min-w-[calc(100%-192px)] left-0 right-0 relative box-border">
+      <div className={cn(
+        "flex h-[34px] text-[#37352fa6] left-0 right-0 relative box-border",
+        isOpenToolbar ? "shadow-[inset_0_-1px_0_rgb(233,233,231)]" : "shadow-[inset_0_-1px_0_rgb(233,233,231),inset_0_1px_0_rgb(233,233,231)] min-w-[calc(100%-192px)]",
+      )}>
         {/* Selector */}
         <div className="sticky -left-8 z-[83] flex">
           <div className="absolute -left-8">
@@ -53,6 +58,7 @@ export const TableHeader = <T extends { id: string }>({
             className={cn(
               "flex shrink-0 overflow-hidden text-sm",
               showVerticalLine && "border-r border-[#e9e9e7]",
+              isOpenToolbar ? "border-none" : "border-r border-[#e9e9e7]",
             )} 
           >
             <div role="button" className="transition flex items-center w-full h-full px-2 hover:bg-[#37352f0f]">

@@ -102,7 +102,9 @@ export const sorts: Record<SortOrder, { label: string; value: SortOrder }> = {
 }
 
 export interface ColumnProps<T extends object> {
+  id: number;
   label: keyof T;
+  isLock: boolean;
   isSorted: boolean;
   isFiltered: boolean;
   icon: React.ElementType;

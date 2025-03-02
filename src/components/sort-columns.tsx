@@ -35,8 +35,8 @@ import { useTable } from "@/stores/use-table";
 
 export const SortColumns = () => {
   const {
-    columns,
     isAnySortActive,
+    sortColumns,
     selectedSortColumns,
     addSortColumn,
     onSortOrder,
@@ -151,7 +151,7 @@ export const SortColumns = () => {
         <div className="p-1 flex flex-col">
           <TableSort 
             align="center"
-            columns={columns}
+            columns={sortColumns}
             addColumn={addSortColumn}
           >
             <Button 

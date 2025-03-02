@@ -10,7 +10,7 @@ export const FilterColumns = <T extends object>({ ...props }: ColumnProps<T>) =>
           {...props} 
           isFilter={props.isFiltered} 
           searchQuery={props.searchQuery!} 
-          label={props.label as string} 
+          label={props.label} 
         />
       );
     }

@@ -12,6 +12,7 @@ import { TableLayout } from "@/components/table-layout";
 interface LayoutsProps<T extends { id: string }> {
   data: T[];
   searchQuery: string;
+  isOpenToolbar: boolean;
   columns: ColumnProps<T>[];
   selectAll: () => void;
   selectRow: (key: string) => void;

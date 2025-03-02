@@ -27,21 +27,21 @@ import { TrashIcon } from "@/components/icons";
 import { ClearableInput } from "@/components/clearable-input";
 import { useTable } from "@/stores/use-table";
 
-interface ColumnTextProps {
-  label: string;
+interface ColumnTextProps<T extends object> {
+  label: keyof T;
   icon: React.ElementType;
   isFilter: boolean;
   searchQuery: string;
   condition: FilterCondition;
 }
 
-export const ColumnText = ({ 
+export const ColumnText = <T extends object>({ 
   label, 
   icon,
   isFilter,
   searchQuery, 
   condition, 
-}: ColumnTextProps) => {
+}: ColumnTextProps<T>) => {
   const { 
     removeFilterColumn, 
     onCondition,
@@ -57,7 +57,7 @@ export const ColumnText = ({
             "max-w-[150px] whitespace-nowrap overflow-hidden text-ellipsis",
             isFilter && "font-semibold",
           )}>
-            {label}{isFilter && ":"} 
+            {String(label)}{isFilter && ":"} 
             {isFilter && (
               <span className="font-normal">
                 {" " + searchQuery}
