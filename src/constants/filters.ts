@@ -8,7 +8,8 @@ import {
   PageView,
   PageViewProps,
   CalculationType,
-  CalculationCategory
+  CalculationCategory,
+  sorts,
 } from "@/types/filter";
 
 import { 
@@ -22,7 +23,15 @@ import {
   TextFontIcon 
 } from "@/components/icons";
 
+import { 
+  NumberBy,
+  NumberSort, 
+  TextBy, 
+  TextSort 
+} from "@/enums/grouping";
+
 import { ResponseType } from "@/modules/groups/api/use-get-groups-by-year";
+import { GroupingCatalog } from "@/types/grouping";
 
 export const sortSearchs: FilterData = [
   { 
@@ -179,6 +188,11 @@ export const layouts: Record<Layout, LayoutConfig> = {
     icon: Square1Icon,
     label: "Gallery",
   },
+  [Layout.GROUPING]: {
+    mode: Layout.GALLERY,
+    icon: TableIcon,
+    label: "Table",
+  },
 };
 
 export const pageViews: Record<PageView, PageViewProps> = {
@@ -200,5 +214,55 @@ export const pageViews: Record<PageView, PageViewProps> = {
     icon: FullScreenIcon,
     label: "Full page",
     description: "Open page in full page.",
+  },
+}
+
+const textBy: Record<TextBy, { label: string, value: TextBy }> = {
+  [TextBy.EXACT] : { label: "Exact", value: TextBy.EXACT },
+  [TextBy.APLHABETICAL] : { label: "Alphabetical", value: TextBy.APLHABETICAL },
+}
+
+const textSort: Record<TextSort, { label: string, value: TextSort }> = {
+  [TextSort.MANUAL]: { label: "Manual", value: TextSort.MANUAL },
+  [TextSort.ALPHABETICAL]: { label: "Alphabetical", value: TextSort.ALPHABETICAL },
+  [TextSort.REVERSE_ALPHABETICAL]: { label: "Reverse Alphabetical", value: TextSort.REVERSE_ALPHABETICAL },
+};
+
+const memberBy: Record<NumberBy, { label: string, value: NumberBy }> = {
+  [NumberBy.ASCENDING]: { label: "Ascending", value: NumberBy.ASCENDING },
+  [NumberBy.DESCENDING]: { label: "Descending", value: NumberBy.DESCENDING },
+};
+
+const memberSort: Record<NumberSort, { label: string, value: NumberSort }> = {
+  [NumberSort.RANGE]: { label: "Range", value: NumberSort.RANGE },
+  [NumberSort.GROUP_EVERY]: { label: "Group Every", value: NumberSort.GROUP_EVERY },
+};
+
+export const grouping: GroupingCatalog = {
+  TEXT: {
+    type: ColumnVariant.TEXT,
+    content: [
+      {
+        label: "Text by",
+        method: textBy,
+      },
+      {
+        label: "Sort",
+        method: textSort,
+      },
+    ],
+  },
+  NUMBER: {
+    type: ColumnVariant.NUMBER,
+    content: [
+      {
+        label: "Number by",
+        method: memberBy,
+      },
+      {
+        label: "Sort",
+        method: memberSort,
+      },
+    ],
   },
 }

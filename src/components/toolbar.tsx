@@ -1,32 +1,40 @@
 import { 
+  ArrowDownIcon,
   ArrowUpDownIcon, 
+  ArrowUpIcon, 
+  ChevronDownIcon, 
   ListFilterIcon,
   MoreHorizontalIcon,
   PlusIcon,
   SearchIcon,
   ZapIcon, 
 } from "lucide-react";
+import { useState } from "react";
 import { useToggle } from "react-use";
-import { useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
 import { cn } from "@/lib/utils";
 import { IconVariant } from "@/types/icon";
 import { ColumnProps } from "@/types/filter";
 
-import { useMore } from "@/stores/use-more";
 import { useTable } from "@/stores/use-table";
+import { useMoreSidebar } from "@/stores/use-more-sidebar";
 
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger
+} from "@/components/ui/popover";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 
 import { Hint } from "@/components/hint";
+import { Sort } from "@/components/sort";
 import { TableSort } from "@/components/table-sort";
 import { CircleCancelIcon } from "@/components/icons";
 import { MoreSidebar } from "@/components/more-sidebar";
 import { TableFilter } from "@/components/table-filter";
-import { SortColumns } from "@/components/sort-columns";
 import { FilterColumns } from "@/components/filter-columns";
 
 interface ToolbarProps<T extends object> {
@@ -37,7 +45,6 @@ interface ToolbarProps<T extends object> {
 
 export const Toolbar = <T extends object>({
   value,
-  columns,
   onChange
 }: ToolbarProps<T>) => {
   const {
@@ -50,27 +57,27 @@ export const Toolbar = <T extends object>({
     isAnySortActive,
     isAnyFilterActive,
     selectedFilterColumns,
+    selectedSortColumns,
     addSortColumn,
     addFilterColumn,
     onOpenSort,
     onOpenFilter,
     onCloseSort,
     onCloseFilter,
+    onSortOrder,
+    onSortReorder,
+    removeSortColumn,
+    removeSortAll
   } = useTable();
-  const { onBack } = useMore();
+  const { 
+    isOpenSidebar,
+    onOpenSidebar
+  } = useMoreSidebar();
 
-  const [isMoreSide, onMoreSide] = useToggle(false);
   const [isOpenSearch, onSearch] = useToggle(false);
   const [isSubToolbar, onSubToolbar] = useToggle(false);
 
   const [tooltipOpen ,setTooltipOpen] = useState(false);
-
-  const toggleRef = useRef<HTMLDivElement>(null);
-
-  const handleMoreSide = () => {
-    onBack();
-    onMoreSide();
-  }
   
   return (
     <div className="min-h-10 px-24 sticky left-0 shrink-0 z-[80]">
@@ -171,13 +178,11 @@ export const Toolbar = <T extends object>({
                 </AnimatePresence>
               </motion.div>
             </div>
-            <div ref={toggleRef}> 
-              <Hint label="Edit layout and more...">
-                <Button size="icon" variant="ghost" onClick={handleMoreSide} className={cn(isMoreSide && "bg-accent")}>
-                  <MoreHorizontalIcon className="h-4 w-4 text-[#9A9A97]" />
-                </Button>
-              </Hint>
-            </div>
+            <Hint label="Edit layout and more...">
+              <Button size="icon" variant="ghost" onClick={onOpenSidebar} className={cn(isOpenSidebar && "bg-accent")}>
+                <MoreHorizontalIcon className="h-4 w-4 text-[#9A9A97]" />
+              </Button>
+            </Hint>
             <Button variant="primary" size="xs">
               New
             </Button>
@@ -187,7 +192,40 @@ export const Toolbar = <T extends object>({
       {(isSubToolbar && (isFilter || isSort)) && (
         <div className="flex items-center relative grow-0 overflow-hidden min-h-10 h-10 w-full">
           <div className="flex items-center pt-3 pb-2 overflow-x-auto overflow-y-hidden space-x-2 w-full">
-            {isSort && <SortColumns />}
+            {isSort && (
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button variant={isAnySortActive ? "filterAct1" : "filter"} size="filter" className="gap-1 text-xs">
+                    {selectedSortColumns.length > 1 ? (
+                      <ArrowUpDownIcon className={cn("size-[14px]", isAnySortActive ? "text-[#2383e2]" : "text-[#7c7c78]" )} />
+                    ) : (
+                      selectedSortColumns[0].sortOrder?.value === "asc" 
+                        ? <ArrowUpIcon className={cn("size-[14px]", isAnySortActive ? "text-[#2383e2]" : "text-[#7c7c78]" )} />
+                        : <ArrowDownIcon className={cn("size-[14px]", isAnySortActive ? "text-[#2383e2]" : "text-[#7c7c78]" )} />
+                    )}
+                    <span className="max-w-56 whitespace-nowrap overflow-hidden text-ellipsis">
+                      {selectedSortColumns.length > 1 ? (
+                        selectedSortColumns.length + " Sorts"
+                      ) : (
+                        String(selectedSortColumns[0].label)
+                      )}
+                    </span>
+                    <ChevronDownIcon className={cn("size-3", isAnySortActive ? "text-[#2383e2]" : "text-[#b9b9b7]")}/>
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent align="start" className="w-auto p-0">
+                  <Sort 
+                    sortColumns={sortColumns}
+                    selectedSortColumns={selectedSortColumns}
+                    addSortColumn={addSortColumn}
+                    onSortOrder={onSortOrder}
+                    onSortReorder={onSortReorder}
+                    removeSortColumn={removeSortColumn}
+                    removeSortAll={removeSortAll}
+                  />
+                </PopoverContent>
+              </Popover>
+            )}
             {(isSort && isFilter) && <Separator orientation="vertical" className="h-6" />}
             {selectedFilterColumns.map((column, index) => (
               <FilterColumns key={index} {...{ ...column, label: column.label as keyof T }} />
@@ -210,10 +248,10 @@ export const Toolbar = <T extends object>({
         </div>
       )}
       <motion.div
-        animate={{ width: isMoreSide ? 386 : 0 }}
+        animate={{ width: isOpenSidebar ? 386 : 0 }}
         transition={{ duration: 0.15, ease: "easeIn" }}
       >
-        {isMoreSide && <MoreSidebar onClose={() => onMoreSide(false)} toggleRef={toggleRef} columns={columns} />}
+        {isOpenSidebar && <MoreSidebar />}
       </motion.div>
     </div>
   );

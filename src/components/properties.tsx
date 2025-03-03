@@ -8,9 +8,8 @@ import { Reorder } from "framer-motion";
 
 import { cn } from "@/lib/utils";
 import { IconVariant } from "@/types/icon";
-import { ColumnProps } from "@/types/filter";
 
-import { useMore } from "@/stores/use-more";
+import { useMoreSidebar } from "@/stores/use-more-sidebar";
 import { useTable } from "@/stores/use-table";
 
 import { useSearch } from "@/hooks/use-search";
@@ -24,19 +23,16 @@ import { MoreButton } from "@/components/more-button";
 import { MoreHeader } from "@/components/more-sidebar";
 import { ClearableInput } from "@/components/clearable-input";
 
-interface PropertiesProps<T extends object> {
-  onClose: () => void;
-  columns: ColumnProps<T>[];
-}
-
-export const Properties = <T extends object>({ onClose, columns }: PropertiesProps<T>) => {
+export const Properties = () => {
   const {
     type, 
-    isOpen, 
-    onBack 
-  } = useMore();
+    isOpenItem, 
+    onBack,
+    onCloseSidebar
+  } = useMoreSidebar();
 
   const { 
+    columns,
     showAll,
     hideAll,
     reorderColumn, 
@@ -51,18 +47,13 @@ export const Properties = <T extends object>({ onClose, columns }: PropertiesPro
 
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const open = isOpen && type === "property";
-
-  const handleClose = () => {
-    onClose();
-    onBack();
-  };
+  const open = isOpenItem && type === "property";
 
   if (!open) return null;
 
   return (
     <div className="shrink-0 h-full">
-      <MoreHeader label="Property" onClose={handleClose} onBack={onBack} />
+      <MoreHeader label="Property" onClose={onCloseSidebar} onBack={onBack} />
       <div className="p-1 flex flex-col">
         <div className="flex items-center gap-2 leading-[120%] min-h-7 text-sm py-1 px-2">
           <ClearableInput 

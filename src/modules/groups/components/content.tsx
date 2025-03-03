@@ -18,6 +18,7 @@ export const Content = () => {
     data,
     columns,
     isLoading,
+    groupedData,
     searchQuery,
     isOpenToolbar,
     setSearchQuery
@@ -65,6 +66,7 @@ export const Content = () => {
         renderCell={(cell, column, searchQuery) => (
           <GroupCell {...{ cell, column, searchQuery }} />
         )} 
+        groupedData={groupedData}
         isOpenToolbar={isOpenToolbar}
         searchQuery={searchQuery}
         columns={columns.filter((col) => !col.isHide)} 

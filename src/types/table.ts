@@ -2,7 +2,7 @@ import {
   ColumnProps, 
   FilterCondition, 
   SortOrder 
-} from "@/types/filter"
+} from "@/types/filter";
 
 type BaseStore<T extends object> = {
   columns: ColumnProps<T>[];
@@ -42,7 +42,7 @@ type FilterActions<T extends object> = {
   addFilterColumn: (column: ColumnProps<T>) => void;
   removeFilterColumn: (label: keyof T) => void;
   onSearchQuery: (label: keyof T, query: string) => void;
-  onCondition: (label:  keyof T, condition: FilterCondition) => void;
+  onCondition: (label: keyof T, condition: FilterCondition) => void;
 }
 
 type FilterComputed = {
@@ -57,6 +57,12 @@ type PropertiesActions<T extends object> = {
   reorderColumn: (columns: ColumnProps<T>[]) => void;
 }
 
+type GroupingState<T extends object> = {
+  groupingSelect: ColumnProps<T> | null;
+  onSelectGrouping: (column: ColumnProps<T>) => void;
+  removeGrouping: () => void;
+}
+
 export type TableStore<T extends object> = 
   BaseStore<T> &
   SortState<T> &
@@ -65,4 +71,5 @@ export type TableStore<T extends object> =
   FilterState<T> &
   FilterActions<T> &
   FilterComputed &
-  PropertiesActions<T>;
+  PropertiesActions<T> & 
+  GroupingState<T>;

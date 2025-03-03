@@ -229,3 +229,20 @@ export function calculateColumnValues<T extends object>(
       return ((values.filter((val) => val !== null && val !== undefined).length / values.length) * 100).toFixed(2) + "%";
   }
 }
+
+export function groupByColumn<T extends object>(
+  data: T[],
+  columnKey: keyof T,
+) {
+  return data.reduce((acc, item) => {
+    const groupKey = (item[columnKey as keyof T] ?? "Unknown") as string;;
+
+    if (!acc[groupKey]) {
+      acc[groupKey] = [];
+    }
+
+    acc[groupKey].push(item);
+
+    return acc;
+  }, {} as Record<string, T[]>);
+}

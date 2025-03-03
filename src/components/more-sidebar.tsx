@@ -1,5 +1,4 @@
 import { 
-  useCallback, 
   useEffect, 
   useRef, 
   useState 
@@ -9,12 +8,12 @@ import { ArrowLeftIcon, XIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { IconVariant } from "@/types/icon";
-import { ColumnProps } from "@/types/filter";
 
 import { layouts } from "@/constants/filters";
 
-import { useMore } from "@/stores/use-more";
+import { useTable } from "@/stores/use-table";
 import { useLayout } from "@/stores/use-layout";
+import { useMoreSidebar } from "@/stores/use-more-sidebar";
 
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -27,26 +26,23 @@ import {
   ListIcon,
   ZapIcon
 } from "@/components/icons";
-import { MoreButton } from "@/components/more-button";
+import { Grouping } from "@/components/grouping";
 import { Properties } from "@/components/properties";
+import { MoreButton } from "@/components/more-button";
+import { SortSidebar } from "@/components/sort-sidebar";
 import { FilterSidebar } from "@/components/filter-sidebar";
 import { LayoutSelector } from "@/components/layout-selector";
-import { useTable } from "@/stores/use-table";
 
-interface MoreSidebarProps<T extends object> {
-  onClose: () => void;
-  columns: ColumnProps<T>[];
-  toggleRef: React.RefObject<HTMLDivElement>;
-}
-
-export const MoreSidebar = <T extends object>({ 
-  onClose, 
-  columns,
-  toggleRef 
-}: MoreSidebarProps<T>) => {
+export const MoreSidebar = () => {
   const { mode } = useLayout();
-  const { type, onOpen, onBack } = useMore();
-  const { selectedFilterColumns } = useTable();
+  const { type, onOpenItem, onCloseSidebar } = useMoreSidebar();
+  
+  const { 
+    columns, 
+    groupingSelect,
+    selectedFilterColumns,
+    selectedSortColumns
+  } = useTable();
 
   const [height, setHeight] = useState(0);
 
@@ -60,33 +56,12 @@ export const MoreSidebar = <T extends object>({
     }
   }
 
-  const handleClose = useCallback(() => {
-    onClose();
-    onBack();
-  }, [onBack, onClose])
-
   useEffect(() => {
     updateHeight();
 
     window.addEventListener("resize", updateHeight);
     return () => window.removeEventListener("resize", updateHeight);
   }, []);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        moreRef.current && 
-        !moreRef.current.contains(event.target as Node) && 
-        toggleRef.current !== event.target &&
-        !toggleRef.current?.contains(event.target as Node)
-      ) {
-        handleClose();
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [handleClose, toggleRef]);
 
   return (
     <motion.aside
@@ -102,22 +77,22 @@ export const MoreSidebar = <T extends object>({
         <div className="shadow-[inset_0_1px_0_rgb(233,233,231)]">
           <div className="flex flex-col min-w-[290px] max-w-[290px] h-full max-h-full">
             <div className={cn(type === null ? "visible" : "hidden", "shrink-0 min-h-10")}>
-              <MoreHeader label="View options" onClose={handleClose} />
+              <MoreHeader label="View options" onClose={onCloseSidebar} />
               <ScrollArea>
-                <div className="py-1 flex flex-col">
+                <div className="flex flex-col p-1">
                   <MoreButton 
                     label="Layout" 
                     icon={layouts[mode].icon} 
                     description={layouts[mode].label} 
-                    onClick={() => onOpen("layout")} 
+                    onClick={() => onOpenItem("layout")} 
                   />
                 </div>
-                <div className="py-1 flex flex-col shadow-[0_-1px_0_rgba(55,53,47,0.09)]">
+                <div className="flex flex-col p-1 shadow-[0_-1px_0_rgba(55,53,47,0.09)]">
                   <MoreButton 
                     label="Properties" 
                     icon={ListIcon} 
                     description={`${columns.filter((col) => !col.isHide).length} shown`} 
-                    onClick={() => onOpen("property")} 
+                    onClick={() => onOpenItem("property")} 
                   />
                   <MoreButton 
                     label="Filter" 
@@ -127,20 +102,36 @@ export const MoreSidebar = <T extends object>({
                         ? `${selectedFilterColumns.length} filter${selectedFilterColumns.length > 1 ? 's' : ''}` 
                         : "None"
                     }
-                    onClick={() => onOpen("filter")} 
+                    onClick={() => onOpenItem("filter")} 
                   />
-                  <MoreButton label="Sort" icon={ArrowUpDownIcon} description="None" onClick={() => onOpen("sort")} />
-                  <MoreButton label="Grouping" icon={InsertRowUpIcon} description="None" onClick={() => onOpen("grouping")} />
-                  <MoreButton label="Automations" icon={ZapIcon} variant={IconVariant.SOLID} description="None" onClick={() => onOpen("automations")}/>
+                  <MoreButton 
+                    label="Sort" 
+                    icon={ArrowUpDownIcon} 
+                    description={
+                      selectedSortColumns.length > 0 
+                        ? `${selectedSortColumns.length} filter${selectedSortColumns.length > 1 ? 's' : ''}` 
+                        : "None"
+                    } 
+                    onClick={() => onOpenItem("sort")} 
+                  />
+                  <MoreButton 
+                    label="Grouping" 
+                    icon={InsertRowUpIcon} 
+                    description={groupingSelect ? String(groupingSelect.label) : "None"} 
+                    onClick={() => onOpenItem("grouping")} 
+                  />
+                  <MoreButton label="Automations" icon={ZapIcon} variant={IconVariant.SOLID} description="None" onClick={() => onOpenItem("automations")}/>
                 </div>
-                <div className="py-1 flex flex-col shadow-[0_-1px_0_rgba(55,53,47,0.09)]">
-                  <MoreButton label="Copy link" icon={LinkIcon} onClick={() => {}} />
+                <div className="flex flex-col p-1 shadow-[0_-1px_0_rgba(55,53,47,0.09)]">
+                  <MoreButton label="Copy link" icon={LinkIcon} />
                 </div>
               </ScrollArea>
             </div>
-            <LayoutSelector onClose={onClose} />
-            <Properties onClose={onClose} columns={columns} />
-            <FilterSidebar onClose={onClose} />
+            <LayoutSelector />
+            <Properties />
+            <FilterSidebar />
+            <SortSidebar />
+            <Grouping />
           </div>
         </div>
         <div className="w-24" />

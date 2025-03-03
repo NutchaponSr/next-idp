@@ -81,6 +81,7 @@ export type FilterProps = CommonFilterProps | CalendarFilterProps;
 
 export enum ColumnVariant {
   TEXT = "TEXT",
+  NUMBER = "NUMBER",
 }
 
 export enum FilterCondition {
@@ -145,6 +146,7 @@ export enum Layout {
   BOARD = "BOARD",
   LIST = "LIST",
   GALLERY = "GALLERY",
+  GROUPING = "GROUPING",
 }
 
 export interface LayoutConfig {

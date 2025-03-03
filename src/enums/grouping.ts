@@ -1,0 +1,20 @@
+export enum TextBy {
+  EXACT = "EXACT",
+  APLHABETICAL = "APLHABETICAL",
+}
+
+export enum TextSort {
+  MANUAL = "MANUAL",
+  ALPHABETICAL = "ALPHABETICAL",
+  REVERSE_ALPHABETICAL = "REVERSE_ALPHABETICAL"
+}
+
+export enum NumberBy {
+  ASCENDING = "ASCENDING",
+  DESCENDING = "DESCENDING"
+}
+
+export enum NumberSort {
+  RANGE = "RANGE",
+  GROUP_EVERY = "GROUP_EVERY"
+}

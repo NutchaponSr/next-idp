@@ -3,9 +3,9 @@ import React from "react";
 import { cn } from "@/lib/utils";
 import { layouts } from "@/constants/filters";
 
-import { useMore } from "@/stores/use-more";
 import { useLayout } from "@/stores/use-layout";
 import { useSettings } from "@/stores/use-settings";
+import { useMoreSidebar } from "@/stores/use-more-sidebar";
 
 import { Switch } from "@/components/ui/switch";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -14,32 +14,28 @@ import { MoreButton } from "@/components/more-button";
 import { MoreHeader } from "@/components/more-sidebar";
 import { PageViewDropdown } from "@/components/page-view-dropdown";
 
-interface LayoutSelectorProps {
-  onClose: () => void;
-}
-
-export const LayoutSelector = ({ onClose }: LayoutSelectorProps) => {
+export const LayoutSelector = () => {
   const { 
     showIcon,
     showVerticalLine,
     onSwitchIcon,
     onSwitchVerticalLine
   } = useSettings();
-  const { isOpen, type, onBack } = useMore();
+  const { 
+    type, 
+    isOpenItem, 
+    onBack,
+    onCloseSidebar
+  } = useMoreSidebar();
   const { mode: currentMode, onChange } = useLayout();
 
-  const open = isOpen && type === "layout";
+  const open = isOpenItem && type === "layout";
 
   if (!open) return null;
 
-  const handleClose = () => {
-    onClose();
-    onBack();
-  }
-
   return (
     <div className="shrink-0 h-full">
-      <MoreHeader label="Layout" onClose={handleClose} onBack={onBack} />
+      <MoreHeader label="Layout" onClose={onCloseSidebar} onBack={onBack} />
       <ScrollArea className="flex flex-col h-full">
         <div className="flex flex-col py-1">
           <div className="w-full px-2 flex flex-wrap">

@@ -8,6 +8,7 @@ import { IconVariant } from "@/types/icon";
 interface MoreButtonProps {
   icon?: React.ElementType;
   label: string;
+  isColumn?: boolean;
   className?: string;
   description?: string;
   variant?: IconVariant;
@@ -18,6 +19,7 @@ interface MoreButtonProps {
 export const MoreButton = ({
   icon,
   label,
+  isColumn,
   description,
   className,
   variant,
@@ -27,7 +29,7 @@ export const MoreButton = ({
   return (
     <button 
       onClick={onClick} 
-      className={cn("w-[calc(100%-8px)] mx-1 rounded-md text-primary hover:bg-[#37352f0f]", className)}
+      className={cn("w-[calc(100%-8px)] rounded-md text-primary hover:bg-[#37352f0f]", className)}
     >
       <div className="flex items-center w-full min-h-7 text-sm">
         {icon && (
@@ -35,13 +37,13 @@ export const MoreButton = ({
             {React.createElement(icon, { className: cn("size-4 text-primary", className), variant })}
           </div>
         )}
-        <span className="mx-2 min-w-0 flex-auto whitespace-nowrap overflow-hidden text-ellipsis text-start capitalize">
+        <span className={cn("mx-2 min-w-0 flex-auto whitespace-nowrap overflow-hidden text-ellipsis text-start", isColumn && "capitalize")}>
           {label}
         </span>
         <div className="ml-auto mr-2 shrink-0 flex items-center text-[#37352f80]">
         {description && (
           <>
-            <span className="flex whitespace-nowrap overflow-hidden text-ellipsis text-xs">{description}</span>
+            <span className="flex whitespace-nowrap overflow-hidden text-ellipsis text-xs capitalize">{description}</span>
             <ChevronRightIcon className="size-4 ml-1.5 text-[#9a9a97]" />
           </>
         )}

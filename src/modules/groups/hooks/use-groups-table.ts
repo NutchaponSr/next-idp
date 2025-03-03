@@ -2,6 +2,7 @@ import { useEffect, useMemo } from "react";
 
 import { 
   filterDataByConditions, 
+  groupByColumn, 
   sortDataByColumns 
 } from "@/lib/utils";
 import { groupColumns } from "@/constants/filters";
@@ -10,6 +11,7 @@ import { useSearch } from "@/hooks/use-search";
 
 import { useTable } from "@/stores/use-table";
 
+import { ResponseType } from "@/modules/groups/api/use-get-group";
 import { useGetGroupsByYear } from "@/modules/groups/api/use-get-groups-by-year";
 
 export const useGroupsTable = (year: string) => {
@@ -17,11 +19,12 @@ export const useGroupsTable = (year: string) => {
 
   const { 
     columns,
-    setColumns,
     selectedFilterColumns,
     selectedSortColumns,
     isSort,
-    isFilter
+    isFilter,
+    groupingSelect,
+    setColumns
   } = useTable();
 
   useEffect(() => {
@@ -42,6 +45,8 @@ export const useGroupsTable = (year: string) => {
     return sortDataByColumns(filteredData, selectedSortColumns);
   }, [filteredData, selectedSortColumns]);
 
+  const groupedData = groupingSelect ? groupByColumn(sortedData, groupingSelect.label as keyof ResponseType) : sortedData;
+
   const isOpenToolbar = isSort || isFilter;
 
   return {
@@ -50,6 +55,7 @@ export const useGroupsTable = (year: string) => {
     isOpenToolbar,
     searchQuery,
     columns,
+    groupedData,
     setSearchQuery
   };
 }
