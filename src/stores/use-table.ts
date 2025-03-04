@@ -145,7 +145,9 @@ export const useTable = create<TableStore<any>>((set) => ({
   }),
 
   // Grouping
+  groupingHeaders: [],
   groupingSelect: null,
   onSelectGrouping: (column) => set({ groupingSelect: column }),
   removeGrouping: () => set({ groupingSelect: null }),
+  setGroupingHeaders: (headers) => set({ groupingHeaders: headers }),
 }))

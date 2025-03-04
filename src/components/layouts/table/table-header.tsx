@@ -43,7 +43,7 @@ export const TableHeader = <T extends { id: string }>({
                 <div className="size-8 flex items-center justify-center">
                   <Checkbox 
                     checked={data.length > 0 && data.every((item) => selectedRows[item.id])}
-                    onCheckedChange={selectAll}
+                    onCheckedChange={() => selectAll()}
                   />
                 </div>
               </div>

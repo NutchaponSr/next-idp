@@ -12,7 +12,7 @@ import { GroupingLayout } from "./grouping-layout";
 
 interface LayoutsProps<T extends { id: string }> {
   data: T[];
-  groupedData: T[] | Record<string, T[]>;
+  groupedData: Record<string, T[]>;
   searchQuery: string;
   isOpenToolbar: boolean;
   columns: ColumnProps<T>[];

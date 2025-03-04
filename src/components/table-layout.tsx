@@ -17,38 +17,16 @@ interface TableLayoutProps<T extends { id: string }> {
   renderCell: (cell: T, column: ColumnProps<T>, searchQuery: string) => JSX.Element | undefined;
 }
 
-export const TableLayout = <T extends { id: string }>({
-  data,
-  columns,
-  searchQuery,
-  selectedRows,
-  isOpenToolbar,
-  selectAll,
-  selectRow,
-  renderCell
-}: TableLayoutProps<T>) => {
+export const TableLayout = <T extends { id: string }>({ ...props }: TableLayoutProps<T>) => {
   return (
     <div className="grow shrink-0 flex flex-col relative">
       <div className="h-full relative float-left min-w-full select-none lining-nums pb-[180px] px-24">
         <div className="relative">
-          <TableHeader 
-            isOpenToolbar={isOpenToolbar}
-            columns={columns}
-            data={data}
-            selectedRows={selectedRows}
-            selectAll={selectAll}
-          />
-          <TableRows 
-            data={data}
-            columns={columns}
-            searchQuery={searchQuery}
-            selectedRows={selectedRows}
-            selectRow={selectRow}
-            renderCell={renderCell}
-          />
+          <TableHeader {...props} />
+          <TableRows {...props} />
           <TableFooter 
-            columns={columns}
-            data={data}
+            columns={props.columns}
+            data={props.data}
           />
         </div>
       </div>

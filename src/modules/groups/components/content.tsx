@@ -21,37 +21,57 @@ export const Content = () => {
     groupedData,
     searchQuery,
     isOpenToolbar,
-    setSearchQuery
+    setSearchQuery,
   } = useGroupsTable(year);
 
   const [selectedRows, setSelectedRows] = useState<Record<string, boolean>>({});
-  
+
   const selectRow = useCallback((key: string) => {
     setSelectedRows((prev) => ({
       ...prev,
       [key]: !prev[key],
     }));
   }, []);
-
-  const selectAll = useCallback(() => {
-    const allSelected = data.every((item) => selectedRows[item.id]);
-    
-    if (allSelected) {
-      setSelectedRows({});
+  
+  const selectAll = useCallback((groupKey?: string) => {
+    if (groupKey) {
+      const groupItems = groupedData[groupKey] || [];
+      setSelectedRows((prev) => {
+        const updated = { ...prev };
+        
+        const allSelected = groupItems.every((item) => updated[item.id]);
+        if (allSelected) {
+          groupItems.forEach((item) => delete updated[item.id]);
+        } else {
+          groupItems.forEach((item) => {
+            updated[item.id] = true;
+          });
+        }
+  
+        return updated;
+      });
     } else {
-      const newSelectedRow: Record<string, boolean> = {};
-      data.forEach((item) => { newSelectedRow[item.id] = true; });
-      setSelectedRows(newSelectedRow);
+      const allSelected = data.every((item) => selectedRows[item.id]);
+      if (allSelected) {
+        setSelectedRows({});
+      } else {
+        const newSelectedRow: Record<string, boolean> = {};
+        data.forEach((item) => {
+          newSelectedRow[item.id] = true;
+        });
+        setSelectedRows(newSelectedRow);
+      }
     }
-  }, [data, selectedRows]);
+  }, [groupedData, data, selectedRows]);
+  
   
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
   }
-
   if (isLoading) return null;
 
   const selectedData = data.filter(item => selectedRows[item.id]);
+
   
   return (
     <div className="contents">

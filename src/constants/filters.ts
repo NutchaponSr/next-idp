@@ -9,7 +9,6 @@ import {
   PageViewProps,
   CalculationType,
   CalculationCategory,
-  sorts,
 } from "@/types/filter";
 
 import { 
@@ -86,7 +85,7 @@ export const groupColumns: ColumnProps<ResponseType>[] = [
     order: 0,
     width: 248,
     calculation: null,
-    isHide: false,
+    isHide: true,
     isLock: false,
   },
 ];

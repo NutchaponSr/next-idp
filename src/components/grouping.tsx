@@ -10,6 +10,7 @@ import { GroupingOptions } from "./grouping-options";
 import { HelpCircleIcon, TrashIcon } from "./icons";
 import { useLayout } from "@/stores/use-layout";
 import { Layout } from "@/types/filter";
+import { useRef } from "react";
 
 export const Grouping = () => {
   const {  
@@ -21,6 +22,7 @@ export const Grouping = () => {
   const { 
     columns,
     groupingSelect,
+    groupingHeaders,
     onSelectGrouping,
     removeGrouping
   } = useTable();
@@ -31,6 +33,8 @@ export const Grouping = () => {
     filteredItems,
     setSearchQuery
   } = useSearch(columns, ["label"]);
+
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const open = isOpenItem && type === "grouping";
 
@@ -98,9 +102,18 @@ export const Grouping = () => {
             </button>
           </div>
         </div> 
+        <pre>
+          {JSON.stringify(groupingHeaders, null, 2)}
+        </pre>
       </div>
       <div className="flex flex-col p-1 shadow-[0_-1px_0_rgba(55,53,47,0.09)]">
-        <button onClick={removeGrouping} className="w-[calc(100%-8px)] rounded-md text-[#9a9a97] hover:bg-[#37352f0f] group transition-colors">
+        <button 
+          onClick={() => {
+            removeGrouping();
+            onChange(Layout.TABLE);
+          }} 
+          className="w-[calc(100%-8px)] rounded-md text-[#9a9a97] hover:bg-[#37352f0f] group transition-colors"
+        >
           <div className="flex items-center w-full min-h-7 text-sm">
             <div className="flex items-center justify-center ml-2.5 mr-1">
               <TrashIcon className="size-4 text-[#9a9a97] group-hover:text-destructive" />

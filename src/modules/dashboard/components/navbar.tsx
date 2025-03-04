@@ -1,6 +1,8 @@
-import { Breadcrumb } from "@/components/breadcrumb";
-import { Button } from "@/components/ui/button";
 import { MenuIcon, MoreHorizontalIcon } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
+
+import { Breadcrumb } from "@/components/breadcrumb";
 
 interface NavbarProps {
   isCollapsed: boolean;

@@ -58,9 +58,11 @@ type PropertiesActions<T extends object> = {
 }
 
 type GroupingState<T extends object> = {
+  groupingHeaders: string[];
   groupingSelect: ColumnProps<T> | null;
   onSelectGrouping: (column: ColumnProps<T>) => void;
   removeGrouping: () => void;
+  setGroupingHeaders: (headers: string[]) => void;
 }
 
 export type TableStore<T extends object> = 

@@ -23,14 +23,16 @@ export const useGroupsTable = (year: string) => {
     selectedSortColumns,
     isSort,
     isFilter,
+    groupingHeaders,
     groupingSelect,
-    setColumns
+    setColumns,
+    setGroupingHeaders
   } = useTable();
 
   useEffect(() => {
     setColumns(groupColumns);
   }, [setColumns]);
-  
+
   const {
     searchQuery,
     setSearchQuery,
@@ -45,10 +47,22 @@ export const useGroupsTable = (year: string) => {
     return sortDataByColumns(filteredData, selectedSortColumns);
   }, [filteredData, selectedSortColumns]);
 
-  const groupedData = groupingSelect ? groupByColumn(sortedData, groupingSelect.label as keyof ResponseType) : sortedData;
+  const groupedData = useMemo(() => {
+    if (!groupingSelect) return {} as Record<string, []>;
+    return groupByColumn(sortedData, groupingSelect.label as keyof ResponseType);
+  }, [sortedData, groupingSelect]);
 
   const isOpenToolbar = isSort || isFilter;
+  const isGrouping = groupingSelect !== null;
 
+  useEffect(() => {
+  const newHeaders = Object.keys(groupedData);
+  
+  if (JSON.stringify(newHeaders) !== JSON.stringify(groupingHeaders)) {
+    setGroupingHeaders(newHeaders);
+  }
+}, [groupedData, groupingHeaders, setGroupingHeaders]);
+  
   return {
     data: sortedData,
     isLoading,
@@ -56,6 +70,7 @@ export const useGroupsTable = (year: string) => {
     searchQuery,
     columns,
     groupedData,
+    isGrouping,
     setSearchQuery
   };
 }
