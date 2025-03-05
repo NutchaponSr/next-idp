@@ -230,19 +230,13 @@ export function calculateColumnValues<T extends object>(
   }
 }
 
-export function groupByColumn<T extends object>(
-  data: T[],
-  columnKey: keyof T,
-) {
-  return data.reduce((acc, item) => {
-    const groupKey = (item[columnKey as keyof T] ?? "Unknown") as string;;
-
-    if (!acc[groupKey]) {
-      acc[groupKey] = [];
-    }
-
-    acc[groupKey].push(item);
-
-    return acc;
-  }, {} as Record<string, T[]>);
+export function groupByColumn<T>(array: T[], key: keyof T): Record<string, T[]> {
+  return array.reduce(
+    (result, currentValue) => {
+      const groupKey = String(currentValue[key]);
+      (result[groupKey] = result[groupKey] || []).push(currentValue)
+      return result
+    },
+    {} as Record<string, T[]>,
+  )
 }

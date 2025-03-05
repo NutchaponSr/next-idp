@@ -1,6 +1,7 @@
 import { 
   ColumnProps, 
   FilterCondition, 
+  GroupingProps, 
   SortOrder 
 } from "@/types/filter";
 
@@ -51,18 +52,23 @@ type FilterComputed = {
 }
 
 type PropertiesActions<T extends object> = {
-  showAll: () => void;
-  hideAll: () => void;
+  showAllColumns: () => void;
+  hideAllColumns: () => void;
   toggleColumnVisible: (label: keyof T) => void;
   reorderColumn: (columns: ColumnProps<T>[]) => void;
 }
 
 type GroupingState<T extends object> = {
-  groupingHeaders: string[];
+  groupingHeaders: Record<string, GroupingProps>;
   groupingSelect: ColumnProps<T> | null;
   onSelectGrouping: (column: ColumnProps<T>) => void;
   removeGrouping: () => void;
-  setGroupingHeaders: (headers: string[]) => void;
+  reorderGrouping: (newOrder: string[]) => void;
+  setGroupingHeaders: (headers: Record<string, GroupingProps>) => void;
+  toggleGroup: (header: string) => void;
+  toggleGroupVisible: (header: string) => void;
+  showAllGroup: () => void;
+  hideAllGroup: () => void;
 }
 
 export type TableStore<T extends object> = 

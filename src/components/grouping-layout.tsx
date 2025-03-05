@@ -1,19 +1,18 @@
-import { 
-  MoreVerticalIcon, 
-  PlusIcon, 
-} from "lucide-react";
-import { useState } from "react";
+import { useToggle } from "react-use";
 import { AnimatePresence, motion } from "framer-motion";
+import { ChevronDownIcon, ChevronUpIcon } from "lucide-react";
 
-import { IconVariant } from "@/types/icon";
 import { ColumnProps } from "@/types/filter";
+
+import { useTable } from "@/stores/use-table";
 
 import { Button } from "@/components/ui/button";
 
-import { ChevronRightIcon } from "@/components/icons";
+import { GroupingHeader } from "@/components/grouping-header";
 
+import { TableRows } from "@/components/layouts/table/table-row";
+import { TableFooter } from "@/components/layouts/table/table-footer";
 import { TableHeader } from "@/components/layouts/table/table-header";
-import { TableRows } from "./layouts/table/table-row";
 
 interface GroupingLayoutProps<T extends { id: string }> {
   data: T[];
@@ -37,86 +36,153 @@ export const GroupingLayout = <T extends { id: string }>({
   selectAll,
   renderCell
 }: GroupingLayoutProps<T>) => {
-  const [open, setOpen] = useState<Record<number, boolean>>({});
+  const { groupingHeaders } = useTable();
 
-  const toggleSection = (index: number) => {
-    setOpen((prevOpen) => ({
-      ...prevOpen,
-      [index]: !prevOpen[index], 
-    }));
-  };
+  const [hiddenGroup, toggleHiddenGroup] = useToggle(false);
+  const [showAggregation, toggleAggregation] = useToggle(false);
+
+  const hiddenCount = Object.entries(groupingHeaders).filter(([, header]) => !header.isShow).length;
+  const count = Object.fromEntries(
+    Object.entries(groupedData).map(([key, value]) => [key, value.length])
+  );
 
   return (
     <div className="grow shrink-0 flex flex-col relative">
       <div className="h-full relative float-left min-w-full select-none lining-nums pb-[180px] px-24">
-        {Object.keys(groupedData).map((header, index) => (
-          <div key={header} className="w-full border-t border-[#e9e9e7] group/grouping">
-            <div className="w-full text-sm">
-              <div className="flex items-center h-11">
-                <div className="flex items-center h-full overflow-hidden">
-                  <Button size="icon" variant="ghost" onClick={() => toggleSection(index)}>
-                    <motion.div
-                      animate={{ rotate: open[index] ? 90 : 0 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <ChevronRightIcon className="size-4 fill-primary" variant={IconVariant.SOLID} />
-                    </motion.div>
-                  </Button>
-                  <h1 className="font-medium text-primary text-ellipsis whitespace-nowrap overflow-hidden mx-1">{header}</h1>
-                  <Button size="icon" variant="ghost" className="group-hover/grouping:opacity-100 opacity-0 transition-opacity">
-                    <MoreVerticalIcon className="size-4 text-[#9A9A97] rotate-90" />
-                  </Button>
-                  <Button size="icon" variant="ghost" className="group-hover/grouping:opacity-100 opacity-0 transition-opacity">
-                    <PlusIcon className="size-4 text-[#9A9A97] rotate-90" />
-                  </Button>
-                </div>
-              </div>
-            </div>
-            <AnimatePresence initial={false}>
-              {open[index] && (
-                <motion.div
-                  key="content"
-                  initial="collapsed"
-                  animate="open"
-                  exit="collapsed"
-                  variants={{
-                    open: { opacity: 1, height: "auto" },
-                    collapsed: { opacity: 0, height: 0 },
-                  }}
-                  transition={{ duration: 0.3, ease: [0.04, 0.62, 0.23, 0.98] }}
-                >
+        <div className="flex flex-col space-y-2.5">
+          {Object.keys(groupedData).filter((header) => groupingHeaders[header]?.isShow).map((header) => (
+            <div key={header} className="w-full border-t border-[#e9e9e7] group/grouping">
+              <GroupingHeader 
+                header={header} 
+                count={count[header]} 
+                showAggregation={showAggregation}
+                toggleAggregation={toggleAggregation}
+              />
+              <AnimatePresence initial={false}>
+                {groupingHeaders[header]?.isOpen && (
                   <motion.div
+                    key="content"
+                    initial="collapsed"
+                    animate="open"
+                    exit="collapsed"
                     variants={{
-                      collapsed: { opacity: 0, y: 0 },
-                      open: { opacity: 1, y: 0 },
+                      open: { opacity: 1, height: "auto" },
+                      collapsed: { opacity: 0, height: 0 },
                     }}
-                    transition={{ duration: 0.2, delay: 0.1 }}
+                    transition={{ duration: 0.3, ease: [0.04, 0.62, 0.23, 0.98] }}
                   >
-                    <TableHeader 
-                      columns={columns}
-                      data={groupedData[header]}
-                      isOpenToolbar={isOpenToolbar}
-                      selectedRows={selectedRows}
-                      selectAll={() => {
-                        setTimeout(() => {
-                          selectAll(header);
-                        }, 10);
+                    <motion.div
+                      variants={{
+                        collapsed: { opacity: 0, y: 0 },
+                        open: { opacity: 1, y: 0 },
                       }}
-                    />
-                    <TableRows 
-                      data={groupedData[header]}
-                      columns={columns}
-                      searchQuery={searchQuery}
-                      selectedRows={selectedRows}
-                      selectRow={selectRow}
-                      renderCell={renderCell}
-                    />
+                      transition={{ duration: 0.2, delay: 0.1 }}
+                    >
+                      <TableHeader 
+                        columns={columns}
+                        data={groupedData[header]}
+                        isOpenToolbar={isOpenToolbar}
+                        selectedRows={selectedRows}
+                        selectAll={() => {
+                          setTimeout(() => {
+                            selectAll(header);
+                          }, 10);
+                        }}
+                      />
+                      <TableRows 
+                        data={groupedData[header]}
+                        columns={columns}
+                        searchQuery={searchQuery}
+                        selectedRows={selectedRows}
+                        selectRow={selectRow}
+                        renderCell={renderCell}
+                      />
+                      <TableFooter 
+                        columns={columns}
+                        data={groupedData[header]}
+                      />
+                    </motion.div>
                   </motion.div>
-                </motion.div>
+                )}
+              </AnimatePresence>
+            </div>  
+          ))}
+          {/* Hidden group */}
+          {hiddenCount > 0 && (
+            <>
+              <div className="flex">
+                <Button onClick={toggleHiddenGroup} variant="ghost" className="text-[#9a9a97] hover:text-[#9a9a97] gap-1 px-1.5 font-normal">
+                  {hiddenGroup
+                    ? <ChevronUpIcon className="size-4" />
+                    : <ChevronDownIcon className="size-4" />
+                  }
+                  {hiddenCount} Hidden groups
+                </Button>
+              </div>
+              {hiddenGroup && (
+                <div>
+                  {Object.keys(groupedData).filter((header) => !groupingHeaders[header]?.isShow).map((header) => (
+                    <div key={header} className="w-full border-t border-[#e9e9e7] group/grouping">
+                      <GroupingHeader 
+                        header={header} 
+                        count={count[header]} 
+                        showAggregation={showAggregation}
+                        toggleAggregation={toggleAggregation}
+                      />
+                      <AnimatePresence initial={false}>
+                        {groupingHeaders[header]?.isOpen && (
+                          <motion.div
+                            key="content"
+                            initial="collapsed"
+                            animate="open"
+                            exit="collapsed"
+                            variants={{
+                              open: { opacity: 1, height: "auto" },
+                              collapsed: { opacity: 0, height: 0 },
+                            }}
+                            transition={{ duration: 0.3, ease: [0.04, 0.62, 0.23, 0.98] }}
+                          >
+                            <motion.div
+                              variants={{
+                                collapsed: { opacity: 0, y: 0 },
+                                open: { opacity: 1, y: 0 },
+                              }}
+                              transition={{ duration: 0.2, delay: 0.1 }}
+                            >
+                              <TableHeader 
+                                columns={columns}
+                                data={groupedData[header]}
+                                isOpenToolbar={isOpenToolbar}
+                                selectedRows={selectedRows}
+                                selectAll={() => {
+                                  setTimeout(() => {
+                                    selectAll(header);
+                                  }, 10);
+                                }}
+                              />
+                              <TableRows 
+                                data={groupedData[header]}
+                                columns={columns}
+                                searchQuery={searchQuery}
+                                selectedRows={selectedRows}
+                                selectRow={selectRow}
+                                renderCell={renderCell}
+                              />
+                              <TableFooter 
+                                columns={columns}
+                                data={groupedData[header]}
+                              />
+                            </motion.div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>  
+                  ))}
+                </div>
               )}
-            </AnimatePresence>
-          </div>  
-        ))}
+            </>
+          )}
+        </div>
       </div>
     </div>
   );

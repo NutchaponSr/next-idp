@@ -13,6 +13,7 @@ import { useTable } from "@/stores/use-table";
 
 import { ResponseType } from "@/modules/groups/api/use-get-group";
 import { useGetGroupsByYear } from "@/modules/groups/api/use-get-groups-by-year";
+import { GroupingProps } from "@/types/filter";
 
 export const useGroupsTable = (year: string) => {
   const { data, isLoading } = useGetGroupsByYear(year);
@@ -48,28 +49,48 @@ export const useGroupsTable = (year: string) => {
   }, [filteredData, selectedSortColumns]);
 
   const groupedData = useMemo(() => {
-    if (!groupingSelect) return {} as Record<string, []>;
-    return groupByColumn(sortedData, groupingSelect.label as keyof ResponseType);
-  }, [sortedData, groupingSelect]);
+    if (!groupingSelect) return {} as Record<string, ResponseType[]>
+    return groupByColumn(sortedData, groupingSelect.label as keyof ResponseType)
+  }, [sortedData, groupingSelect])
 
   const isOpenToolbar = isSort || isFilter;
   const isGrouping = groupingSelect !== null;
 
   useEffect(() => {
-  const newHeaders = Object.keys(groupedData);
-  
-  if (JSON.stringify(newHeaders) !== JSON.stringify(groupingHeaders)) {
-    setGroupingHeaders(newHeaders);
-  }
-}, [groupedData, groupingHeaders, setGroupingHeaders]);
-  
+    const newHeaders = Object.keys(groupedData)
+
+    if (newHeaders.join(",") !== Object.keys(groupingHeaders).join(",")) {
+      const newGroupingHeaders = newHeaders.reduce(
+        (acc, header, index) => {
+          acc[header] = groupingHeaders[header] || { isOpen: true, isShow: true, order: index }
+          return acc
+        },
+        {} as Record<string, GroupingProps>,
+      )
+      setGroupingHeaders(newGroupingHeaders)
+    }
+  }, [groupedData, groupingHeaders, setGroupingHeaders])
+
+  const sortedGroupedData = Object.entries(groupedData)
+  .sort(([keyA], [keyB]) => {
+    const orderA = groupingHeaders[keyA]?.order ?? Infinity;
+    const orderB = groupingHeaders[keyB]?.order ?? Infinity;
+    return orderA - orderB;
+  })
+  .reduce((acc, [key, value]) => {
+    acc[key] = value;
+    return acc;
+  }, {} as Record<string, ResponseType[]>);
+
+  console.log(sortedGroupedData);
+
   return {
     data: sortedData,
     isLoading,
     isOpenToolbar,
     searchQuery,
     columns,
-    groupedData,
+    groupedData: sortedGroupedData,
     isGrouping,
     setSearchQuery
   };

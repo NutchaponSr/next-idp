@@ -33,8 +33,8 @@ export const Properties = () => {
 
   const { 
     columns,
-    showAll,
-    hideAll,
+    showAllColumns,
+    hideAllColumns,
     reorderColumn, 
     toggleColumnVisible 
   } = useTable();
@@ -71,7 +71,7 @@ export const Properties = () => {
           <div className="flex px-2 my-2 text-[#37352fa6] text-xs h-5 w-full items-center">
             <h2 className="flex self-center">Shown in table</h2>
             <div className="ml-auto">
-              <button className="text-marine text-xs transition hover:bg-[#ebf5fe] py-0.5 px-1.5 inline-flex items-center rounded-md whitespace-nowrap font-medium" onClick={hideAll}>
+              <button className="text-marine text-xs transition hover:bg-[#ebf5fe] py-0.5 px-1.5 inline-flex items-center rounded-md whitespace-nowrap font-medium" onClick={hideAllColumns}>
                 Hide all
               </button>
             </div>
@@ -133,7 +133,7 @@ export const Properties = () => {
             <div className="flex px-2 my-2 text-[#37352fa6] text-xs h-5 w-full items-center">
               <h2 className="flex self-center">Hidden in table</h2>
               <div className="ml-auto">
-                <button className="text-marine text-xs transition hover:bg-[#ebf5fe] py-0.5 px-1.5 inline-flex items-center rounded-md whitespace-nowrap font-medium" onClick={showAll}>
+                <button className="text-marine text-xs transition hover:bg-[#ebf5fe] py-0.5 px-1.5 inline-flex items-center rounded-md whitespace-nowrap font-medium" onClick={showAllColumns}>
                   Show all
                 </button>
               </div>

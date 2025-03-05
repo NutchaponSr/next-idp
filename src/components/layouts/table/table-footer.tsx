@@ -1,4 +1,4 @@
-// 4. TableFooter.tsx
+import Image from "next/image";
 import React, { useState } from "react";
 
 import { ChevronDownIcon } from "lucide-react";
@@ -23,7 +23,6 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import Image from "next/image";
 import { Switch } from "@/components/ui/switch";
 
 interface ColumnCalculation {

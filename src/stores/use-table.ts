@@ -1,7 +1,7 @@
 import { create } from "zustand";
 
 import { TableStore } from "@/types/table";
-import { ColumnProps, FilterCondition, sorts } from "@/types/filter";
+import { ColumnProps, FilterCondition, GroupingProps, sorts } from "@/types/filter";
 
 const calIsAnySortActive = <T extends object>(columns: ColumnProps<T>[]) => 
   columns.some((col) => col);
@@ -129,10 +129,10 @@ export const useTable = create<TableStore<any>>((set) => ({
       col.label === label ? { ...col, isHide: !col.isHide } : col
     ),
   })),
-  showAll: () => set((state) => ({
+  showAllColumns: () => set((state) => ({
     columns: state.columns.map((col) => ({ ...col, isHide: false })),
   })),
-  hideAll: () => set((state) => ({
+  hideAllColumns: () => set((state) => ({
     columns: state.columns.map((col) => ({ ...col, isHide: col.isLock ? col.isHide : true })),
   })),
   reorderColumn: (columns) => set(() => {
@@ -145,9 +145,55 @@ export const useTable = create<TableStore<any>>((set) => ({
   }),
 
   // Grouping
-  groupingHeaders: [],
+  groupingHeaders: {},
   groupingSelect: null,
   onSelectGrouping: (column) => set({ groupingSelect: column }),
-  removeGrouping: () => set({ groupingSelect: null }),
+  removeGrouping: () => set({ groupingSelect: null, groupingHeaders: {} }),
+  reorderGrouping: (newOrder) => set((state) => {
+    const visibleHeaders = newOrder.filter((key) => state.groupingHeaders[key]?.isShow); // กรองเฉพาะ isShow: true
+  
+    const updatedHeaders = Object.keys(state.groupingHeaders).reduce(
+      (acc, key) => {
+        acc[key] = {
+          ...state.groupingHeaders[key],
+          order: visibleHeaders.includes(key) ? visibleHeaders.indexOf(key) : state.groupingHeaders[key].order,
+        };
+        return acc;
+      },
+      {} as Record<string, GroupingProps>,
+    );
+  
+    return { groupingHeaders: updatedHeaders };
+  }),
   setGroupingHeaders: (headers) => set({ groupingHeaders: headers }),
+  toggleGroup: (header) => set((state) => ({
+    groupingHeaders: {
+      ...state.groupingHeaders,
+      [header]: {
+        ...state.groupingHeaders[header],
+        isOpen: !state.groupingHeaders[header]?.isOpen,
+      },
+    },
+  })),
+  toggleGroupVisible: (header) => set((state) => ({
+    groupingHeaders: {
+      ...state.groupingHeaders,
+      [header]: {
+        ...state.groupingHeaders[header],
+        isShow: !state.groupingHeaders[header]?.isShow,
+      },
+    },
+  })),
+  showAllGroup: () => set((state) => ({
+    groupingHeaders: Object.keys(state.groupingHeaders).reduce((acc, key) => ({
+      ...acc,
+      [key]: { ...state.groupingHeaders[key], isShow: true },
+    }), {} as Record<string, GroupingProps>)
+  })),
+  hideAllGroup: () => set((state) => ({
+    groupingHeaders: Object.keys(state.groupingHeaders).reduce((acc, key) => ({
+      ...acc,
+      [key]: { ...state.groupingHeaders[key], isShow: false },
+    }), {} as Record<string, GroupingProps>)
+  })),
 }))

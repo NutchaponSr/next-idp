@@ -119,6 +119,12 @@ export interface ColumnProps<T extends object> {
   isHide: boolean;
 }
 
+export interface GroupingProps {
+  isOpen: boolean;
+  isShow: boolean;
+  order: number;
+}
+
 export enum CalculationType {
   COUNT_ALL = "COUNT_ALL",
   COUNT_VALUES = "COUNT_VALUES",
