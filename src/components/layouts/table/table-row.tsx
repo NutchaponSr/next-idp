@@ -11,13 +11,12 @@ import { ColumnProps } from "@/types/filter";
 import { useSettings } from "@/stores/use-settings";
 
 import { Checkbox } from "@/components/ui/checkbox";
+import { useTable } from "@/stores/use-table";
 
 interface TableRowsProps<T extends { id: string }> {
   data: T[];
   columns: ColumnProps<T>[];
   searchQuery: string;
-  selectedRows: Record<string, boolean>;
-  selectRow: (key: string) => void;
   renderCell: (cell: T, column: ColumnProps<T>, searchQuery: string) => JSX.Element | undefined;
 }
 
@@ -25,11 +24,10 @@ export const TableRows = <T extends { id: string }>({
   data,
   columns,
   searchQuery,
-  selectedRows,
-  selectRow,
   renderCell
 }: TableRowsProps<T>) => {
   const { showVerticalLine } = useSettings();
+  const { selectRows, toggleRowSelection } = useTable();
 
   return (
     <div className="relative w-full isolation-auto">
@@ -40,13 +38,13 @@ export const TableRows = <T extends { id: string }>({
               <div className="absolute -left-8">
                 <div className={cn(
                     "group-hover:opacity-100 h-full transition",
-                    selectedRows[item.id] ? "opacity-100" : "opacity-0",
+                    selectRows.has(item.id) ? "opacity-100" : "opacity-0",
                   )}>
                   <div className="h-full items-start justify-center flex cursor-pointer">
                     <div className="h-8 w-8 flex items-center justify-center">
                       <Checkbox 
-                        checked={selectedRows[item.id] || false}
-                        onCheckedChange={() => selectRow(item.id)}
+                        checked={selectRows.has(item.id)}
+                        onCheckedChange={() => toggleRowSelection(item.id)}
                       />
                     </div>
                   </div>
@@ -80,7 +78,7 @@ export const TableRows = <T extends { id: string }>({
                 </div>
               ))}
             </div>
-            {selectedRows[item.id] && <div className="absolute inset-0 top-[0.75px] bottom-0 bg-[#2383e224] rounded-sm pointer-events-none" />}
+            {selectRows.has(item.id) && <div className="absolute inset-0 top-[0.75px] bottom-0 bg-[#2383e224] rounded-sm pointer-events-none" />}
           </div>
         ))}
       </div>

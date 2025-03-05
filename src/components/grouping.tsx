@@ -2,13 +2,13 @@ import { useRef } from "react";
 import { Reorder } from "framer-motion";
 import { GripVerticalIcon } from "lucide-react";
 
-import { Layout } from "@/types/filter";
+import { cn } from "@/lib/utils";
+
 import { IconVariant } from "@/types/icon";
 
 import { useSearch } from "@/hooks/use-search";
 
 import { useTable } from "@/stores/use-table";
-import { useLayout } from "@/stores/use-layout";
 import { useMoreSidebar } from "@/stores/use-more-sidebar";
 
 import { 
@@ -21,7 +21,6 @@ import { MoreButton } from "@/components/more-button";
 import { MoreHeader } from "@/components/more-sidebar";
 import { ClearableInput } from "@/components/clearable-input";
 import { GroupingOptions } from "@/components/grouping-options";
-import { cn } from "@/lib/utils";
 
 export const Grouping = () => {
   const {  
@@ -41,7 +40,6 @@ export const Grouping = () => {
     showAllGroup,
     hideAllGroup
   } = useTable();
-  const { onChange } = useLayout();
 
   const {
     searchQuery,
@@ -83,7 +81,6 @@ export const Grouping = () => {
               icon={item.icon}
               label={String(item.label)}
               onClick={() => {
-                onChange(Layout.GROUPING);
                 onSelectGrouping(item);
               }}
             />
@@ -194,7 +191,6 @@ export const Grouping = () => {
         <button 
           onClick={() => {
             removeGrouping();
-            onChange(Layout.TABLE);
           }} 
           className="w-[calc(100%-8px)] rounded-md text-[#9a9a97] hover:bg-[#37352f0f] group transition-colors"
         >

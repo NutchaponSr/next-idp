@@ -124,6 +124,32 @@ export const useTable = create<TableStore<any>>((set) => ({
       item.label === label ? { ...item, condition } : item),
     isAnyFilterActive: calIsAnyFilterActive(state.selectedFilterColumns),
   })),
+
+  // Properties  
+  selectRows: new Set<string>(),
+  toggleAllSelection: (ids: string[]) => set((state) => {
+    const newSelectedRows = new Set(state.selectRows);
+    const allSelected = ids.every((id) => newSelectedRows.has(id));
+    
+    if (allSelected) {
+      ids.forEach((id) => newSelectedRows.delete(id))
+    } else {
+      ids.forEach((id) => newSelectedRows.add(id))
+    }
+
+    return { selectRows: newSelectedRows }
+  }),
+  toggleRowSelection: (id: string) => set((state) => {
+    const newSelectedRow = new Set(state.selectRows);
+
+    if (newSelectedRow.has(id)) {
+      newSelectedRow.delete(id);
+    } else {
+      newSelectedRow.add(id);
+    }
+
+    return { selectRows: newSelectedRow };
+  }),
   toggleColumnVisible: (label) => set((state) => ({
     columns: state.columns.map((col) =>
       col.label === label ? { ...col, isHide: !col.isHide } : col

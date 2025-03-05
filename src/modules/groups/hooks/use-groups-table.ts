@@ -71,26 +71,12 @@ export const useGroupsTable = (year: string) => {
     }
   }, [groupedData, groupingHeaders, setGroupingHeaders])
 
-  const sortedGroupedData = Object.entries(groupedData)
-  .sort(([keyA], [keyB]) => {
-    const orderA = groupingHeaders[keyA]?.order ?? Infinity;
-    const orderB = groupingHeaders[keyB]?.order ?? Infinity;
-    return orderA - orderB;
-  })
-  .reduce((acc, [key, value]) => {
-    acc[key] = value;
-    return acc;
-  }, {} as Record<string, ResponseType[]>);
-
-  console.log(sortedGroupedData);
-
   return {
     data: sortedData,
     isLoading,
     isOpenToolbar,
     searchQuery,
     columns,
-    groupedData: sortedGroupedData,
     isGrouping,
     setSearchQuery
   };

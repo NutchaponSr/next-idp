@@ -30,15 +30,11 @@ import { Hint } from "@/components/hint";
 interface GroupingHeaderProps {
   header: string;
   count: number;
-  showAggregation: boolean;
-  toggleAggregation: () => void;
 }
 
 export const GroupingHeader = ({ 
   header, 
   count,
-  showAggregation,
-  toggleAggregation
 }: GroupingHeaderProps) => {
   const { 
     groupingHeaders, 
@@ -65,11 +61,9 @@ export const GroupingHeader = ({
           <h1 className="font-medium text-primary text-ellipsis whitespace-nowrap overflow-hidden mx-1">
             {header}
           </h1>
-          {showAggregation && (
-            <p className="text-[#9A9A97] flex items-center justify-center h-7 w-5 font-medium">
-              {count}
-            </p>
-          )}
+          <p className="text-[#9A9A97] flex items-center justify-center h-7 w-5 font-medium">
+            {count}
+          </p>
           <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
             <DropdownMenuTrigger>
               <Button 
@@ -89,7 +83,7 @@ export const GroupingHeader = ({
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-              <DropdownMenuItem onClick={() => toggleAggregation()}>
+              <DropdownMenuItem onClick={() => {}}>
                 <EyeIcon className="size-4 text-primary" />
                 Show aggregation
               </DropdownMenuItem>

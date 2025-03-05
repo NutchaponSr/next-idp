@@ -152,7 +152,6 @@ export enum Layout {
   BOARD = "BOARD",
   LIST = "LIST",
   GALLERY = "GALLERY",
-  GROUPING = "GROUPING",
 }
 
 export interface LayoutConfig {

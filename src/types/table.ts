@@ -52,9 +52,12 @@ type FilterComputed = {
 }
 
 type PropertiesActions<T extends object> = {
+  selectRows: Set<string>;
   showAllColumns: () => void;
   hideAllColumns: () => void;
   toggleColumnVisible: (label: keyof T) => void;
+  toggleRowSelection: (id: string) => void;
+  toggleAllSelection: (ids: string[]) => void;
   reorderColumn: (columns: ColumnProps<T>[]) => void;
 }
 

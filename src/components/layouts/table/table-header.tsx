@@ -5,25 +5,25 @@ import { MoreHorizontalIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ColumnProps } from "@/types/filter";
 
+import { useTable } from "@/stores/use-table";
 import { useSettings } from "@/stores/use-settings";
 
 import { Checkbox } from "@/components/ui/checkbox";
 
 interface TableHeaderProps<T extends { id: string }> {
+  ids: string[];
   columns: ColumnProps<T>[];
-  data: T[];
   isOpenToolbar: boolean;
-  selectedRows: Record<string, boolean>;
-  selectAll: () => void;
+  allSelected: boolean;
 }
 
 export const TableHeader = <T extends { id: string }>({
+  ids,
   columns,
-  data,
   isOpenToolbar,
-  selectedRows,
-  selectAll
+  allSelected,
 }: TableHeaderProps<T>) => {
+  const { toggleAllSelection } = useTable();
   const { showVerticalLine } = useSettings();
 
   return (
@@ -37,13 +37,13 @@ export const TableHeader = <T extends { id: string }>({
           <div className="absolute -left-8">
             <div className={cn(
               "hover:opacity-100 transition",
-              data.every((item) => selectedRows[item.id]) ? "opacity-100" : "opacity-0",
+              allSelected ? "opacity-100" : "opacity-0",
             )}>
               <div className="h-full items-start justify-center flex cursor-pointer">
                 <div className="size-8 flex items-center justify-center">
                   <Checkbox 
-                    checked={data.length > 0 && data.every((item) => selectedRows[item.id])}
-                    onCheckedChange={() => selectAll()}
+                    checked={allSelected}
+                    onCheckedChange={() => toggleAllSelection(ids)}
                   />
                 </div>
               </div>
