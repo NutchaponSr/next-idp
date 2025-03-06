@@ -1,8 +1,3 @@
-import { 
-  useEffect, 
-  useRef, 
-  useState 
-} from "react";
 import { motion } from "framer-motion";
 import { ArrowLeftIcon, XIcon } from "lucide-react";
 
@@ -44,36 +39,15 @@ export const MoreSidebar = () => {
     selectedSortColumns
   } = useTable();
 
-  const [height, setHeight] = useState(0);
-
-  const moreRef = useRef<HTMLElement>(null);
-
-  const updateHeight = () => {
-    if (moreRef.current) {
-      const rect = moreRef.current.getBoundingClientRect();
-
-      setHeight(window.innerHeight - rect.top);
-    }
-  }
-
-  useEffect(() => {
-    updateHeight();
-
-    window.addEventListener("resize", updateHeight);
-    return () => window.removeEventListener("resize", updateHeight);
-  }, []);
-
   return (
     <motion.aside
-      ref={moreRef}
       initial={{ x: 50, opacity: 0 }}  
       animate={{ x: 0, opacity: 1 }}   
       exit={{ x: 50, opacity: 0 }}      
       transition={{ duration: 0.3, ease: "easeInOut" }}
-      style={{ height: `${height}px` }}
-      className="absolute top-10 -right-24 bg-background border-l border-[#e9e9e7] pr-24 z-[90]"
+      className="absolute top-10 -right-24 bg-background border-l border-[#e9e9e7] pr-24 z-[90] min-h-screen"
     >
-      <div className="flex h-full">
+      <div className="flex h-full sticky top-0 left-0">
         <div className="shadow-[inset_0_1px_0_rgb(233,233,231)]">
           <div className="flex flex-col min-w-[290px] max-w-[290px] h-full max-h-full">
             <div className={cn(type === null ? "visible" : "hidden", "shrink-0 min-h-10")}>

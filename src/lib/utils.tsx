@@ -13,6 +13,7 @@ import {
 import { CompetencyType } from "@/types/competency";
 import { EmojiData, EmojiItem } from "@/types/emoji";
 import { CalculationType, ColumnProps, FilterCondition } from "@/types/filter";
+import { grouping } from "@/constants/filters";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -239,4 +240,19 @@ export function groupByColumn<T>(array: T[], key: keyof T): Record<string, T[]> 
     },
     {} as Record<string, T[]>,
   )
+}
+export function getInitialOption<T extends object>(column: ColumnProps<T>) {
+  const groupConfig = grouping[column.variant];
+
+  if (!groupConfig) return {};
+
+  const initialOptions: Record<string, { label: string; value: string }> = {};
+
+  groupConfig.content.forEach((item) => {
+    const methodLabel = item.label;
+    const option = Object.values(item.method)[0]
+    initialOptions[methodLabel] = option;
+  });
+
+  return initialOptions;
 }

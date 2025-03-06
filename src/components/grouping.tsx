@@ -38,7 +38,7 @@ export const Grouping = () => {
     reorderGrouping,
     toggleGroupVisible,
     showAllGroup,
-    hideAllGroup
+    hideAllGroup,
   } = useTable();
 
   const {
@@ -75,16 +75,18 @@ export const Grouping = () => {
           </div>
         </div>
         <div className="flex flex-col p-1">
-          {filteredItems.map((item ,index) => (
-            <MoreButton 
-              key={index}
-              icon={item.icon}
-              label={String(item.label)}
-              onClick={() => {
-                onSelectGrouping(item);
-              }}
-            />
-          ))}
+          {filteredItems.map((item ,index) => {
+            return (
+              <MoreButton 
+                key={index}
+                icon={item.icon}
+                label={String(item.label)}
+                onClick={() => {
+                  onSelectGrouping(item);
+                }}
+              />
+            );
+          })}
         </div>
       </div>
     );

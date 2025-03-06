@@ -2,6 +2,7 @@ import { create } from "zustand";
 
 import { TableStore } from "@/types/table";
 import { ColumnProps, FilterCondition, GroupingProps, sorts } from "@/types/filter";
+import { grouping } from "@/constants/filters";
 
 const calIsAnySortActive = <T extends object>(columns: ColumnProps<T>[]) => 
   columns.some((col) => col);
@@ -173,10 +174,27 @@ export const useTable = create<TableStore<any>>((set) => ({
   // Grouping
   groupingHeaders: {},
   groupingSelect: null,
-  onSelectGrouping: (column) => set({ groupingSelect: column }),
+  showAggregation: false,
+  groupOption: {},
+  setGroupOption: (groupOption) => set({ groupOption }),
+  onSelectGrouping: (column) => set(() => { 
+      const groupConfig = grouping[column.variant];
+      const initialOptions: Record<string, { label: string; value: string }> = {};
+  
+      groupConfig.content.forEach((item) => {
+        const methodLabel = item.label;
+        const option = Object.values(item.method)[0];
+        initialOptions[methodLabel] = option;
+      });
+  
+      return { 
+        groupingSelect: column,
+        groupOption: initialOptions,
+      };
+    }),
   removeGrouping: () => set({ groupingSelect: null, groupingHeaders: {} }),
   reorderGrouping: (newOrder) => set((state) => {
-    const visibleHeaders = newOrder.filter((key) => state.groupingHeaders[key]?.isShow); // กรองเฉพาะ isShow: true
+    const visibleHeaders = newOrder.filter((key) => state.groupingHeaders[key]?.isShow);
   
     const updatedHeaders = Object.keys(state.groupingHeaders).reduce(
       (acc, key) => {
@@ -200,6 +218,9 @@ export const useTable = create<TableStore<any>>((set) => ({
         isOpen: !state.groupingHeaders[header]?.isOpen,
       },
     },
+  })),
+  toggleAggregation: () => set((state) => ({
+    showAggregation: !state.showAggregation,
   })),
   toggleGroupVisible: (header) => set((state) => ({
     groupingHeaders: {

@@ -64,10 +64,14 @@ type PropertiesActions<T extends object> = {
 type GroupingState<T extends object> = {
   groupingHeaders: Record<string, GroupingProps>;
   groupingSelect: ColumnProps<T> | null;
+  showAggregation: boolean;
+  groupOption: Record<string, { label: string; value: string }>;
+  setGroupOption: (option: Record<string, { label: string; value: string }>) => void;
   onSelectGrouping: (column: ColumnProps<T>) => void;
   removeGrouping: () => void;
   reorderGrouping: (newOrder: string[]) => void;
   setGroupingHeaders: (headers: Record<string, GroupingProps>) => void;
+  toggleAggregation: () => void;
   toggleGroup: (header: string) => void;
   toggleGroupVisible: (header: string) => void;
   showAllGroup: () => void;
@@ -84,3 +88,11 @@ export type TableStore<T extends object> =
   FilterComputed &
   PropertiesActions<T> & 
   GroupingState<T>;
+
+export interface BaseComponents<T extends { id: string }> {
+  data: T[];
+  columns: ColumnProps<T>[];
+  isOpenToolbar: boolean;
+  searchQuery: string;
+  renderCell: (cell: T, column: ColumnProps<T>, searchQuery: string) => JSX.Element | undefined;
+}

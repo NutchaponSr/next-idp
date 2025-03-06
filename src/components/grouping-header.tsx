@@ -28,13 +28,17 @@ import {
 import { Hint } from "@/components/hint";
 
 interface GroupingHeaderProps {
-  header: string;
   count: number;
+  header: string;
+  showAggregation: boolean;
+  toggleAggregation: () => void;
 }
 
 export const GroupingHeader = ({ 
-  header, 
   count,
+  header, 
+  showAggregation,
+  toggleAggregation,
 }: GroupingHeaderProps) => {
   const { 
     groupingHeaders, 
@@ -44,7 +48,7 @@ export const GroupingHeader = ({
 
   const [isOpen, setIsOpen] = useState(false);
 
-  const isShow = groupingHeaders[header].isShow;
+  const isShow = groupingHeaders[header]?.isShow;
 
   return (
     <div className="w-full text-sm">
@@ -61,9 +65,11 @@ export const GroupingHeader = ({
           <h1 className="font-medium text-primary text-ellipsis whitespace-nowrap overflow-hidden mx-1">
             {header}
           </h1>
-          <p className="text-[#9A9A97] flex items-center justify-center h-7 w-5 font-medium">
-            {count}
-          </p>
+          {showAggregation && (
+            <p className="text-[#9A9A97] flex items-center justify-center h-7 w-5 font-medium">
+              {count}
+            </p>
+          )}
           <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
             <DropdownMenuTrigger>
               <Button 
@@ -83,16 +89,21 @@ export const GroupingHeader = ({
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-              <DropdownMenuItem onClick={() => {}}>
-                <EyeIcon className="size-4 text-primary" />
-                Show aggregation
+              <DropdownMenuItem onClick={toggleAggregation}>
+                {showAggregation 
+                  ? <EyeOffIcon className="size-4 text-primary" />
+                  : <EyeIcon className="size-4 text-primary" />
+                }
+                {showAggregation ? "Hide " : "Show "}
+                aggregation
               </DropdownMenuItem>
               <DropdownMenuItem onClick={() => toggleGroupVisible(header)}>
                 {isShow 
                   ? <EyeOffIcon className="size-4 text-primary" />
                   : <EyeIcon className="size-4 text-primary" />
                 }
-                Hide group
+                {isShow ? "Hide " : "Show "}
+                group
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <TrashIcon className="size-4 text-primary" />

@@ -78,7 +78,7 @@ export const groupColumns: ColumnProps<ResponseType>[] = [
     isSorted: false,
     isFiltered: false,
     icon: TextFontIcon,
-    variant: ColumnVariant.TEXT,
+    variant: ColumnVariant.NUMBER,
     condition: FilterCondition.CONTAINS,
     searchQuery: "",
     sortOrder: null,
@@ -186,11 +186,6 @@ export const layouts: Record<Layout, LayoutConfig> = {
     mode: Layout.GALLERY,
     icon: Square1Icon,
     label: "Gallery",
-  },
-  [Layout.GROUPING]: {
-    mode: Layout.GALLERY,
-    icon: TableIcon,
-    label: "Table",
   },
 };
 
