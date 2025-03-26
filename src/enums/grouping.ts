@@ -1,6 +1,6 @@
 export enum TextBy {
   EXACT = "EXACT",
-  APLHABETICAL = "APLHABETICAL",
+  ALPHABETICAL = "ALPHABETICAL",
 }
 
 export enum TextSort {

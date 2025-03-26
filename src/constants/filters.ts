@@ -213,10 +213,10 @@ export const pageViews: Record<PageView, PageViewProps> = {
 
 const textBy: Record<TextBy, { label: string, value: TextBy }> = {
   [TextBy.EXACT] : { label: "Exact", value: TextBy.EXACT },
-  [TextBy.APLHABETICAL] : { label: "Alphabetical", value: TextBy.APLHABETICAL },
+  [TextBy.ALPHABETICAL] : { label: "Alphabetical", value: TextBy.ALPHABETICAL },
 }
 
-const textSort: Record<TextSort, { label: string, value: TextSort }> = {
+export const textSort: Record<TextSort, { label: string, value: TextSort }> = {
   [TextSort.MANUAL]: { label: "Manual", value: TextSort.MANUAL },
   [TextSort.ALPHABETICAL]: { label: "Alphabetical", value: TextSort.ALPHABETICAL },
   [TextSort.REVERSE_ALPHABETICAL]: { label: "Reverse Alphabetical", value: TextSort.REVERSE_ALPHABETICAL },

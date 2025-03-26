@@ -56,6 +56,8 @@ export const TableFooter = <T extends { id: string }>({
     setActive(prev => ({ ...prev, [index]: false }));
   }
 
+  console.log(calculatedValues);
+
   return (
     <div className="h-12 w-full relative group">
       <div className="border-t border-[#e9e9e7] flex min-w-full">
@@ -75,9 +77,10 @@ export const TableFooter = <T extends { id: string }>({
                     >
                       <div className={cn(
                         "flex items-center group-hover:opacity-100 opacity-0 transition-opacity",
-                        (active[index] || calculatedValues[index].result !== null) && "opacity-100"
+                        (active[index]) && "opacity-100"
+                        // || calculatedValues[index].result !== null
                       )}>
-                        {calculatedValues[index]?.type && (
+                        {/* {calculatedValues[index]?.type && (
                           <span className="text-[10px] uppercase tracking-wider text-[#37352fa6] mr-1 mt-px font-light">
                             {calculationPrefixes[calculatedValues[index].type]}
                           </span>
@@ -90,7 +93,10 @@ export const TableFooter = <T extends { id: string }>({
                           <span className="text-[#37352f80] text-sm">
                             Calculate
                           </span>
-                        )}
+                        )} */}
+                        <span className="text-[#37352f80] text-sm">
+                          Calculate
+                        </span>
                         <ChevronDownIcon className="size-3 ml-1 shrink-0 text-[#9a9a97]" />
                       </div>
                     </button>

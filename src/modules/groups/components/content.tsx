@@ -32,7 +32,6 @@ export const Content = () => {
       <Toolbar 
         value={searchQuery} 
         onChange={onChange} 
-        columns={columns} 
       />
       <Layouts 
         data={data} 

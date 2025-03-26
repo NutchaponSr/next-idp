@@ -15,7 +15,6 @@ import { AnimatePresence, motion } from "framer-motion";
 
 import { cn } from "@/lib/utils";
 import { IconVariant } from "@/types/icon";
-import { ColumnProps } from "@/types/filter";
 
 import { useTable } from "@/stores/use-table";
 import { useMoreSidebar } from "@/stores/use-more-sidebar";
@@ -37,16 +36,15 @@ import { MoreSidebar } from "@/components/more-sidebar";
 import { TableFilter } from "@/components/table-filter";
 import { FilterColumns } from "@/components/filter-columns";
 
-interface ToolbarProps<T extends object> {
+interface ToolbarProps {
   value: string;
-  columns: ColumnProps<T>[];
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const Toolbar = <T extends object>({
   value,
   onChange
-}: ToolbarProps<T>) => {
+}: ToolbarProps) => {
   const {
     isSort,
     isFilter,

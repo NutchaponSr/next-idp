@@ -17,7 +17,7 @@ interface GroupingTextProps<T extends object> {
   column: ColumnProps<T>;
 }
 
-export const GroupingText = <T extends object>({ column }: GroupingTextProps<T>) => {
+export const GroupingText = <T extends object>({  }: GroupingTextProps<T>) => {
   const { groupOption, setGroupOption } = useTable();
 
   return (
@@ -30,7 +30,7 @@ export const GroupingText = <T extends object>({ column }: GroupingTextProps<T>)
             <DropdownMenuTrigger className="w-full flex justify-start">
               <MoreButton 
                 label={item.label} 
-                description={groupOption[item.label]?.label || "None"} 
+                description={groupOption[item.label].label ?? "None"}
               />
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" alignOffset={8}>

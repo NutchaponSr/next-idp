@@ -21,7 +21,7 @@ export const TableLayout = <T extends { id: string }>({ ...props }: TableLayoutP
 
   return (
     <div className="grow shrink-0 flex flex-col relative">
-      <div className="h-full relative float-left min-w-full select-none lining-nums pb-[180px] px-24">
+      <div className="h-full relative float-left min-w-full lining-nums pb-[180px] px-24">
         {groupingSelect 
           ? <GroupingComponents {...props} /> 
           : <TableComponents {...props} />

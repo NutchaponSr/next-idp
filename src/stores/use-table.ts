@@ -178,20 +178,20 @@ export const useTable = create<TableStore<any>>((set) => ({
   groupOption: {},
   setGroupOption: (groupOption) => set({ groupOption }),
   onSelectGrouping: (column) => set(() => { 
-      const groupConfig = grouping[column.variant];
-      const initialOptions: Record<string, { label: string; value: string }> = {};
-  
-      groupConfig.content.forEach((item) => {
-        const methodLabel = item.label;
-        const option = Object.values(item.method)[0];
-        initialOptions[methodLabel] = option;
-      });
-  
-      return { 
-        groupingSelect: column,
-        groupOption: initialOptions,
-      };
-    }),
+    const groupConfig = grouping[column.variant];
+    const initialOptions: Record<string, { label: string; value: string }> = {};
+
+    groupConfig.content.forEach((item) => {
+      const methodLabel = item.label;
+      const option = Object.values(item.method)[0];
+      initialOptions[methodLabel] = option;
+    });
+
+    return { 
+      groupingSelect: column,
+      groupOption: initialOptions,
+    }
+  }),
   removeGrouping: () => set({ groupingSelect: null, groupingHeaders: {} }),
   reorderGrouping: (newOrder) => set((state) => {
     const visibleHeaders = newOrder.filter((key) => state.groupingHeaders[key]?.isShow);

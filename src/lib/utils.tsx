@@ -13,7 +13,8 @@ import {
 import { CompetencyType } from "@/types/competency";
 import { EmojiData, EmojiItem } from "@/types/emoji";
 import { CalculationType, ColumnProps, FilterCondition } from "@/types/filter";
-import { grouping } from "@/constants/filters";
+import { TextBy } from "@/enums/grouping";
+import { TEXT_BY_KEY } from "@/types/grouping";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -231,28 +232,27 @@ export function calculateColumnValues<T extends object>(
   }
 }
 
-export function groupByColumn<T>(array: T[], key: keyof T): Record<string, T[]> {
-  return array.reduce(
-    (result, currentValue) => {
-      const groupKey = String(currentValue[key]);
-      (result[groupKey] = result[groupKey] || []).push(currentValue)
-      return result
-    },
-    {} as Record<string, T[]>,
-  )
-}
-export function getInitialOption<T extends object>(column: ColumnProps<T>) {
-  const groupConfig = grouping[column.variant];
+export function groupByColumn<T>(
+  array: T[], 
+  key: keyof T,
+  groupOption: Record<string, { label: string; value: string }>
+): Record<string, T[]> {
+  const textBy = groupOption[TEXT_BY_KEY]?.value as TextBy;
 
-  if (!groupConfig) return {};
+  const groupedData = array.reduce((result, value) => {
+    let groupKey = String(value[key]);
 
-  const initialOptions: Record<string, { label: string; value: string }> = {};
+    if (textBy === TextBy.ALPHABETICAL) {
+      groupKey = groupKey.charAt(0).toUpperCase();
+    }
 
-  groupConfig.content.forEach((item) => {
-    const methodLabel = item.label;
-    const option = Object.values(item.method)[0]
-    initialOptions[methodLabel] = option;
-  });
+    (result[groupKey] = result[groupKey] || []).push(value);
+    return result
+  }, {} as Record<string, T[]>);
 
-  return initialOptions;
+  if (textBy === TextBy.ALPHABETICAL) {
+    return Object.fromEntries(Object.entries(groupedData).sort(([a], [b]) => a.localeCompare(b)))
+  }
+
+  return groupedData;
 }

@@ -7,6 +7,10 @@ import {
   TextSort
 } from "@/enums/grouping";
 
+export const TEXT_BY_KEY = "Text by";
+export const SORT_KEY = "Sort";
+
+
 type TextByMethod = Record<TextBy, { label: string, value: TextBy }>;
 type TextSortMethod = Record<TextSort, { label: string, value: TextSort }>;
 type NumberByMethod = Record<NumberBy, { label: string, value: NumberBy }>;

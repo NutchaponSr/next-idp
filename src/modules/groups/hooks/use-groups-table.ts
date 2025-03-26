@@ -1,11 +1,16 @@
 import { useEffect, useMemo } from "react";
 
 import { 
-  filterDataByConditions, 
-  groupByColumn, 
+  filterDataByConditions,
+  groupByColumn,
   sortDataByColumns 
 } from "@/lib/utils";
 import { groupColumns } from "@/constants/filters";
+
+import { SORT_KEY } from "@/types/grouping";
+import { GroupingProps } from "@/types/filter";
+
+import { TextSort } from "@/enums/grouping";
 
 import { useSearch } from "@/hooks/use-search";
 
@@ -13,7 +18,6 @@ import { useTable } from "@/stores/use-table";
 
 import { ResponseType } from "@/modules/groups/api/use-get-group";
 import { useGetGroupsByYear } from "@/modules/groups/api/use-get-groups-by-year";
-import { GroupingProps } from "@/types/filter";
 
 export const useGroupsTable = (year: string) => {
   const { data, isLoading } = useGetGroupsByYear(year);
@@ -26,8 +30,9 @@ export const useGroupsTable = (year: string) => {
     isFilter,
     groupingHeaders,
     groupingSelect,
+    groupOption,
     setColumns,
-    setGroupingHeaders
+    setGroupingHeaders,
   } = useTable();
 
   useEffect(() => {
@@ -48,29 +53,48 @@ export const useGroupsTable = (year: string) => {
     return sortDataByColumns(filteredData, selectedSortColumns);
   }, [filteredData, selectedSortColumns]);
 
-  const groupedData = useMemo(() => {
-    if (!groupingSelect) return {} as Record<string, ResponseType[]>
-    return groupByColumn(sortedData, groupingSelect.label as keyof ResponseType)
-  }, [sortedData, groupingSelect])
-
   const isOpenToolbar = isSort || isFilter;
   const isGrouping = groupingSelect !== null;
 
+  const groupedData = useMemo(() => {
+    if (!groupingSelect) return {} as Record<string, ResponseType[]>;
+
+    return groupByColumn(sortedData, groupingSelect.label as keyof ResponseType, groupOption)
+  }, [groupOption, groupingSelect, sortedData]);
+
   useEffect(() => {
-    const newHeaders = Object.keys(groupedData)
+    const headers = Object.keys(groupedData);
 
-    if (newHeaders.join(",") !== Object.keys(groupingHeaders).join(",")) {
-      const newGroupingHeaders = newHeaders.reduce(
-        (acc, header, index) => {
-          acc[header] = groupingHeaders[header] || { isOpen: true, isShow: true, order: index }
-          return acc
-        },
-        {} as Record<string, GroupingProps>,
-      )
-      setGroupingHeaders(newGroupingHeaders)
+    const textSort = groupOption[SORT_KEY]?.value as TextSort;
+
+    if (textSort === TextSort.ALPHABETICAL) {
+      headers.sort((a ,b) => a.localeCompare(b));
+    } else if (textSort === TextSort.REVERSE_ALPHABETICAL) {
+      headers.sort((a, b) => b.localeCompare(a));
     }
-  }, [groupedData, groupingHeaders, setGroupingHeaders])
 
+    if (headers.join(",") !== Object.keys(groupingHeaders).join(",")) {
+      const newGroupingHeaders = headers.reduce((acc, header, index) => {
+        acc[header] = groupingHeaders[header] || {
+          isOpen: true,
+          isShow: true,
+          order: index
+        }
+
+        return acc;
+      }, {} as Record<string, GroupingProps>);
+
+      setGroupingHeaders(newGroupingHeaders);
+    }
+  }, [
+    groupOption,
+    groupedData,
+    groupingHeaders,
+    setGroupingHeaders
+  ]);
+
+  console.log(columns);
+  
   return {
     data: sortedData,
     isLoading,
@@ -78,6 +102,6 @@ export const useGroupsTable = (year: string) => {
     searchQuery,
     columns,
     isGrouping,
-    setSearchQuery
+    setSearchQuery,
   };
 }

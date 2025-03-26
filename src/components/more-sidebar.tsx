@@ -28,6 +28,7 @@ import { SortSidebar } from "@/components/sort-sidebar";
 import { FilterSidebar } from "@/components/filter-sidebar";
 import { LayoutSelector } from "@/components/layout-selector";
 
+
 export const MoreSidebar = () => {
   const { mode } = useLayout();
   const { type, onOpenItem, onCloseSidebar } = useMoreSidebar();
